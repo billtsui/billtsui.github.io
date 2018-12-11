@@ -27,6 +27,7 @@ read_time: true
 locale: "zh"
 # Build settings
 markdown: kramdown
+# theme: jekyll-theme-so-simple
 remote_theme: "mmistakes/so-simple-theme"
 
 plugins:
