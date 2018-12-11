@@ -13,31 +13,65 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Your awesome title
-email: your-email@example.com
+title: 随机存储器
+email: billtsui@programmer.net
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Develop is hard,but I make it easy.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
 
+#twitter_username: jekyllrb
+github_username:  billtsui
+date_format: "%B %-d, %Y"
+read_time: true
+locale: "zh"
 # Build settings
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-so-simple
+
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+mathjax: true
+
+google_fonts:
+  - name: "Source Sans Pro"
+    weights: "400,400i,700,700i"
+  - name: "Lora"
+    weights: "400,400i,700,700i"
+
+search_full_content: true
+
+feed:
+  path: atom.xml
+
+# Pagination - https://jekyllrb.com/docs/pagination/
+paginate: 10
+paginate_path: /page:num/
+
+author:
+  name: 方良印
+  picture: 
+  email: billtsui@programmer.net
+  twitter: 
+  links:
+    - title: GitHub
+      url: https://github.com/billtsui
+      icon: fab fa-github-square
+
+
+footer_links:
+  - title: GitHub
+    url: https://github.com/billtsui
+    icon: fab fa-github-square
+  - title: Feed
+    url: atom.xml
+    icon: fas fa-rss-square
+
+category_archive_path: "/categories/#"
+tag_archive_path: "/tags/#"
+post_archive_path: "/posts/#"
+
