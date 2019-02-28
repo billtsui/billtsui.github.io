@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: 随机存储器
-email: billtsui@programmer.net
+email: billkuentsui@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
   Develop is hard,but I make it easy.
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -54,9 +54,9 @@ paginate: 2
 paginate_path: /page:num/
 
 author:
-  name: 方良印
+  name: Bill Tsui
   picture: 
-  email: billtsui@programmer.net
+  email: billkuentsui@outlook.com
   twitter: 
   links:
     - title: GitHub
