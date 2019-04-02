@@ -44,6 +44,8 @@ google_fonts:
   - name: "Lora"
     weights: "400,400i,700,700i"
 
+google_analytics: UA-137468119-1
+
 search_full_content: true
 
 feed:
