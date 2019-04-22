@@ -24,6 +24,7 @@ url: "https://billtsui.github.io" # the base hostname & protocol for your site, 
 github_username:  billtsui
 date_format: "%B %-d, %Y"
 read_time: true
+words_per_minute: 5
 locale: "zh"
 # Build settings
 markdown: kramdown

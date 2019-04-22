@@ -109,7 +109,7 @@ zh: &DEFAULT_ZH
   skip_footer: "Skip to footer"
   menu_label: "菜单"
   by: "by"
-  min_read: "分钟阅读"
+  min_read: "分钟阅读时间"
   read_more: "阅读更多&hellip;"
   categories: "分类"
   tags: "标签"
