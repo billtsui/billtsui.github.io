@@ -18,6 +18,7 @@ $$
       
 
 用递归方式计算斐波那契数列的JAVA代码如下:    
+
 ```java    
 class Fib {
 	public static void main(String[] args) {
@@ -46,7 +47,8 @@ f(3) = f(2) + f(1)
 $$   
   
 
-在计算f(4)的时候，我们需要递归计算f(3)，在计算f(5)的时候，我们需要递归计算f(3)，f(3)被计算了两次，我们完全可以计算一次f(3)然后保存起来，用的时候直接拿来就好了吗。于是就有了以下的代码:    
+在计算f(4)的时候，我们需要递归计算f(3)，在计算f(5)的时候，我们需要递归计算f(3)，f(3)被计算了两次，我们完全可以计算一次f(3)然后保存起来，用的时候直接拿来就好了吗。于是就有了以下的代码:  
+  
 ```java
 class Fib {
 	public static void main(String[] args) {
@@ -72,8 +74,9 @@ class Fib {
 
 ### 斐波那契数列中级优化
 
-**于是上面版本的代码又有了如下的优化:**    
-```java
+**于是上面版本的代码又有了如下的优化:**   
+ 
+```java 
 class Fib {
 	public static void main(String[] args) {
 		System.out.println(Fib.fib(46));
@@ -99,17 +102,251 @@ class Fib {
 ```    
 每次计算当前项的时候，就拿出前面的两项相加，然后移动第n-1个值去第n-2个位置，current值去第n-1个位置，空出current进行下一次循环，这样降低了空间复杂度，用了常量个空间，达到了我们减小空间的目的。    
 
-### 斐波那契数列终极优化    
-对于聪明好学的程序员来说，一定会想一个问题，有没有什么通项公式，能直接算出来某一项的值。就像等差数列知道任一项和公差就能得到其他项呢？有的，高中数学知识，构造一个等比数列可以推导出斐波那契数列的通项公式：    
+### 斐波那契数列矩阵优化   
+对于聪明好学的程序员来说，一定会想一个问题，斐波那契数列本质上是一个方程，那我们可不可以用线性代数的知识来解决这个问题呢?    
+
+首先我们可以得到这样一个等式:
 
 $$
-a_n= {\frac 1 {\sqrt5}}[(\frac {1+{\sqrt5}}{2})^n - (\frac {1-{\sqrt5}}{2})^n]
+  \left\{	
+  \begin{matrix}
+   F_{n+1} \\
+   F_n \\
+  \end{matrix}
+  \right\}  =  
+  
+  \left\{
+  \begin{matrix}
+    F_{n} + F_{n-1} \\
+    F_{n} + 0 \\
+  \end{matrix}
+  \right\}    
 $$    
 
-当我们看到类似 $$x^n$$ 的时候，我们想到的是:    
-1. n为奇数时, $$x^n = x^{\frac {n-1}{2}} \cdot x^{\frac {n-1}{2}} \cdot x $$    
-2. n为偶数时, $$x^n = x^{\frac {n}{2}} \cdot x^{\frac {n}{2}}$$    
 
-所以上述公式中的n次方可以按照n的奇偶性化简计算，这样优化，可以在常数的时间和空间内计算出斐波那契数列的任意项。所以，    
+然后进一步可以得到:
+
+$$
+	\left\{
+  \begin{matrix}
+    F_{n} + F_{n-1} \\
+    F_{n} + 0 \\
+  \end{matrix}
+  \right\}    = 
+  
+  \left\{
+  \begin{matrix}
+    1 & 1 \\
+    1 & 0
+  \end{matrix}
+  \right\}    
+  
+  \left\{
+  \begin{matrix}
+    F_{n} \\
+    F_{n-1}\\
+  \end{matrix}
+  \right\}    
+  
+$$    
+
+于是我们可以得到这样一个等式:
+
+$$
+
+\left\{	
+  \begin{matrix}
+   F_{n+1} \\
+   F_n \\
+  \end{matrix}
+  \right\}  =
+  
+  \left\{
+  \begin{matrix}
+    1 & 1 \\
+    1 & 0
+  \end{matrix}
+  \right\}    
+  
+  \left\{
+  \begin{matrix}
+    F_{n} \\
+    F_{n-1}\\
+  \end{matrix}
+  \right\}
+
+$$    
+
+继续提取右侧的等式直到化简成F(0)和F(1)，我们最终可以得到这样一个等式:
+
+$$
+\left\{	
+  \begin{matrix}
+   F_{n+1} \\
+   F_n \\
+  \end{matrix}
+  \right\}  =
+  
+  
+  \left\{
+  \begin{matrix}
+    1 & 1 \\
+    1 & 0
+  \end{matrix}
+  \right\} ^ n
+  
+  \left\{
+  \begin{matrix}
+    F_{1} \\
+    F_{0}\\
+  \end{matrix}
+  \right\}
+  
+$$  
+
+我们令
+
+$$
+A = 
+\left\{
+\begin{matrix}
+1 & 1 \\
+1 & 0 \\
+\end{matrix}
+\right\}
+= 
+\left\{
+\begin{matrix}
+F_2 & F_1 \\
+F_1 & F_0 \\
+\end{matrix}
+\right\}
+
+$$    
+
+用数学归纳法推导出
+
+$$
+A ^ n = 
+\left\{
+\begin{matrix}
+F_{n+1} & F_{n} \\
+F_{n} & F_{n-1} \\
+\end{matrix}
+\right\}
+$$    
+
+到这里，我们发现只要计算出A的n次方这个矩阵，然后副对角线就是我们要求的值。然后进一步想到**数的幂的快速运算**:    
+
+$$
+x ^ n = 
+\begin{cases}
+ x ^ \frac{n-1}{2} \cdot x ^ \frac{n-1}{2} \cdot {x}   & & {n为奇数} \\
+ x ^ \frac{n}{2} \cdot x ^ \frac{n}{2}  & & {n为偶数} \\
+\end{cases}
+$$    
+
+同理我们看看矩阵的幂运算可不可以快速化，推导出下列等式    
+
+$$
+A ^ {2m} = A ^ m \cdot A ^ m 
+= 
+\left\{
+\begin{matrix}
+F_{m+1} & F_{m} \\
+F_{m} & F_{m-1} \\
+\end{matrix}
+\right\} 
+
+\cdot  
+
+\left\{
+\begin{matrix}
+F_{m+1} & F_{m} \\
+F_{m} & F_{m-1} \\
+\end{matrix}
+\right\}
+\\
+=
+\left\{
+\begin{matrix}
+{F_{m+1}} ^ 2 + {F_m} ^ 2  & {F_{m+1}{F_m}} + {F_m}{F_{m-1}}\\
+{F_	m}{F_{m+1} + {F_m}{F_{m-1}}} & {F_m} ^ 2 + {F_{m-1}} ^ 2
+\end{matrix}
+\right\}
+\\ =  
+\left\{
+\begin{matrix}
+F_{2m+1} & F_{2m} \\
+F_{2m} & F_{2m-1}
+\end{matrix}
+\right\}
+
+$$
+
+所以我们可以得出    
+
+$$
+F_{2m+1} = {F_{m+1}} ^ 2 + {F_m} ^ 2 \\
+F_{2m} = {F_m} \cdot (F_{m+1} + F_{m-1})
+$$
+
+
+所以我们可以得到这样一个等式
+
+$$
+\left\{	
+  \begin{matrix}
+   F_{n+1} \\
+   F_n \\
+  \end{matrix}
+  \right\}  = 
+  \begin{cases}
+  
+  	\left\{	
+  \begin{matrix}
+   F_{2m+2} \\
+   F_{2m+1} \\
+  \end{matrix}
+  \right\}    
+  
+  = 
+  
+  \left\{	
+  \begin{matrix}
+   (2{F_m} + F_{m+1}) \cdot F_{m+1} \\
+   {F_m} ^ 2 + {F_{m+1}} ^ 2 \\
+  \end{matrix}
+  \right\}  
+  & & n为奇数，n = 2m+1 & & 此时 m = \frac{n-1}{2} \\
+  
+  \left\{	
+  \begin{matrix}
+   F_{2m+1} \\
+   F_{2m} \\
+  \end{matrix}
+  \right\} 
+  = 
+  \left\{
+  \begin{matrix}
+  {F_{m+1}} ^ 2 + {F_m} ^ 2 \\
+  {F_m} \cdot (F_{m+1} + F_{m-1})
+  \end{matrix}
+  \right\}
+  
+  = 
+  \left\{
+  \begin{matrix}
+  {F_{m+1}} ^ 2 + {F_m} ^ 2 \\
+  {F_m} \cdot (2{F_{m+1}} - F_{m})
+  \end{matrix}
+  \right\} & & n为偶数，n = 2m & & 此时 m = \frac{n}{2}
+  \end{cases}
+ 
+$$
+    
+    
+至此，我们推导出来使用矩阵递快幂递归的方式计算斐波那契数列。只需要计算出Fib(n/2)即可，时间复杂度为对数时间。
+
 ## 要想程序性能好，关键数学要学好!!!
 
