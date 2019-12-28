@@ -24,7 +24,7 @@ url: "https://billtsui.github.io" # the base hostname & protocol for your site, 
 github_username:  billtsui
 date_format: "%B %-d, %Y"
 read_time: true
-words_per_minute: 5
+words_per_minute: 10
 locale: "zh"
 # Build settings
 markdown: kramdown
@@ -53,7 +53,7 @@ feed:
   path: atom.xml
 
 # Pagination - https://jekyllrb.com/docs/pagination/
-paginate: 2
+paginate: 6
 paginate_path: /page:num/
 
 author:
