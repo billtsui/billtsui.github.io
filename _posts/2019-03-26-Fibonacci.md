@@ -105,24 +105,22 @@ class Fib {
 ### 斐波那契数列矩阵优化   
 对于聪明好学的程序员来说，一定会想一个问题，斐波那契数列本质上是一个方程，那我们可不可以用线性代数的知识来解决这个问题呢?    
 
-首先我们可以得到这样一个等式:
+首先我们可以得到这样一个等式:    
 
 $$
-  \left\{	
+\left\{
   \begin{matrix}
    F_{n+1} \\
    F_n \\
   \end{matrix}
   \right\}  =  
-  
   \left\{
   \begin{matrix}
     F_{n} + F_{n-1} \\
     F_{n} + 0 \\
   \end{matrix}
-  \right\}    
+  \right\}
 $$    
-
 
 然后进一步可以得到:
 
@@ -133,48 +131,41 @@ $$
     F_{n} + 0 \\
   \end{matrix}
   \right\}    = 
-  
   \left\{
   \begin{matrix}
     1 & 1 \\
     1 & 0
   \end{matrix}
   \right\}    
-  
   \left\{
   \begin{matrix}
     F_{n} \\
     F_{n-1}\\
   \end{matrix}
   \right\}    
-  
 $$    
 
 于是我们可以得到这样一个等式:
 
 $$
-
 \left\{	
   \begin{matrix}
    F_{n+1} \\
    F_n \\
   \end{matrix}
   \right\}  =
-  
   \left\{
   \begin{matrix}
     1 & 1 \\
     1 & 0
   \end{matrix}
   \right\}    
-  
   \left\{
   \begin{matrix}
     F_{n} \\
     F_{n-1}\\
   \end{matrix}
   \right\}
-
 $$    
 
 继续提取右侧的等式直到化简成F(0)和F(1)，我们最终可以得到这样一个等式:
@@ -186,22 +177,18 @@ $$
    F_n \\
   \end{matrix}
   \right\}  =
-  
-  
   \left\{
   \begin{matrix}
     1 & 1 \\
     1 & 0
   \end{matrix}
   \right\} ^ n
-  
   \left\{
   \begin{matrix}
     F_{1} \\
     F_{0}\\
   \end{matrix}
   \right\}
-  
 $$  
 
 我们令
@@ -213,16 +200,15 @@ A =
 1 & 1 \\
 1 & 0 \\
 \end{matrix}
-\right\}
-= 
+\right\}= 
 \left\{
 \begin{matrix}
 F_2 & F_1 \\
 F_1 & F_0 \\
 \end{matrix}
 \right\}
+$$
 
-$$    
 
 用数学归纳法推导出
 
@@ -244,30 +230,26 @@ x ^ n =
  x ^ \frac{n-1}{2} \cdot x ^ \frac{n-1}{2} \cdot {x}   & & {n为奇数} \\
  x ^ \frac{n}{2} \cdot x ^ \frac{n}{2}  & & {n为偶数} \\
 \end{cases}
-$$    
+$$
 
 同理我们看看矩阵的幂运算可不可以快速化，推导出下列等式    
 
 $$
-A ^ {2m} = A ^ m \cdot A ^ m 
-= 
+A ^ {2m} = A ^ m \cdot A ^ m = 
 \left\{
 \begin{matrix}
 F_{m+1} & F_{m} \\
 F_{m} & F_{m-1} \\
 \end{matrix}
 \right\} 
-
 \cdot  
-
 \left\{
 \begin{matrix}
 F_{m+1} & F_{m} \\
 F_{m} & F_{m-1} \\
 \end{matrix}
 \right\}
-\\
-=
+\\=
 \left\{
 \begin{matrix}
 {F_{m+1}} ^ 2 + {F_m} ^ 2  & {F_{m+1}{F_m}} + {F_m}{F_{m-1}}\\
@@ -281,7 +263,6 @@ F_{2m+1} & F_{2m} \\
 F_{2m} & F_{2m-1}
 \end{matrix}
 \right\}
-
 $$
 
 所以我们可以得出    
@@ -302,16 +283,13 @@ $$
   \end{matrix}
   \right\}  = 
   \begin{cases}
-  
   	\left\{	
   \begin{matrix}
    F_{2m+2} \\
    F_{2m+1} \\
   \end{matrix}
   \right\}    
-  
   = 
-  
   \left\{	
   \begin{matrix}
    (2{F_m} + F_{m+1}) \cdot F_{m+1} \\
@@ -319,7 +297,6 @@ $$
   \end{matrix}
   \right\}  
   & & n为奇数，n = 2m+1 & & 此时 m = \frac{n-1}{2} \\
-  
   \left\{	
   \begin{matrix}
    F_{2m+1} \\
@@ -333,7 +310,6 @@ $$
   {F_m} \cdot (F_{m+1} + F_{m-1})
   \end{matrix}
   \right\}
-  
   = 
   \left\{
   \begin{matrix}
@@ -342,7 +318,6 @@ $$
   \end{matrix}
   \right\} & & n为偶数，n = 2m & & 此时 m = \frac{n}{2}
   \end{cases}
- 
 $$
     
 至此，我们推导出来使用矩阵递快速幂递归的方式计算斐波那契数列。只需要计算出Fib(n/2)即可，时间复杂度为对数时间。
