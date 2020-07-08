@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 聊聊Java的多线程(基本概念和基本用法)
-categories: Java 
+categories: 技术 
 date:   2020-07-06 14:19:38 +0800
-tags: JDK11
+tags: Java
 ---
 
 

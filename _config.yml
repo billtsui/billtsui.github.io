@@ -81,4 +81,5 @@ footer_links:
 category_archive_path: "/categories/#"
 tag_archive_path: "/tags/#"
 post_archive_path: "/posts/#"
+skin: '/assets/css/skins/dark.css'
 

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: ArrayList源码阅读
-categories: Java
+categories: 技术
 date:   2019-12-26 21:29:38 +0800
-tags: JDK11
+tags: Java
 ---
 ### ArrayList简单介绍    
 ArrayList源码的第一行注释就写到，这是一个可变长度的列表，并且继承于List接口,***可以添加null***。JDK集合类的作者Josh Bloch在1.2版本中加入的，1.5版本又引入了泛型。    
