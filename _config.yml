@@ -16,7 +16,7 @@
 title: 随机存储器
 email: billkuentsui@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Software development is a difficult business,but I make it easy.
+              老码农的自留地
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://billtsui.cn" # the base hostname & protocol for your site, e.g. http://example.com
 
