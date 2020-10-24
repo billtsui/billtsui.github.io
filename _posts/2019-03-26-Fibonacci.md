@@ -1,9 +1,9 @@
 ---
-layout: post
 title: 从计算 Fibonacci 数列说起
-categories: 算法
+author: Bill Tsui
+categories: [算法]
 date:   2019-03-26 22:43:38 +0800
-tags: Array
+tags: [Array]
 ---
 ### 初识斐波那契数列    
 80后那批程序员，第一次把斐波那契数列和编程联系到一起，最大的可能就是谭浩强版C语言讲递归的那个地方。这么多年过去了，不得不说用这个例子讲递归对学习算法是很不好的。先给出斐波那契数列的定义。    
