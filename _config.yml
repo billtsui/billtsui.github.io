@@ -10,7 +10,7 @@
 
 title: 随机存储器                          # the main title
 
-tagline: 老码农的自留地.  # it will display as the sub-title
+tagline:   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
