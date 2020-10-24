@@ -1,7 +1,7 @@
 ---
 title: 从计算 Fibonacci 数列说起
 author: Bill Tsui
-categories: [算法]
+categories: [Algorithm]
 date:   2019-03-26 22:43:38 +0800
 tags: [Array]
 ---

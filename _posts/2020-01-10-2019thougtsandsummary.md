@@ -1,9 +1,8 @@
 ---
-layout: post
 title: 2019年的总结
-categories: 随笔杂谈 
+categories: [随笔杂谈] 
 date:   2020-01-10 21:17:38 +0800
-tags: 思想
+tags: [Thinking]
 ---
 
 
