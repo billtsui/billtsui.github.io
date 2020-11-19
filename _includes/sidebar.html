@@ -46,7 +46,12 @@
         or item.name == "Home" and page.layout == "home" %}active{% endif %}">
       <a href="{{ ref }}" class="nav-link d-flex justify-content-center align-items-center w-100">
         <i class="fa-fw {{ item.icon }} ml-xl-3 mr-xl-3 unloaded"></i>
-        <span>{{ item.name | upcase }}</span>
+        {% if item.name == "Home" %} <span>{{"首页"}}</span> {% endif %}
+        {% if item.name == "Categories" %} <span>{{"分类"}}</span> {% endif %}
+        {% if item.name == "Tags" %} <span>{{"标签"}}</span> {% endif %}
+        {% if item.name == "Archives" %} <span>{{"归档"}}</span> {% endif %}
+        {% if item.name == "About" %} <span>{{"关于"}}</span> {% endif %}
+        <!-- <span>{{ item.name | upcase }}</span> -->
       </a>
     </li> <!-- .nav-item -->
   {% endfor %}
