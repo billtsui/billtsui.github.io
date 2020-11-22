@@ -12,11 +12,13 @@
         {% if item.url %}
         <span>
           <a href="{{ site.baseurl }}{{ item.url | remove: '.html'}}">
-            {{ item.label }}
+            {% if item.label == "Home"%}
+            {{"首页"}}
+            {% endif %}
           </a>
         </span>
         {% else %}
-          <span>{{ item.label }}</span>
+          <span>{{ "文章" }}</span>
         {% endif %}
       {% endfor %}
 
