@@ -13,7 +13,10 @@
         <span>
           <a href="{{ site.baseurl }}{{ item.url | remove: '.html'}}">
             {% if item.label == "Home"%}
-            {{"首页"}}
+              {{"首页"}}
+            {% endif %}
+            {% if item.label == "Posts"%}
+              {{"文章"}}
             {% endif %}
           </a>
         </span>
