@@ -11,5 +11,5 @@ Java语言的基础用一张思维导图来归纳总结，这些都是基础的�
 
 
 
-![](https://github.com/billtsui/billtsui.github.io/blob/master/javabasic/Java基础.png)
+![](https://github.com/billtsui/billtsui.github.io/blob/master/javabasic/Java%E5%9F%BA%E7%A1%80.png?raw=true)
 
