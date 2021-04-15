@@ -15,6 +15,8 @@ tags: [Java]
 
 2、[Java面向对象](https://billtsui.cn/java/2021/04/08/javaoriented/)
 
+3、[Java基础内容常用知识点](https://billtsui.cn/java/2021/04/08/javacorebasicknowledge/)
+
 
 
 
