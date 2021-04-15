@@ -11,11 +11,11 @@ tags: [Java]
 
 这一套内容，主要以思维导图、文章加代码的形式表现。从Java基础，到Spring Boot 框架，从基本的数据结构，到工作中常用的设计模式，贯穿整个Java生态圈。
 
-1、[Java语言基础](https://billtsui.cn/java/2021/04/07/javabasic/)
+1、[Java基础](https://billtsui.cn/java/2021/04/07/javabasic/)
 
-2、[Java面向对象](https://billtsui.cn/java/2021/04/08/javaoriented/)
+2、[Java基础-面向对象](https://billtsui.cn/java/2021/04/08/javaoriented/)
 
-3、[Java基础内容常用知识点](https://billtsui.cn/java/2021/04/08/javacorebasicknowledge/)
+3、[Java基础-常见知识点](https://billtsui.cn/java/2021/04/08/javacorebasicknowledge/)
 
 
 
