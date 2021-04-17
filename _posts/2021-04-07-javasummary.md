@@ -17,7 +17,7 @@ tags: [Java]
 
 3、[Java基础-常见知识点](https://billtsui.cn/java/2021/04/08/javacorebasicknowledge/)
 
-
+4、[Java基础-泛型机制详解](https://billtsui.cn/java/2021/04/15/javageneric)
 
 
 
