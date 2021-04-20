@@ -2,7 +2,7 @@
 title: 2019年的总结
 categories: [随笔杂谈] 
 date:   2020-01-10 21:17:38 +0800
-tags: [Thinking]
+tags: [职场]
 ---
 
 
