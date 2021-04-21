@@ -520,8 +520,50 @@ title:test method description:suppress warning static method
 
 #### 注解实现的原理
 
-这里推荐你两篇文章：
+我们自定义一个注解，然后通过IDEA的查看继承关系功能，观察到如下的继承规则。
 
-- https://blog.csdn.net/qq_20009015/article/details/106038023
-- https://www.race604.com/annotation-processing/
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyMethodAnnotation {
+    String title() default "";
+    String description() default "";
+}
+```
+
+
+
+![](https://github.com/billtsui/billtsui.github.io/blob/master/javabasic/annotation.png?raw=true)
+
+可以看到@MyMethodAnnotation继承了Annotation接口。现在我们知道，注解是一个继承了Annotation接口的东西，那么注解究竟是接口，还是类，还是抽象类？我们查看了一下字节码文件，如下：
+
+```java
+public interface person.billtsui.annotation.MyMethodAnnotation extends java.lang.annotation.Annotation
+    
+{
+  public abstract java.lang.String title();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    AnnotationDefault:
+      default_value: s#7
+        ""
+
+  public abstract java.lang.String description();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    AnnotationDefault:
+      default_value: s#7
+        ""
+}
+```
+
+我们知道了注解是一个接口，一个继承自Annotation的接口。 里面每一个属性，其实就是接口的一个抽象方法。那么新的问题来了，如果注解是接口，那么其何时实例化，怎么实例化？
+
+我们debug一下这行代码:
+
+```java
+ MyMethodAnnotation annotation = method.getAnnotation(MyMethodAnnotation.class);
+```
+
+发现了这样的结果，很明显是一个代理对象，里面还有一个叫AnnotationInvocationHandler的类，这就是注解的代理逻辑封装。
 
