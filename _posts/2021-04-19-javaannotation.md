@@ -565,5 +565,59 @@ public interface person.billtsui.annotation.MyMethodAnnotation extends java.lang
  MyMethodAnnotation annotation = method.getAnnotation(MyMethodAnnotation.class);
 ```
 
+![](https://github.com/billtsui/billtsui.github.io/blob/master/javabasic/annotation1.png?raw=true)
+
 发现了这样的结果，很明显是一个代理对象，里面还有一个叫AnnotationInvocationHandler的类，这就是注解的代理逻辑封装。
 
+```java
+/**
+ * InvocationHandler for dynamic proxy implementation of Annotation.
+ *
+ * @author  Josh Bloch
+ * @since   1.5
+ */
+class AnnotationInvocationHandler implements InvocationHandler, Serializable {
+    private static final long serialVersionUID = 6182022883658399397L;
+    private final Class<? extends Annotation> type;
+    private final Map<String, Object> memberValues;
+
+    AnnotationInvocationHandler(Class<? extends Annotation> type, Map<String, Object> memberValues) {
+        Class<?>[] superInterfaces = type.getInterfaces();
+        if (!type.isAnnotation() ||
+            superInterfaces.length != 1 ||
+            superInterfaces[0] != java.lang.annotation.Annotation.class)
+            throw new AnnotationFormatError("Attempt to create proxy for a non-annotation type.");
+        this.type = type;
+        this.memberValues = memberValues;
+    }
+//省略之后的代码
+}
+```
+
+JDK动态代理，需要一个Proxy类（JDK提供的用于生成对象的类），一个实现了InvocationHandler接口的类（用于封装代理逻辑的类）。因此 AnnotationInvocationHandler里面就封装了注解的代理逻辑。使用  Proxy.newProxyInstance()得到一个的动态代理对象，然后调用对象的invoke()方法。
+
+
+
+所以，注解@interface是一个实现了Annotation接口的接口， 然后在调用getDeclaredAnnotations()方法的时候，返回一个代理$Proxy对象，这个是使用jdk动态代理创建，使用Proxy的newProxyInstance方法时候，传入接口和InvocationHandler的一个实例(也就是 AnotationInvocationHandler ) ，最后返回一个代理实例。
+
+
+### 注解的应用场景
+
+#### 配置化->注解化
+
+Spring全家桶从xml文件配置，到注解化的转变
+
+
+
+#### 继承实现->注解实现
+
+JUnit3到JUnit4。
+
+- JUnit3实现UT。通过继承 TestCase来实现，初始化是通过Override父类方法来进行，测试方式通过test的前缀方法获取。
+- JUnit4实现UT。通过定义@Before，@Test，@After等等注解来实现。
+
+
+
+#### 自定义注解和AOP-通过切面实现解耦
+
+最常见的就是使用Spring AOP，对自定义注解作切点拦截。
