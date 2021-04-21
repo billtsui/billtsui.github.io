@@ -2,7 +2,7 @@
 title: Java全链路知识体系梳理
 categories: [Java] 
 date:   2021-04-07 20:42:38 +0800
-tags: [Java]
+tags: [Java核心技术]
 ---
 
 这是我对Java知识体系的系统梳理。因为最近我对未来有点迷茫，碎片化的学习也使我感到焦虑，同时也很羡慕那些跳槽薪资double的前同事。
@@ -18,6 +18,8 @@ tags: [Java]
 3、[Java基础-常见知识点](https://billtsui.cn/java/2021/04/08/javacorebasicknowledge/)
 
 4、[Java基础-泛型机制详解](https://billtsui.cn/java/2021/04/15/javageneric)
+
+5、[Java基础-注解机制详解](https://billtsui.cn/java/2021/04/19/javaannotation/)
 
 
 
