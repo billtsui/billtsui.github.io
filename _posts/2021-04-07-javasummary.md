@@ -21,5 +21,5 @@ tags: [Java核心技术]
 
 5、[Java基础-注解机制详解](https://billtsui.cn/java/2021/04/19/javaannotation/)
 
-
+6、[Java基础-异常机制详解](https://billtsui.cn/java/2021/04/20/javaexception/)
 
