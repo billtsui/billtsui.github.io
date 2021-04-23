@@ -11,6 +11,12 @@ tags: [Java核心技术]
 
 ### Java异常的层次结构
 
+#### 异常的层次结构
+
+Java异常类层次结构图：
+
+![](https://github.com/billtsui/billtsui.github.io/blob/master/javabasic/javaexception.png?raw=true)
+
 #### Throwable
 
 Throwable是Java中所有错误与异常的父类。
@@ -374,3 +380,4 @@ public static void main(String[] args) {
 ```
 
 无论try块或者是catch块内有没有return，finally都会执行。当有return时，finally会优先于return执行。具体内容可以查看字节码文件。
+
