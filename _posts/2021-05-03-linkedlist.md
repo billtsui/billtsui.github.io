@@ -5,8 +5,6 @@ date:   2021-05-03 21:22:38 +0800
 tags: [Java集合框架]
 ---
 
-### 概述
-
 LinkedList实现了List接口和Deque接口，也就是说它即可以看做一个顺序容器，又可以看做一个队列(Queue)，同事又可以看做一个栈(Stack)。当你需要使用栈或者队列时，可以考虑使用LinkedList，一方面是因为Java官方已经声明不建议使用Stack类，当然JDK里根本没有一个叫做Queue的类，它只是一个接口。关于栈或者队列，现在的首选是ArrayDeque，它有着比LinkedList更好的性能。
 
 

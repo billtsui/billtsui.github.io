@@ -23,3 +23,7 @@ tags: [Java核心技术]
 
 6、[Java基础-异常机制详解](https://billtsui.cn/java/2021/04/20/javaexception/)
 
+7、[Java集合框架-ArrayList源码解析](https://billtsui.cn/java/2021/04/25/arraylist/)
+
+8、[Java集合框架-LinkedList源码解析](https://billtsui.cn/java/2021/05/03/linkedlist/)
+
