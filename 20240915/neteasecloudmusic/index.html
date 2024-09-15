@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null,"activeClass":"changyan"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。 NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网易云音乐ncm文件加密格式解析">
+<meta property="og:url" content="http://billtsui.cn/20240915/neteasecloudmusic/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。 NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://billtsui.cn/20240915/neteasecloudmusic/ncmformat.png">
+<meta property="og:image" content="http://billtsui.cn/20240915/neteasecloudmusic/shell.png">
+<meta property="og:image" content="http://billtsui.cn/20240915/neteasecloudmusic/sonymp3.jpg">
+<meta property="article:published_time" content="2024-09-15T04:51:57.000Z">
+<meta property="article:modified_time" content="2024-09-15T10:20:03.226Z">
+<meta property="article:author" content="方良印">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://billtsui.cn/20240915/neteasecloudmusic/ncmformat.png">
+
+
+<link rel="canonical" href="http://billtsui.cn/20240915/neteasecloudmusic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/20240915/neteasecloudmusic/","path":"20240915/neteasecloudmusic/","title":"网易云音乐ncm文件加密格式解析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>网易云音乐ncm文件加密格式解析 | Real 焜</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?b33bf833e215c28ea0c783c44ef45728"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="方良印"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">方良印</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/images/wechat.jpg" title="Wechat → &#x2F;images&#x2F;wechat.jpg" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>Wechat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/21103011/bill-tsui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;21103011&#x2F;bill-tsui" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/20240915/neteasecloudmusic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="方良印">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="网易云音乐ncm文件加密格式解析 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网易云音乐ncm文件加密格式解析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-09-15 12:51:57 / 修改时间：18:20:03" itemprop="dateCreated datePublished" datetime="2024-09-15T12:51:57+08:00">2024-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。</strong></p>
+<p>NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。</p>
+<span id="more"></span>
+<p><strong><center> 开局一张图，剩下全靠编(码) —— NCM文件结构组成</center></strong><br><img src="/20240915/neteasecloudmusic/ncmformat.png"></p>
+<p>按照文件结构，采用 <strong><a target="_blank" rel="noopener" href="https://refactoring.guru/design-patterns/chain-of-responsibility">Chain of Responsibility</a></strong> 模式构建解析过程。其中最核心的几个技术点：</p>
+<ol>
+<li>RC4算法</li>
+<li>Meta信息解析</li>
+<li>Meta后缀是flac但实际格式有可能是mp3</li>
+</ol>
+<p>RC4、AES算法内容可以参考这本书 <strong><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25772389/">应用密码学：协议、算法与C源程序（原书第2版）</a></strong> 。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * RC4算法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RC4</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="built_in">byte</span>[] _box = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KSA</span>(<span class="params"><span class="built_in">byte</span>[] key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> len = key.Length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) _box[i] = (<span class="built_in">byte</span>)i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            j = (j + _box[i] + key[i % len]) &amp; <span class="number">0xff</span>;</span><br><span class="line">            (_box[i], _box[j]) = (_box[j], _box[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PRGA</span>(<span class="params"><span class="built_in">byte</span>[] data, <span class="built_in">int</span> length</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> i = (k + <span class="number">1</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">            <span class="keyword">var</span> j = (_box[i] + i) &amp; <span class="number">0xff</span>;</span><br><span class="line">            data[k] ^= _box[(_box[i] + _box[j]) &amp; <span class="number">0xff</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>格式不匹配问题，是在用TagLib写入Meta数据的时候抛异常发现的。需要读取 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_file_signatures">File Signatures</a> 来判断。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//兼容file signatures是mp3但后缀是flac的歌曲</span></span><br><span class="line"><span class="keyword">if</span> (BitConverter.ToString(ncmObject.MusicDataArray.Slice(<span class="number">0</span>, <span class="number">3</span>).ToArray()).Equals(<span class="string">&quot;49-44-33&quot;</span>))</span><br><span class="line">    ncmObject.NeteaseCopyrightData.Format = <span class="string">&quot;mp3&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+
+<p>其他地方没什么难度。话说回来，.Net跨平台任重道远。Mac上面跑只需要500MB+，Windows上面能用掉3G内存。</p>
+<p>完整的代码在 <a target="_blank" rel="noopener" href="https://github.com/billtsui/Wukong">这里</a> ，支持 Windows &amp; MacOS。</p>
+<p>编译成功后使用 <strong>-p,–path</strong> 参数传入目录即可。</p>
+<img src="shell.png" width="60%" heigh="60%"/>
+
+<p>使用 Sony NW-ZX300A 实测可以正常显示专辑封面，HiRes标志也正常显示，我又可以做回 <strong>Walkman</strong> 了</p>
+<img src="sonymp3.jpg" width="60%" heigh="60%"/>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>方良印
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/20240915/neteasecloudmusic/" title="网易云音乐ncm文件加密格式解析">http://billtsui.cn/20240915/neteasecloudmusic/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20240825/hatingemotionalvalue/" rel="prev" title="我听到“情绪价值”这个词就已经困了">
+                  <i class="fa fa-angle-left"></i> 我听到“情绪价值”这个词就已经困了
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="86b336f89bd559b742c68be7769b6bfa"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方良印</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyxmpYz0M","appkey":"30ae0a3574f647738c3154e1981bdf43","count":false}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
