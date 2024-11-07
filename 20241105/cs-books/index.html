@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":200},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null,"activeClass":"changyan"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="24年9月初决定考研，去学习一些计算机科学的前沿技术，比如NLP、CV又或者是AI。在准备考试的过程中，发现大部分高等院校的初试专业课考试是408，也就是计算机专业基础综合(数据结构、计算机组成原理、操作系统、计算机网络)。 那么结合我从98年开始接触计算机，近14年的相关行业工作经验，推荐几本我在计算机科学与技术领域读过的非常出色的书籍，按照由浅入深，循序渐进的原则给出列表。部分书籍现在是高等院">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机科学书籍推荐">
+<meta property="og:url" content="http://billtsui.cn/20241105/cs-books/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="24年9月初决定考研，去学习一些计算机科学的前沿技术，比如NLP、CV又或者是AI。在准备考试的过程中，发现大部分高等院校的初试专业课考试是408，也就是计算机专业基础综合(数据结构、计算机组成原理、操作系统、计算机网络)。 那么结合我从98年开始接触计算机，近14年的相关行业工作经验，推荐几本我在计算机科学与技术领域读过的非常出色的书籍，按照由浅入深，循序渐进的原则给出列表。部分书籍现在是高等院">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://m.media-amazon.com/images/I/61Hc-9h+-XL._AC_UF1000,1000_QL80_.jpg">
+<meta property="og:image" content="http://billtsui.cn/20241105/cs-books/s33627655.jpg">
+<meta property="og:image" content="https://m.media-amazon.com/images/I/91IXgHeNEZL._AC_UF1000,1000_QL80_.jpg">
+<meta property="og:image" content="https://csapp.cs.cmu.edu/3e/images/csapp3e-cover.jpg">
+<meta property="og:image" content="http://billtsui.cn/20241105/cs-books/s32332106.jpg">
+<meta property="og:image" content="http://billtsui.cn/20241105/cs-books/s34331102.jpg">
+<meta property="og:image" content="http://billtsui.cn/20241105/cs-books/s28015501.jpg">
+<meta property="article:published_time" content="2024-11-05T14:41:53.000Z">
+<meta property="article:modified_time" content="2024-11-07T12:34:45.460Z">
+<meta property="article:author" content="方良印">
+<meta property="article:tag" content="读书">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://m.media-amazon.com/images/I/61Hc-9h+-XL._AC_UF1000,1000_QL80_.jpg">
+
+
+<link rel="canonical" href="http://billtsui.cn/20241105/cs-books/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/20241105/cs-books/","path":"20241105/cs-books/","title":"计算机科学书籍推荐"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机科学书籍推荐 | Real 焜</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?b33bf833e215c28ea0c783c44ef45728"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-resume"><a href="/resume/" rel="section"><i class="fa fa-file-text fa-fw"></i>简历</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81-%E9%9A%90%E5%8C%BF%E5%9C%A8%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BD%AF%E7%A1%AC%E4%BB%B6%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">编码:隐匿在计算机软硬件背后的语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80-%E7%AC%AC%E5%9B%9B%E7%89%88-%F0%9F%93%9A"><span class="nav-number">2.</span> <span class="nav-text">汇编语言(第四版) 📚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80-%F0%9F%93%9A"><span class="nav-number">3.</span> <span class="nav-text">C程序设计语言 📚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F-%F0%9F%93%9A"><span class="nav-number">4.</span> <span class="nav-text">深入理解计算机系统 📚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA-%F0%9F%93%9A"><span class="nav-number">5.</span> <span class="nav-text">操作系统导论 📚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95-%F0%9F%93%9A"><span class="nav-number">6.</span> <span class="nav-text">计算机网络：自顶向下方法 📚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-%F0%9F%93%9A"><span class="nav-number">7.</span> <span class="nav-text">数据结构与算法分析 📚</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="方良印"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">方良印</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/images/wechat.jpg" title="Wechat → &#x2F;images&#x2F;wechat.jpg" rel="noopener me"><i class="fab fa-weixin fa-fw"></i>Wechat</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/21103011/bill-tsui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;21103011&#x2F;bill-tsui" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/20241105/cs-books/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="方良印">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机科学书籍推荐 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机科学书籍推荐
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-05 22:41:53" itemprop="dateCreated datePublished" datetime="2024-11-05T22:41:53+08:00">2024-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-07 20:34:45" itemprop="dateModified" datetime="2024-11-07T20:34:45+08:00">2024-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>24年9月初决定考研，去学习一些计算机科学的前沿技术，比如NLP、CV又或者是AI。在准备考试的过程中，发现大部分高等院校的初试专业课考试是408，也就是计算机专业基础综合(数据结构、计算机组成原理、操作系统、计算机网络)。</p>
+<p>那么结合我从98年开始接触计算机，近14年的相关行业工作经验，推荐几本我在计算机科学与技术领域读过的非常出色的书籍，按照由浅入深，循序渐进的原则给出列表。部分书籍现在是高等院校的专业课用书，我会用📚表情标注出来。</p>
+<span id="more"></span>
+
+<h3 id="编码-隐匿在计算机软硬件背后的语言"><a href="#编码-隐匿在计算机软硬件背后的语言" class="headerlink" title="编码:隐匿在计算机软硬件背后的语言"></a>编码:隐匿在计算机软硬件背后的语言</h3><p>如果要从0开始对一个从未接触过计算机的人讲述计算机的基本工作原理，这本书再适合不过了。<br>它用白话文，从手电筒、布莱叶盲文、摩斯电码开始，由浅入深、循序渐进的描述了计算机的发展过程。<br>既没有晦涩难懂的专业术语，也没有断层式的章节分布，这本书既有中文版也有英文版。</p>
+<img src="https://m.media-amazon.com/images/I/61Hc-9h+-XL._AC_UF1000,1000_QL80_.jpg" heigh="30%" width="30%"/>
+
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/4822685">编码:隐匿在计算机软硬件背后的语言</a>
+</center>
+
+<br/>
+<br/>
+<br/>
+
+<h3 id="汇编语言-第四版-📚"><a href="#汇编语言-第四版-📚" class="headerlink" title="汇编语言(第四版) 📚"></a>汇编语言(第四版) 📚</h3><p>王爽老师的《汇编语言》，是国内原创的、为数不多的可以和国外计算机经典教材相提并论的书籍。<br>行文通俗易懂、章节内容环环相扣，课后习题具有非常强的针对性，是衔接计算机硬件与C语言之间的桥梁。在阅读完《编码》以后，即可深入到CPU的世界一探究竟。<em><strong>这本书已经被广泛使用在大中专院校的汇编语言课程中，并受到无数好评。</strong></em></p>
+<img src="s33627655.jpg" heigh="30%" width="30%">
+
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/35038473">汇编语言(第四版)</a>
+</center>
+
+<br/>
+<br/>
+<br/>
+
+
+<h3 id="C程序设计语言-📚"><a href="#C程序设计语言-📚" class="headerlink" title="C程序设计语言 📚"></a>C程序设计语言 📚</h3><p>看完前面两本书以后，会有一种计算机科学与技术难道就是用汇编这种晦涩难懂的语言和计算机打交道的么？<br>有没有好记一点的、与人类语言相近、通俗易懂的编程语言，以说人话的方式进行编程活动呢？有的，在计算机科学与技术发展史上，C语言可以说是编程语言届的iPhone 1。这本书也是C语言的作者所编写，两位计算机科学家由浅入深，从华氏温度与摄氏温度转换开始，一步一步的讲解C语言的特性和使用方法。这本书既有中文版也有英文版。<em><strong>另外强调一下，谭浩强并不是C语言之父。</strong></em></p>
+<img src="https://m.media-amazon.com/images/I/91IXgHeNEZL._AC_UF1000,1000_QL80_.jpg" heigh="30%" width="30%">
+
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/1139336/">C程序设计语言</a>
+</center>
+
+<br/>
+<br/>
+<br/>
+
+
+<h3 id="深入理解计算机系统-📚"><a href="#深入理解计算机系统-📚" class="headerlink" title="深入理解计算机系统 📚"></a>深入理解计算机系统 📚</h3><p>这本书英文名叫 Computer Systems: A Programmer’s Perspective，大名鼎鼎的CSAPP就是它了。以程序员的视角，用C程序为切入点，讲述了计算机各个器件的工作原理。计算机科学领域的九阳神功，被誉为CS人的圣经。前面学完了C和汇编，再看这本书基本就没有任何门槛了。</p>
+<img src="https://csapp.cs.cmu.edu/3e/images/csapp3e-cover.jpg" heigh="40%" width="40%">
+
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/5333562/">深入理解计算机系统</a>
+</center>
+
+<br/>
+<br/>
+
+<p>看到这里，计算机零部件的基本工作原理就讲完了。整个计算机历史，在没有操作系统之前，就是这样的。所以，聪明的程序员为了方便操作零部件，统一管理计算机，发明出来了一个玩意，叫 <em><strong>操作系统</strong></em>。</p>
+<br/>
+<br/>
+
+<h3 id="操作系统导论-📚"><a href="#操作系统导论-📚" class="headerlink" title="操作系统导论 📚"></a>操作系统导论 📚</h3><p>操作系统是现代计算机管理零部件的软件，是一切运行在其上之程序的基础。这本书采用历史教学法，使用时间线的方式，从磁盘操作系统，一直讲到现代操作系统，是操作系统领域不可多得的好书。</p>
+<img src="s32332106.jpg" heigh="40%" width="40%">
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/33463930/">操作系统导论</a>
+</center>
+
+<br/>
+<br/>
+
+<p>学到这里，整个计算机单机系统就全部学完了。但是，现代计算机是互相连接的啊，没有网络怎么可以呢？！</p>
+<h3 id="计算机网络：自顶向下方法-📚"><a href="#计算机网络：自顶向下方法-📚" class="headerlink" title="计算机网络：自顶向下方法 📚"></a>计算机网络：自顶向下方法 📚</h3><p>这本讲述计算机网络的书籍，一经问世，就广为流传。而且采用了自顶向下的方法，就是先说应用层，比如浏览器，电子邮件等看得见摸得着的东西，然后再向下讲述传输层、链路层、物理层等看不见摸不着的理论。唯一我觉得不足的地方就是网络上对翻译的质量有点微词，如果有能力，建议直接看英文原版。<br><a target="_blank" rel="noopener" href="https://gaia.cs.umass.edu/kurose_ross/index.php">原版传送门</a></p>
+<img src="s34331102.jpg" heigh="40%" width="40%">
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/36081529/">计算机网络：自顶向下方法</a>
+</center>
+
+
+<p>OK，到这里整个计算机科学的基础课，计算机组成原理、操作系统、计算机网络，已经出现了。但是，人们在编程的时候，为了提高对内存和CPU的利用率等等，总结出来了一套葵花宝典。学懂它，就可以加速自己的程序，当然不用自宫。这门学科就是 <em><strong>数据结构</strong></em>。</p>
+<br/>
+<br/>
+
+<h3 id="数据结构与算法分析-📚"><a href="#数据结构与算法分析-📚" class="headerlink" title="数据结构与算法分析 📚"></a>数据结构与算法分析 📚</h3><p>如果你不懂数据结构与算法，那么你写出来的程序可能比别人的要慢很多，这是我在实际工作中的体会。这本书已经被全世界将近500所大学作为教材使用，学好它，才能更懂计算机科学与技术。这本书是C语言描述的，前面已经学过了，相信很快就可以入门数据结构。</p>
+<img src="s28015501.jpg" heigh="40%" width="40%">
+<center>
+<a target="_blank" rel="noopener" href="https://book.douban.com/subject/1139426/">数据结构与算法分析</a>
+</center>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>方良印
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/20241105/cs-books/" title="计算机科学书籍推荐">http://billtsui.cn/20241105/cs-books/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BB%E4%B9%A6/" rel="tag"># 读书</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/20240915/neteasecloudmusic/" rel="prev" title="网易云音乐ncm文件加密格式解析">
+                  <i class="fa fa-angle-left"></i> 网易云音乐ncm文件加密格式解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="b872dad5bb131bb5aafc0c433916d89c"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">方良印</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyxmpYz0M","appkey":"30ae0a3574f647738c3154e1981bdf43","count":false}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
