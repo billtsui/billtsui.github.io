@@ -1129,7 +1129,7 @@ pre code {
 }
 .headband {
   background: var(--theme-color);
-  height: 0px;
+  height: 3px;
 }
 @media (max-width: 991px) {
   .headband {
@@ -1343,7 +1343,7 @@ pre code {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #d139f6;
+  background: #67e393;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2638,4 +2638,7 @@ header.header {
   .sidebar-active .footer-fixed {
     left: 240px;
   }
+}
+.headband {
+  height: 0px !important;
 }
