@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="前面说到字段，Java编程语言也使用变量这个术语，字段更多是用在OOP中的上下文。这篇将介绍变量和字段之间的联系，加上变量的命名规则和约定俗成的命名规范。，基础数据类型(基本类型，字符串和数组)，默认值和字面量。">
 <meta property="og:type" content="article">
@@ -154,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -259,7 +259,7 @@
 <span id="more"></span>
 
 <h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><p>Java编程语言是静态类型的，意思就是所有的变量必须在使用之前就声明好。这包含两个方面：变量的类型和名称。如你所见：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">gear</span> <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> gear <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这样就告诉你的程序，我要一个叫gear的字段，保存一个数值类型，并且初始化值为1。一个变量的数据类型决定了它能保存什么样的值，加上它能执行什么样的操作。除了 <strong>int</strong> 之外，Java还支持七种不同的基本数据类型。基本数据类型是语言内置的预定义的数据类型。它们的名称都是保留字，不能用做变量名。基本值不与其他基本值共享状态。Java一共有8种基本数据类型：  </p>
 <blockquote>
@@ -277,7 +277,7 @@
 <p>注意到，在Java 8 及之后的版本，你可以使用 <strong>int</strong> 类型来表示一个无符号32位整数，它的最小值是0,最大值是2^32-1。使用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html"><strong>Integer</strong></a> 类来表示一个无符号整数。该类的静态方法像 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html#compareUnsigned(int,int)"><strong>Integer.compareUnsigned()</strong></a> 支持无符号整数的算术运算。  </p>
 <p>Java 8 及以后的版本也可以使用 <strong>long</strong> 来表示一个无符号64位long整数，它的最小值是0，最大值是2^64-1。如果你需要表示一个范围超过int的数，就这个这个类型。<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html"><strong>Long</strong></a> 类提供了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html#compareUnsigned(long,long)"><strong>Long.compareUnsigned()</strong></a>，<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Long.html#divideUnsigned(long,long)"><strong>Long.divideUnsigned()</strong></a> 等方法来支持无符号长整数的算术运算。  </p>
 <p>除了上面这8种基本数据类型，Java通过 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html"><strong>java.lang.String</strong></a> 类来支持字符串。使用双引号包围起来的字符会自动地创建一个 <strong>String</strong> 对象，像这样子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span>  <span class="string">&quot;this is a string&quot;</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s <span class="token operator">=</span>  <span class="token string">"this is a string"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>String</strong> 对象都是不可变的，这意味着一旦被创建，它们的值无法被更改。严格的说<strong>String</strong> 类不是基本数据类型，但考虑到Java对其提供的特殊支持，你可能也会把它视为基本数据类型。后面讲<strong>String</strong>类的时候会更详细地介绍它。</p>
 <h2 id="使用默认值初始化变量"><a href="#使用默认值初始化变量" class="headerlink" title="使用默认值初始化变量"></a>使用默认值初始化变量</h2><p>在声明字段时，并非总是能有一个值，你可能不知道当前的值是什么。编译器会将声明但未初始化的字段设置为一个默认值。一般而言，该默认值为 <strong>0</strong> 或者 <strong>null</strong>，取决于数据类型。如果总是依赖于编译器给默认值，通常来说不是一个好的编程习惯。下面的表格总结了以上8种基本数据类型的默认值：</p>
 <table>
@@ -326,7 +326,11 @@
 </tbody></table>
 <p>局部变量有一点点不同。编译器从不分配一个默认值给一个未初始化的局部变量。如果你在声明时不初始化你的局部变量，确保你在使用它之前给它赋值。防卫一个未被处死绘画的局部变量会返回一个编译时错误。</p>
 <h2 id="使用字面量初始化变量"><a href="#使用字面量初始化变量" class="headerlink" title="使用字面量初始化变量"></a>使用字面量初始化变量</h2><p>你可能会注意到上面的代码中没有使用<strong>new</strong>关键字初始化基本类型的变量。基本类型是一种特殊的数据类型被内置在编程语言中。它们不是一个从类创建的对象。字面量一代码层面上的固定值，字面量不需要经过计算就可以直接在代码中使用。如下所示，可以将字面量赋值给一个基本类型的变量：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line"><span class="type">char</span> <span class="variable">capitalC</span> <span class="operator">=</span> <span class="string">&#x27;C&#x27;</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">10000</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">100000</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">boolean</span> result <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> capitalC <span class="token operator">=</span> <span class="token char">'C'</span><span class="token punctuation">;</span>
+<span class="token keyword">byte</span> b <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+<span class="token keyword">short</span> s <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">100000</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 <h2 id="整型字面量"><a href="#整型字面量" class="headerlink" title="整型字面量"></a>整型字面量</h2><p>如果一个整型字面量以<strong>l</strong>或<strong>L</strong>结尾，它会被当作一个<strong>long</strong>类型，否则它会被当作一个<strong>int</strong>类型。推荐使用大写的<strong>L</strong>来表示<strong>long</strong>类型，以避免和数字<strong>1</strong>混淆。 </p>
@@ -339,17 +343,34 @@
 </ul>
 </blockquote>
 <p>对于通常的编程任务，十进制很可能是你最常用的数制。然后，当你需要使用另一种数制的时候，虾米那的例子展示了正确的语法。前缀<strong>0x</strong>表明这是十六进制数，前缀<strong>0b</strong>表明是二进制数：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The number 26, in decimal</span></span><br><span class="line"><span class="type">int</span> <span class="variable">decimalValue</span> <span class="operator">=</span> <span class="number">26</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The number 26, in hexadecimal</span></span><br><span class="line"><span class="type">int</span> <span class="variable">hexadecimalValue</span> <span class="operator">=</span> <span class="number">0x1A</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The number 26, in binary</span></span><br><span class="line"><span class="type">int</span> <span class="variable">binaryValue</span> <span class="operator">=</span> <span class="number">0b11010</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// The number 26, in decimal</span>
+<span class="token keyword">int</span> decimalValue <span class="token operator">=</span> <span class="token number">26</span><span class="token punctuation">;</span>
+
+<span class="token comment">// The number 26, in hexadecimal</span>
+<span class="token keyword">int</span> hexadecimalValue <span class="token operator">=</span> <span class="token number">0x1A</span><span class="token punctuation">;</span>
+
+<span class="token comment">// The number 26, in binary</span>
+<span class="token keyword">int</span> binaryValue <span class="token operator">=</span> <span class="token number">0b11010</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="浮点数字面量"><a href="#浮点数字面量" class="headerlink" title="浮点数字面量"></a>浮点数字面量</h2><p>用<strong>F</strong>或者<strong>f</strong>结尾的浮点数字面量会被当作<strong>float</strong>类型，否则它会被当作<strong>double</strong>类型，可选地在结尾用<strong>D</strong>或者<strong>d</strong>来表示<strong>double</strong>类型。浮点类型（float 和 double）也可使用 E 或 e（表示科学记数法）、F 或 f（表示 32 位浮点数字面量）以及 D 或 d（表示 64 位双精度数字面量；此为默认形式，按惯例可省略）来表示。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">123.4</span>;</span><br><span class="line"><span class="comment">// same value as d1, but in scientific notation</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> <span class="number">1.234e2</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">f1</span> <span class="operator">=</span> <span class="number">123.4f</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">double</span> d1 <span class="token operator">=</span> <span class="token number">123.4</span><span class="token punctuation">;</span>
+<span class="token comment">// same value as d1, but in scientific notation</span>
+<span class="token keyword">double</span> d2 <span class="token operator">=</span> <span class="token number">1.234e2</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> f1 <span class="token operator">=</span> <span class="token number">123.4f</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="字符和字符串字面量"><a href="#字符和字符串字面量" class="headerlink" title="字符和字符串字面量"></a>字符和字符串字面量</h2><p>char 和 String 类型的字面量可包含任意 Unicode（UTF-16）字符。若您的编辑器和文件系统支持，可直接在代码中使用此类字符。若不支持，可使用 Unicode 转义序列，例如 \u0108（带楔形符号的大写 C）或 “S\u00ED Se\u00F1or”（西班牙语中的 Sí Señor）。字符常量始终使用’单引号’，字符串常量始终使用”双引号”。Unicode转义序列不仅限于字符或字符串常量，在程序其他位置（如字段名称）也可使用。  </p>
 <p>Java 编程语言还为字符和字符串字面量支持若干特殊转义序列：\b（退格）、\t（制表符）、\n（换行符）、\f（分页符）、\r（回车符）、\“（双引号）、\‘（单引号）以及 \\\（反斜杠）。  </p>
 <p>还存在一种特殊的空值字面量，可作为任何引用类型的值使用。空值字面量可赋值给除基本类型变量外的任何变量。除了检测其存在性外，空值几乎无法执行其他操作。因此，在程序中常将空值用作标记符，表示某些对象不可用。  </p>
 <p>最后，还存在一种特殊的字面量称为类字面量，其形式是在类型名称后附加.class；例如String.class。这指代的是代表类型本身的对象，其类型为<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html">Class</a>。  </p>
 <h2 id="在数字字面量中使用下划线字符"><a href="#在数字字面量中使用下划线字符" class="headerlink" title="在数字字面量中使用下划线字符"></a>在数字字面量中使用下划线字符</h2><p>在 Java SE 7 及更高版本中，数字字面量中的任意数字之间可以出现任意数量的下划线字符 (_)。此功能可让您在数字字面量中分隔数字组，从而提高代码的可读性。<br>例如，如果你的代码包含多位数字，可以使用下划线字符将数字分隔为三位一组，类似于使用逗号或空格等标点符号作为分隔符的方式。以下示例展示了在数字字面量中使用下划线的其他方式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">long</span> <span class="variable">creditCardNumber</span> <span class="operator">=</span> <span class="number">1234_5678_9012_3456L</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">socialSecurityNumber</span> <span class="operator">=</span> <span class="number">999_99_9999L</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">pi</span> <span class="operator">=</span> <span class="number">3.14_15F</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">hexBytes</span> <span class="operator">=</span> <span class="number">0xFF_EC_DE_5E</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">hexWords</span> <span class="operator">=</span> <span class="number">0xCAFE_BABE</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">maxLong</span> <span class="operator">=</span> <span class="number">0x7fff_ffff_ffff_ffffL</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">nybbles</span> <span class="operator">=</span> <span class="number">0b0010_0101</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">bytes</span> <span class="operator">=</span> <span class="number">0b11010010_01101001_10010100_10010010</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">long</span> creditCardNumber <span class="token operator">=</span> <span class="token number">1234_5678_9012_3456L</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> socialSecurityNumber <span class="token operator">=</span> <span class="token number">999_99_9999L</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> pi <span class="token operator">=</span> <span class="token number">3.14_15F</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> hexBytes <span class="token operator">=</span> <span class="token number">0xFF_EC_DE_5E</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> hexWords <span class="token operator">=</span> <span class="token number">0xCAFE_BABE</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> maxLong <span class="token operator">=</span> <span class="token number">0</span>x7fff_ffff_ffff_ffffL<span class="token punctuation">;</span>
+<span class="token keyword">byte</span> nybbles <span class="token operator">=</span> <span class="token number">0b0010_0101</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> bytes <span class="token operator">=</span> <span class="token number">0b11010010_01101001_10010100_10010010</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>下划线只能放置在数字之间，以下位置不能使用下划线：</p>
 <ul>
@@ -359,7 +380,35 @@
 <li>在预期出现用字符串表示的数字序列的位置</li>
 </ul>
 <p>以下示例展示了数字字面量中下划线的有效与无效位置：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// adjacent to a decimal point</span></span><br><span class="line"><span class="type">float</span> <span class="variable">pi1</span> <span class="operator">=</span> 3_<span class="number">.1415F</span>;</span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// adjacent to a decimal point </span></span><br><span class="line"><span class="type">float</span> <span class="variable">pi2</span> <span class="operator">=</span> <span class="number">3.</span>_1415F;</span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// prior to an L suffix</span></span><br><span class="line"><span class="type">long</span> <span class="variable">socialSecurityNumber1</span> <span class="operator">=</span> 999_99_9999_L;</span><br><span class="line"></span><br><span class="line"><span class="comment">// OK (decimal literal)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> <span class="number">5_2</span>;</span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// At the end of a literal</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> 52_;</span><br><span class="line"><span class="comment">//OK (decimal literal)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x3</span> <span class="operator">=</span> <span class="number">5________2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// in the 0x radix prefix</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x4</span> <span class="operator">=</span> 0_x52;</span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// at the beginning of a number</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x5</span> <span class="operator">=</span> 0x_52;</span><br><span class="line"><span class="comment">// OK (hexadecimal literal)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x6</span> <span class="operator">=</span> <span class="number">0x5_2</span>;</span><br><span class="line"><span class="comment">// Invalid: cannot put underscores</span></span><br><span class="line"><span class="comment">// at the end of a number</span></span><br><span class="line"><span class="type">int</span> <span class="variable">x7</span> <span class="operator">=</span> 0x52_;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// adjacent to a decimal point</span>
+<span class="token keyword">float</span> pi1 <span class="token operator">=</span> <span class="token number">3_.1415F</span><span class="token punctuation">;</span>
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// adjacent to a decimal point </span>
+<span class="token keyword">float</span> pi2 <span class="token operator">=</span> <span class="token number">3._1415F</span><span class="token punctuation">;</span>
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// prior to an L suffix</span>
+<span class="token keyword">long</span> socialSecurityNumber1 <span class="token operator">=</span> <span class="token number">999_99_9999_L</span><span class="token punctuation">;</span>
+
+<span class="token comment">// OK (decimal literal)</span>
+<span class="token keyword">int</span> x1 <span class="token operator">=</span> <span class="token number">5_2</span><span class="token punctuation">;</span>
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// At the end of a literal</span>
+<span class="token keyword">int</span> x1 <span class="token operator">=</span> <span class="token number">52_</span><span class="token punctuation">;</span>
+<span class="token comment">//OK (decimal literal)</span>
+<span class="token keyword">int</span> x3 <span class="token operator">=</span> <span class="token number">5________2</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// in the 0x radix prefix</span>
+<span class="token keyword">int</span> x4 <span class="token operator">=</span> <span class="token number">0_</span>x52<span class="token punctuation">;</span>
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// at the beginning of a number</span>
+<span class="token keyword">int</span> x5 <span class="token operator">=</span> <span class="token number">0x_52</span><span class="token punctuation">;</span>
+<span class="token comment">// OK (hexadecimal literal)</span>
+<span class="token keyword">int</span> x6 <span class="token operator">=</span> <span class="token number">0x5_2</span><span class="token punctuation">;</span>
+<span class="token comment">// Invalid: cannot put underscores</span>
+<span class="token comment">// at the end of a number</span>
+<span class="token keyword">int</span> x7 <span class="token operator">=</span> <span class="token number">0x52_</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
     </div>
 
     
@@ -409,6 +458,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/20251114/array/" rel="next" title="数组">
+                  数组 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>

@@ -18,14 +18,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="变量如前一篇提到的，一个对象使用 fields 存储它自己的 states 。 123int cadence &#x3D; 0;int speed &#x3D; 0;int gear &#x3D; 1;">
+    <meta name="description" content="变量如前一篇提到的，一个对象使用 fields 存储它自己的 states 。 int cadence &#x3D; 0; int speed &#x3D; 0; int gear &#x3D; 1;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="变量与命名">
 <meta property="og:url" content="http://billtsui.cn/20251113/variables/index.html">
 <meta property="og:site_name" content="Real 焜">
-<meta property="og:description" content="变量如前一篇提到的，一个对象使用 fields 存储它自己的 states 。 123int cadence &#x3D; 0;int speed &#x3D; 0;int gear &#x3D; 1;">
+<meta property="og:description" content="变量如前一篇提到的，一个对象使用 fields 存储它自己的 states 。 int cadence &#x3D; 0; int speed &#x3D; 0; int gear &#x3D; 1;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-13T10:24:26.000Z">
 <meta property="article:modified_time" content="2025-11-13T12:08:26.658Z">
@@ -154,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -256,7 +256,9 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>如前一篇提到的，一个对象使用 <strong>fields</strong> 存储它自己的 <strong>states</strong> 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">cadence</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">speed</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">gear</span> <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> cadence <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> speed <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> gear <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <span id="more"></span>
 <p>Java 编程语言定义以下几种变量：</p>
 <blockquote>
@@ -264,7 +266,7 @@
 <li><strong>Instance Variables(Non-Static Fields)</strong> 严格来说，对象使用”non-static fields”存储它们个体的状态。也就是说，字段在声明的时候不包含 <strong>static</strong> 关键字。非静态字段也被认为是实例字段是因为它们的值在每个类的实例中都是唯一的。一辆自行车的当前速度独立于另一辆自行车的当前速度。  </li>
 <li><strong>Class Variables(Static Fields)</strong> 类变量是任何用 <strong>static</strong>修饰符修饰的字段。这个修饰符告诉编译器，该变量仅存在一份副本,不用理会该类被实例化了多少次。定义特定类型自行车齿轮数量的字段可标记为静态，因为概念上所有实例都将采用相同的齿轮数量。以下代码将会创建一个这样的静态字段。额外地，<strong>final</strong> 关键字将会被添加用来表明这个齿轮的数量永远不会改变。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">numGears</span> <span class="operator">=</span> <span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> numGears <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <ul>
 <li><strong>Local Variables</strong>  类似于对象如何用字段存储它们的状态，一个方法将会经常存储它的临时状态到 <strong>local variables</strong> 中。声明局部变量的语法和声明字段类似，没有什么特殊的关键字指定一个变量是一个局部变量。该变量的作用域完全取决于变量声明的位置，那就是一个方法的开闭大括号之间。因此，局部变量仅仅在声明的方法内可见，类的剩余部分无法访问它。</li>
 <li><strong>Parameters</strong> 已经在前面见过了。<em><strong>main(String[] args)</strong></em> 这个args就是参数。特别重要的是，请记住参数被归类为 <strong>variables</strong> 而不是 <strong>fields</strong>。这一规则同样也适用于其他接受参数的概念。（such as constructors and exception hanlers）</li>
