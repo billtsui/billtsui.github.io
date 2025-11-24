@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="If-Then 语句if-then 语句是所有控制流语句中最基础的一种。它指示程序仅在特定测试条件为真时执行某段代码。例如，Bicycle 类可规定刹车系统仅在自行车处于运动状态时才能降低车速。applyBrakes() 方法的一种可能实现如下：   void applyBrakes() &#123;     &#x2F;&#x2F; the &quot;if&quot; clause: bicycle must be moving">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制流语句">
+<meta property="og:url" content="http://billtsui.cn/technology/java/control-flow-statements/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="If-Then 语句if-then 语句是所有控制流语句中最基础的一种。它指示程序仅在特定测试条件为真时执行某段代码。例如，Bicycle 类可规定刹车系统仅在自行车处于运动状态时才能降低车速。applyBrakes() 方法的一种可能实现如下：   void applyBrakes() &#123;     &#x2F;&#x2F; the &quot;if&quot; clause: bicycle must be moving">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-16T06:27:53.000Z">
+<meta property="article:modified_time" content="2025-11-24T12:10:11.944Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/control-flow-statements/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/control-flow-statements/","path":"/technology/java/control-flow-statements/","title":"控制流语句"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>控制流语句 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#If-Then-%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">If-Then 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#If-Then-Else-%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">If-Then-Else 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#While-%E5%92%8C-Do-While-%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.</span> <span class="nav-text">While 和 Do-While 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">For 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Break-%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">Break 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Continue-%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">Continue 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Return-%E8%AF%AD%E5%8F%A5"><span class="nav-number">7.</span> <span class="nav-text">Return 语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Yield-%E8%AF%AD%E5%8F%A5"><span class="nav-number">8.</span> <span class="nav-text">Yield 语句</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/control-flow-statements/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="控制流语句 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          控制流语句
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-11-16 14:27:53" itemprop="dateCreated datePublished" datetime="2025-11-16T14:27:53+08:00">2025-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-24 20:10:11" itemprop="dateModified" datetime="2025-11-24T20:10:11+08:00">2025-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="If-Then-语句"><a href="#If-Then-语句" class="headerlink" title="If-Then 语句"></a>If-Then 语句</h2><p><font color="#eb8a43">if-then</font> 语句是所有控制流语句中最基础的一种。它指示程序仅在特定测试条件为真时执行某段代码。例如，<font color="#eb8a43">Bicycle</font> 类可规定刹车系统仅在自行车处于运动状态时才能降低车速。<font color="#eb8a43">applyBrakes()</font> 方法的一种可能实现如下：  </p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">applyBrakes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// the "if" clause: bicycle must be moving</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isMoving<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// the "the" clause: decrease current speed </span>
+        currentSpeed<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span id="more"></span>
+
+<p>如果此测试结果为 <font color="#eb8a43">false</font>（即自行车未处于运动状态），控制流将跳转至 <font color="#eb8a43">if-then</font> 语句的末尾。<br>此外，当”then”子句仅包含一条语句时，开括号和闭括号可省略：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">applyBrakes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// same as above, but without braces</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isMoving<span class="token punctuation">)</span>
+        currentSpeed<span class="token operator">--</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>何时省略大括号取决于个人偏好。省略大括号会使代码更脆弱。若后续在”then”子句中添加第二条语句，常见错误便是忘记添加新需要的大括号。编译器无法检测此类错误，最终只会得到错误结果。</p>
+<h2 id="If-Then-Else-语句"><a href="#If-Then-Else-语句" class="headerlink" title="If-Then-Else 语句"></a>If-Then-Else 语句</h2><p><font color="#eb8a43">if-then-else</font> 语句在”if”子句计算为 <font color="#eb8a43">false</font> 时提供次要执行路径。您可以在 <font color="#eb8a43">applyBrakes()</font> 方法中使用 <font color="#eb8a43">if-then-else</font> 语句，当自行车静止时仍触发刹车操作时执行特定动作。此处该动作仅需输出错误提示，说明自行车已处于静止状态。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">applyBrakes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isMoving<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        currentSpeed<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>err<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"The bicycle has already stopped."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下程序 <font color="#eb8a43">IfElseDemo</font> 根据考试分数的数值分配等级：90%及以上为 A，80%及以上为 B，依此类推。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">IfElseDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> testscore <span class="token operator">=</span> <span class="token number">76</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span> grade<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>testscore <span class="token operator">>=</span> <span class="token number">90</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            grade <span class="token operator">=</span> <span class="token char">'A'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>testscore <span class="token operator">>=</span> <span class="token number">80</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            grade <span class="token operator">=</span> <span class="token char">'B'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>testscore <span class="token operator">>=</span> <span class="token number">70</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            grade <span class="token operator">=</span> <span class="token char">'C'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>testscore <span class="token operator">>=</span> <span class="token number">60</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            grade <span class="token operator">=</span> <span class="token char">'D'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            grade <span class="token operator">=</span> <span class="token char">'F'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Grade = "</span> <span class="token operator">+</span> grade<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出为</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Grade <span class="token operator">=</span> C<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>您可能注意到，<font color="#eb8a43">testscore</font> 的值可以同时满足复合语句中的多个表达式：<font color="#eb8a43">76 &gt;&#x3D; 70</font> 和 <font color="#eb8a43">76 &gt;&#x3D; 60</font>。然而，一旦某个条件成立，相应的语句 <font color="#eb8a43">（grade &#x3D; ‘C’;）</font> 就会被执行，其余条件将不再进行计算。</p>
+<h2 id="While-和-Do-While-语句"><a href="#While-和-Do-While-语句" class="headerlink" title="While 和 Do-While 语句"></a>While 和 Do-While 语句</h2><p><font color="#eb8a43">while</font> 语句在特定条件为 <font color="#eb8a43">true</font> 时持续执行一组语句。其语法可表示为：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">while</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token function">statement</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">while</font> 语句会评估表达式，该表达式必须返回布尔值。若表达式评估结果为真，则 <font color="#eb8a43">while</font> 语句执行 <font color="#eb8a43">while</font> 代码块中的语句。<font color="#eb8a43">while</font> 语句会持续测试表达式并执行其代码块，直至表达式评估结果为假。使用<font color="#eb8a43">while</font> 语句打印1至10的数值可通过以下 <font color="#eb8a43">WhileDemo</font> 程序实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WhileDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>count <span class="token operator">&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Count is: "</span> <span class="token operator">+</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            count<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你可以使用while语句实现无限循环，如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// your code goes here</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Java 编程语言还提供了 <font color="#eb8a43">do-while</font> 语句，其表达形式如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">statement</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>expression<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">do-while</font> 与 <font color="#eb8a43">while</font> 的区别在于，<font color="#eb8a43">do-while</font> 在循环末尾而非开头评估其表达式。因此，do 代码块内的语句至少会执行一次，如下面的 <font color="#eb8a43">DoWhileDemo</font> 程序所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DoWhileDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">do</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Count is: "</span> <span class="token operator">+</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            count<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">while</span> <span class="token punctuation">(</span>count <span class="token operator">&lt;</span> <span class="token number">11</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="For-语句"><a href="#For-语句" class="headerlink" title="For 语句"></a>For 语句</h2><p><font color="#eb8a43">for</font> 语句提供了一种紧凑的方式来遍历一组值。程序员常将其称为”for循环”，因为它会反复循环直至某个特定条件满足。<font color="#eb8a43">for</font> 语句的一般形式可表示如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">for</span><span class="token punctuation">(</span>initialization<span class="token punctuation">;</span> termination<span class="token punctuation">;</span> iteration<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token function">statement</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用此版本的 for 语句时，请注意：</p>
+<ul>
+<li>初始化表达式用于初始化循环；它在循环开始时执行一次。</li>
+<li>当终止表达式评估为 <font color="#eb8a43">false</font> 时，循环终止。</li>
+<li>增量表达式在每次循环迭代后被调用；该表达式对值进行递增或递减操作是完全可行的。</li>
+</ul>
+<p>以下程序 <font color="#eb8a43">ForDemo</font> 使用 <font color="#eb8a43">for</font> 语句的一般形式，将数字 1 到 10 打印到标准输出：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ForDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">11</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Count is : "</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个程序的输出是：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Count is <span class="token builtin class-name">:</span> <span class="token number">1</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">2</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">3</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">4</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">5</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">6</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">7</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">8</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">9</span>
+Count is <span class="token builtin class-name">:</span> <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意代码如何在初始化表达式中声明变量。该变量的作用域从声明处延伸至 <font color="#eb8a43">for</font> 语句所控制的代码块末尾，因此也可用于终止条件和递增表达式中。若控制 <font color="#eb8a43">for</font    > 语句的变量在循环外部无需使用，最佳做法是在初始化表达式中声明该变量。变量名 <font color="#eb8a43">i、j</font> 和 <font color="#eb8a43">k</font> 常用于控制 <font color="#eb8a43">for</font> 循环；在初始化表达式中声明它们可限制其作用域并减少错误。</p>
+<p><font color="#eb8a43">for</font> 循环的三个表达式都是可选的；无限循环可按以下方式创建：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// infinite loop</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> <span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">// your code goes here</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">for</font> 语句还提供另一种形式，专用于遍历集合和数组。这种形式有时被称为增强型 <font color="#eb8a43"><em><strong>for</strong></em></font> 语句，可使循环代码更紧凑且易于阅读。以下是一个存储 1 到 10 的数组作为示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以下程序 <font color="#eb8a43">EnhancedForDemo</font> 使用增强的 for 循环遍历数组：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EnhancedForDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> item <span class="token operator">:</span> numbers<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Count is: "</span> <span class="token operator">+</span> item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在此示例中，变量 <font color="#eb8a43">item</font> 存储了 numbers 数组的当前值。该程序的输出结果与之前相同：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Count is: <span class="token number">1</span>
+Count is: <span class="token number">2</span>
+Count is: <span class="token number">3</span>
+Count is: <span class="token number">4</span>
+Count is: <span class="token number">5</span>
+Count is: <span class="token number">6</span>
+Count is: <span class="token number">7</span>
+Count is: <span class="token number">8</span>
+Count is: <span class="token number">9</span>
+Count is: <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们建议在可能的情况下，优先使用这种形式的 <font color="#eb8a43">for</font> 语句，而非通用形式。</p>
+<h2 id="Break-语句"><a href="#Break-语句" class="headerlink" title="Break 语句"></a>Break 语句</h2><p><font color="#eb8a43">break</font> 语句有两种形式：带标签的和不带标签的。在前文关于 <font color="#eb8a43">switch</font> 语句的讨论中，你已经见过不带标签的形式。你也可以使用不带标签的 <font color="#eb8a43">break</font> 语句来终止 <font color="#eb8a43">for、while</font> 或 <font color="#eb8a43">do-while</font> 循环，如下面的 <font color="#eb8a43">BreakDemo</font> 程序所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BreakDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arrayOfInts
+                <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">87</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">589</span><span class="token punctuation">,</span>
+                    <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">1076</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+                    <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">622</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> searchfor <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> foundIt <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arrayOfInts<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>arrayOfInts<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> searchfor<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                foundIt <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>foundIt<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Found "</span> <span class="token operator">+</span> searchfor <span class="token operator">+</span> <span class="token string">" at index "</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>searchfor <span class="token operator">+</span> <span class="token string">" not in array"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>该程序在数组中搜索数字12。当找到该值时，<font color="#eb8a43">break</font> 语句将终止 <font color="#eb8a43">for</font> 循环。控制流随后转移到for循环后的语句。该程序的输出为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Found <span class="token number">12</span> at index <span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>未标记的 <font color="#eb8a43">break</font> 语句会终止最内层的 <font color="#eb8a43">switch、for、while</font> 或 <font color="#eb8a43">do-while</font> 语句，而带标签的 <font color="#eb8a43">break</font>则会终止外层语句。以下程序 <font color="#eb8a43">BreakWithLabelDemo</font> 与前例类似，但使用嵌套 <font color="#eb8a43">for</font> 循环在二维数组中搜索值。当找到目标值时，带标签的<font color="#eb8a43">break</font> 会终止外层 <font color="#eb8a43">for</font> 循环（标记为”search”）：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BreakWithLabelDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arrayOfInts <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            <span class="token punctuation">&#123;</span><span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">87</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">589</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">1076</span><span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#123;</span><span class="token number">622</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">,</span> <span class="token number">77</span><span class="token punctuation">,</span> <span class="token number">955</span><span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> searchfor <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> foundIt <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        search<span class="token operator">:</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arrayOfInts<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> arrayOfInts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>arrayOfInts<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> searchfor<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    foundIt <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span> search<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>foundIt<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Found "</span> <span class="token operator">+</span> searchfor <span class="token operator">+</span> <span class="token string">" at index "</span> <span class="token operator">+</span> i <span class="token operator">+</span> <span class="token string">", "</span> <span class="token operator">+</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>searchfor <span class="token operator">+</span> <span class="token string">" not in the array"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>该程序的输出为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Found <span class="token number">12</span> at index <span class="token number">1</span>, <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><font color="#eb8a43">break</font> 语句终止标记语句的执行；它不会将控制流转移到标记处。控制流将转移到标记语句（终止语句）之后紧接的语句。<font color="#eb8a43"><strong>Java 中的标签（Label 必须紧接在它所引用的语句或块（Block）之前，并且它的作用范围仅限于它所标记的语句或块本身</strong></font>。</p>
+<h2 id="Continue-语句"><a href="#Continue-语句" class="headerlink" title="Continue 语句"></a>Continue 语句</h2><p><font color="#eb8a43">continue</font> 语句用于跳过 <font color="#eb8a43">for、while</font> 或 <font color="#eb8a43">do-while</font> 循环的当前迭代。无标签形式会跳至最内层循环体的末尾，并评估控制循环的布尔表达式。以下程序 <font color="#eb8a43">ContinueDemo</font> 遍历字符串，统计字母 <font color="#eb8a43">p</font> 的出现次数。若当前字符非 <font color="#eb8a43">p</font>，则 <font color="#eb8a43">continue</font> 语句跳过循环剩余部分并处理下一个字符；若为 <font color="#eb8a43">p</font>，则程序递增字母计数。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ContinueDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span> searchMe <span class="token operator">=</span> <span class="token string">"peter piper picked a "</span> <span class="token operator">+</span> <span class="token string">"peck of pickled peppers"</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> max <span class="token operator">=</span> searchMe<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> numPs <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> max<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>searchMe<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token char">'p'</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            numPs<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Found "</span> <span class="token operator">+</span> numPs <span class="token operator">+</span> <span class="token string">" p's in the string."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>程序输出为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Found <span class="token number">9</span> p's <span class="token keyword">in</span> the string.<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>要更清楚地看到这种效果，请尝试删除 <font color="#eb8a43">continue</font> 语句并重新编译。再次运行程序时，计数结果将出错，显示找到 35 个字母 p 而不是 9 个。<br>带标签的 <font color="#eb8a43">continue</font> 语句会跳过当前外层循环中带有该标签的迭代。<br>以下示例程序 <font color="#eb8a43">ContinueWithLabelDemo</font> 使用嵌套循环在字符串中搜索子字符串。需要两个嵌套循环：一个遍历子字符串，另一个遍历待搜索的字符串。该程序通过带标签的 <font color="#eb8a43">continue</font> 测试跳过外层循环的迭代。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ContinueWithLabelDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">String</span> searchMe <span class="token operator">=</span> <span class="token string">"Look for a substring in this string."</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> subString <span class="token operator">=</span> <span class="token string">"str"</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> foundIt <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> max <span class="token operator">=</span> searchMe<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> subString<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        test<span class="token operator">:</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> max<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">int</span> n <span class="token operator">=</span> subString<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> j <span class="token operator">=</span> i<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>n<span class="token operator">--</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>searchMe<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">!=</span> subString<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">continue</span> test<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            foundIt <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span> test<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>foundIt <span class="token operator">?</span> <span class="token string">"Found it"</span> <span class="token operator">:</span> <span class="token string">"Didn't find it"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>该程序的输出为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Found it<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Return-语句"><a href="#Return-语句" class="headerlink" title="Return 语句"></a>Return 语句</h2><p>下一个分支语句是 <font color="#eb8a43">return</font> 语句。<font color="#eb8a43">return</font> 语句将退出当前方法，控制流返回至方法被调用的位置。<font color="#eb8a43">return</font> 语句有两种形式：一种返回值，另一种不返回值。要返回值，只需在 <font color="#eb8a43">return</font> 关键字后放置该值（或计算该值的表达式）。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">return</span> <span class="token operator">++</span>count<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>返回值的数据类型必须与方法声明的返回值类型一致。当方法声明为 <font color="#eb8a43">void</font> 时，请使用不返回值的 <font color="#eb8a43">return</font> 形式。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">return</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>类与对象章节将涵盖编写方法所需掌握的所有知识。</p>
+<h2 id="Yield-语句"><a href="#Yield-语句" class="headerlink" title="Yield 语句"></a>Yield 语句</h2><p>最后一个分支语句是 <font color="#eb8a43">yield</font> 语句。<font color="#eb8a43">yield</font> 语句将退出当前所在的 <font color="#eb8a43">switch</font> 表达式。<font color="#eb8a43">yield</font> 语句之后必须跟随一个能产生值的表达式，该表达式不能为 <font color="#eb8a43">void</font> 类型。此表达式的值即为包含它的 <font color="#eb8a43">switch</font> 表达式所产生的值。<br>以下是一个 yield 语句的示例。写这个代码的人正在计算还要上几天班。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">YieldDemo</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">enum</span> <span class="token class-name">Day</span> <span class="token punctuation">&#123;</span>
+        <span class="token constant">MONDAY</span><span class="token punctuation">,</span> <span class="token constant">TUESDAY</span><span class="token punctuation">,</span> <span class="token constant">WEDNESDAY</span><span class="token punctuation">,</span> <span class="token constant">THURSDAY</span><span class="token punctuation">,</span> <span class="token constant">FRIDAY</span><span class="token punctuation">,</span> <span class="token constant">SATURDAY</span><span class="token punctuation">,</span> <span class="token constant">SUNDAY</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">calculate</span><span class="token punctuation">(</span><span class="token class-name">Day</span> d<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">switch</span> <span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">case</span> <span class="token constant">SATURDAY</span><span class="token punctuation">,</span> <span class="token constant">SUNDAY</span> <span class="token operator">-></span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">default</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">int</span> remindingWorkDays <span class="token operator">=</span> <span class="token number">5</span> <span class="token operator">-</span> d<span class="token punctuation">.</span><span class="token function">ordinal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">yield</span> remindingWorkDays<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/control-flow-statements/" title="控制流语句">http://billtsui.cn/technology/java/control-flow-statements/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/technology/java/expressions-statements-blocks/" rel="prev" title="Expressions,Statements and Blocks">
+                  <i class="fa fa-angle-left"></i> Expressions,Statements and Blocks
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/technology/java/switch-statements/" rel="next" title="Switch 语句">
+                  Switch 语句 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

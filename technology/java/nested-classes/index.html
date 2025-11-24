@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Java 编程语言允许你在另一个类内部定义类。此类称为嵌套类，示例如下： class OuterClass &#123;     ...     class NestedClass &#123;         ...     &#125; &#125;  术语：嵌套类分为两类：非静态类和静态类。非静态嵌套类称为内部类。声明为静态的嵌套类称为静态嵌套类。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌套类">
+<meta property="og:url" content="http://billtsui.cn/technology/java/nested-classes/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="Java 编程语言允许你在另一个类内部定义类。此类称为嵌套类，示例如下： class OuterClass &#123;     ...     class NestedClass &#123;         ...     &#125; &#125;  术语：嵌套类分为两类：非静态类和静态类。非静态嵌套类称为内部类。声明为静态的嵌套类称为静态嵌套类。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-20T05:29:26.000Z">
+<meta property="article:modified_time" content="2025-11-24T12:10:11.964Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/nested-classes/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/nested-classes/","path":"/technology/java/nested-classes/","title":"嵌套类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>嵌套类 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%A5%97%E7%B1%BB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么要使用嵌套类？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%B5%8C%E5%A5%97%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">静态嵌套类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E5%B5%8C%E5%A5%97%E9%9D%99%E6%80%81%E7%B1%BB%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">内部类和嵌套静态类示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OuterClass-java"><span class="nav-number">1.4.</span> <span class="nav-text">OuterClass.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TopLevelClass-java"><span class="nav-number">1.5.</span> <span class="nav-text">TopLevelClass.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shadowing-%E8%A6%86%E7%9B%96%EF%BC%9F"><span class="nav-number">1.6.</span> <span class="nav-text">Shadowing(覆盖？)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">1.7.</span> <span class="nav-text">序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">内部类的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%92%8C%E5%8C%BF%E5%90%8D%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">局部和匿名类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">2.2.</span> <span class="nav-text">修饰符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Classes-%E5%B1%80%E9%83%A8%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">Local Classes(局部类)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E5%B1%80%E9%83%A8%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">声明一个局部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%A4%96%E5%9B%B4%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">3.2.</span> <span class="nav-text">访问外围类的成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E7%B1%BB%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E7%9B%B8%E4%BC%BC%E4%B9%8B%E5%A4%84"><span class="nav-number">3.3.</span> <span class="nav-text">局部类与内部类的相似之处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">匿名类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%8C%BF%E5%90%8D%E7%B1%BB"><span class="nav-number">4.1.</span> <span class="nav-text">声明匿名类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%A4%96%E5%9B%B4%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%A3%B0%E6%98%8E%E5%92%8C%E8%AE%BF%E9%97%AE%E5%8C%BF%E5%90%8D%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98"><span class="nav-number">4.2.</span> <span class="nav-text">访问外围作用域的局部变量，以及声明和访问匿名类的成员</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/nested-classes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="嵌套类 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          嵌套类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-11-20 13:29:26" itemprop="dateCreated datePublished" datetime="2025-11-20T13:29:26+08:00">2025-11-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-24 20:10:11" itemprop="dateModified" datetime="2025-11-24T20:10:11+08:00">2025-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Java 编程语言允许你在另一个类内部定义类。此类称为嵌套类，示例如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">OuterClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">class</span> <span class="token class-name">NestedClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><em><strong>术语：嵌套类分为两类：非静态类和静态类。非静态嵌套类称为内部类。声明为静态的嵌套类称为静态嵌套类。</strong></em></p>
+</blockquote>
+<span id="more"></span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">OuterClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">class</span> <span class="token class-name">InnerClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">StaticNestedClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>嵌套类是其外围类的成员。非静态嵌套类（内部类）可以访问外部类的其他成员，即使这些成员声明为私有。静态嵌套类则无法访问外部类的其他成员。作为外部类的成员，嵌套类可以声明为 <font color="#eb8a43">private, public, protected</font> 或 <font color="#eb8a43">package private</font> 。需注意外部类只能声明为 <font color="#eb8a43">public</font> 或 <font color="#eb8a43">package private</font> 。</p>
+<h2 id="为什么要使用嵌套类？"><a href="#为什么要使用嵌套类？" class="headerlink" title="为什么要使用嵌套类？"></a>为什么要使用嵌套类？</h2><p>使用嵌套类的充分理由包括以下几点：</p>
+<ul>
+<li>这是一种将仅在单一位置使用的类进行逻辑分组的方法：若某个类仅对另一个类有用，则将其嵌入该类并保持二者关联是合理的。通过嵌套此类”辅助类”，可使相关包结构更为精简。</li>
+<li>它增强了封装性：考虑两个顶级类A和B，其中B需要访问A的成员，而这些成员原本会被声明为私有。通过将类B隐藏在类A内部，A的成员可以声明为私有，而B仍能访问它们。此外，B本身也可以对外部世界隐藏。</li>
+<li>这能使代码更易于阅读和维护：将小型类嵌套在顶级类中，使代码更接近其使用位置。</li>
+</ul>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><p>与实例方法和变量类似，内部类与其外围类的实例相关联，可直接访问该对象的方法和字段。此外，由于内部类与实例相关联，它本身无法定义任何静态成员。<br>内部类的实例对象存在于外部类的实例中。请考虑以下类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">OuterClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">class</span> <span class="token class-name">InnerClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>内部类的实例只能存在于外部类的实例内部，并能直接访问其包含实例的方法和字段。<br>要实例化一个内部类，必须先实例化其外部类。然后，使用以下语法在外部对象内部创建内部对象：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">OuterClass</span> outerObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OuterClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">OuterClass<span class="token punctuation">.</span>InnerClass</span> innerObject <span class="token operator">=</span> outerObject<span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">InnerClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>内部类有两种特殊类型：局部类和匿名类。</p>
+<h3 id="静态嵌套类"><a href="#静态嵌套类" class="headerlink" title="静态嵌套类"></a>静态嵌套类</h3><p>与类方法和变量类似，静态嵌套类与其外部类相关联。同样地，静态嵌套类无法直接引用其外部类中定义的实例变量或方法：它只能通过对象引用来使用这些成员。内部类与嵌套静态类的示例对此进行了说明。</p>
+<blockquote>
+<p><em><strong>注意：静态嵌套类与外部类（及其他类）的实例成员交互的方式，与任何其他顶级类完全相同。实际上，静态嵌套类在行为上就是一个顶级类，为了封装便利而嵌套在另一个顶级类中。《内部类与嵌套静态类示例》也展示了这一点。</strong></em></p>
+</blockquote>
+<p>静态嵌套类的实例化方式与顶级类相同：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">StaticNestedClass</span> staticNestedObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StaticNestedClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="内部类和嵌套静态类示例"><a href="#内部类和嵌套静态类示例" class="headerlink" title="内部类和嵌套静态类示例"></a>内部类和嵌套静态类示例</h3><p>以下示例通过 <font color="#eb8a43">OuterClass</font> 与 <font color="#eb8a43">TopLevelClass</font> 演示了内部类（<font color="#eb8a43">InnerClass</font>）、嵌套静态类（<font color="#eb8a43">StaticNestedClass</font>）和顶级类（<font color="#eb8a43">TopLevelClass</font>）能够访问 <font color="#eb8a43">OuterClass</font> 的哪些类成员：</p>
+<h3 id="OuterClass-java"><a href="#OuterClass-java" class="headerlink" title="OuterClass.java"></a>OuterClass.java</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OuterClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> outerField <span class="token operator">=</span> <span class="token string">"Outer field"</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token class-name">String</span> staticOuterField <span class="token operator">=</span> <span class="token string">"Static outer field"</span><span class="token punctuation">;</span>
+
+    <span class="token comment">//内部类和外部类的实例相同，可以访问外部类的所有成员</span>
+    <span class="token keyword">class</span> <span class="token class-name">InnerClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">void</span> <span class="token function">accessMembers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>outerField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>staticOuterField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// 静态嵌套类，不能直接访问外部类的非静态成员</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">StaticNestedClass</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">void</span> <span class="token function">accessMembers</span><span class="token punctuation">(</span><span class="token class-name">OuterClass</span> outer<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 编译错误，无法直接访问外部类的非静态成员</span>
+            <span class="token comment">//IO.println(outerField);</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>outerField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>staticOuterField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Inner class:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"------------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">OuterClass</span> outerObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OuterClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">OuterClass<span class="token punctuation">.</span>InnerClass</span> innerObject <span class="token operator">=</span> outerObject<span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">InnerClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        innerObject<span class="token punctuation">.</span><span class="token function">accessMembers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"\nStatic nested class:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"----------------------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">StaticNestedClass</span> staticNestedObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StaticNestedClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        staticNestedObject<span class="token punctuation">.</span><span class="token function">accessMembers</span><span class="token punctuation">(</span>outerObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"\nTop-level class:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"------------------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">TopLevelClass</span> topLevelClass <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TopLevelClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        topLevelClass<span class="token punctuation">.</span><span class="token function">accessMembers</span><span class="token punctuation">(</span>outerObject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="TopLevelClass-java"><a href="#TopLevelClass-java" class="headerlink" title="TopLevelClass.java"></a>TopLevelClass.java</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TopLevelClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">accessMembers</span><span class="token punctuation">(</span><span class="token class-name">OuterClass</span> outer<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>outerField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">OuterClass</span><span class="token punctuation">.</span>staticOuterField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个例子打印如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Inner class:
+------------
+Outer field
+Static outer field
+
+Static nested class:
+----------------------
+Outer field
+Static outer field
+
+Top-level class:
+------------------
+Outer field
+Static outer field<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意，静态嵌套类与外部类的实例成员交互的方式与任何其他顶级类相同。静态嵌套类 <font color="#eb8a43">StaticNestedClass</font> 无法直接访问 <font color="#eb8a43">outerField</font>，因为它是外部类 <font color="#eb8a43">OuterClass</font> 的实例变量。Java 编译器会在高亮语句处生成错误：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">StaticNestedClass</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">accessMembers</span><span class="token punctuation">(</span><span class="token class-name">OuterClass</span> outer<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token comment">// Compiler error: Cannot make a static reference to the non-static</span>
+       <span class="token comment">//     field outerField</span>
+       <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>outerField<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>要修复此错误，请通过对象引用访问 <font color="#eb8a43">outerField</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>outer<span class="token punctuation">.</span>outerField<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>同样地，顶级类 <font color="#eb8a43">TopLevelClass</font> 也无法直接访问 <font color="#eb8a43">outerField</font>。</p>
+<h3 id="Shadowing-覆盖？"><a href="#Shadowing-覆盖？" class="headerlink" title="Shadowing(覆盖？)"></a>Shadowing(覆盖？)</h3><p>Shadowing 翻译成什么比较合适？变量遮蔽？变量屏蔽？<br>若某类型声明（如成员变量或参数名）在特定作用域（如内部类或方法定义）中与外部作用域的声明同名，则该声明将遮蔽外部作用域的声明。仅凭名称无法直接引用被遮蔽的声明。以下示例 <font color="#eb8a43">ShadowTest</font> 演示了此特性：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ShadowTest</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">class</span> <span class="token class-name">FirstLevel</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">public</span> <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">void</span> <span class="token function">methodInFirstLevel</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"x = "</span> <span class="token operator">+</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"this.x = "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ShadowTest.this.x = "</span> <span class="token operator">+</span> <span class="token class-name">ShadowTest</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">ShadowTest</span> st <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ShadowTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">ShadowTest<span class="token punctuation">.</span>FirstLevel</span> fl <span class="token operator">=</span> st<span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">FirstLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fl<span class="token punctuation">.</span><span class="token function">methodInFirstLevel</span><span class="token punctuation">(</span><span class="token number">23</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>程序输出如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">x <span class="token operator">=</span> <span class="token number">23</span>
+this.x <span class="token operator">=</span> <span class="token number">1</span>
+ShadowTest.this.x <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>此示例定义了三个名为 x 的变量：<font color="#eb8a43">ShadowTest</font> 类的成员变量、内部类 <font color="#eb8a43">FirstLevel</font> 的成员变量，以及 <font color="#eb8a43">methodInFirstLevel()</font> 方法中的参数。作为 <font color="#eb8a43">methodInFirstLevel()</font> 方法参数定义的变量 x 会遮蔽内部类 <font color="#eb8a43">FirstLevel</font> 中的变量。因此，在 <font color="#eb8a43">methodInFirstLevel()</font> 方法中使用变量 <font color="#eb8a43">x</font> 时，它将指向方法参数。若要引用内部类 <font color="#eb8a43">FirstLevel</font> 的成员变量，需使用 <font color="#eb8a43">this</font> 关键字表示外部作用域：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"this.x = "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>访问包含更大作用域的成员变量时，需通过其所属的类名进行引用。例如，以下语句从方法 <font color="#eb8a43">methodInFirstLevel()</font> 中访问类 <font color="#eb8a43">ShadowTest</font> 的成员变量：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"ShadowTest.this.x = "</span> <span class="token operator">+</span> <span class="token class-name">ShadowTest</span><span class="token punctuation">.</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>强烈不建议序列化内部类，包括局部类和匿名类。当Java编译器编译某些构造（如内部类）时，会生成合成构造；这些构造包括类、方法、字段及其他在源代码中没有对应构造的元素。合成构造使Java编译器能够在不修改JVM的情况下实现新的Java语言特性。然而，不同Java编译器实现的合成结构可能存在差异，这意味着.class文件在不同实现中也可能不同。因此，若将内部类序列化后再用其他JRE实现反序列化，可能会引发兼容性问题。</p>
+<h2 id="内部类的例子"><a href="#内部类的例子" class="headerlink" title="内部类的例子"></a>内部类的例子</h2><p>要了解内部类的用法，首先考虑数组。在下面的示例中，你创建一个数组，用整数值填充它，然后按升序输出数组中偶数索引的值。<br>以下示例 <font color="#eb8a43">DataStructure.java</font> 包含：</p>
+<ul>
+<li><font color="#eb8a43">DataStructure</font> 外层类包含一个构造函数，用于创建一个包含连续整数值数组（0、1、2、3 等）的 <font color="#eb8a43">DataStructure</font> 实例，以及一个打印数组中偶数索引值元素的方法。</li>
+<li><font color="#eb8a43">EvenIterator</font> 内部类实现了 <font color="#eb8a43">DataStructureIterator</font> 接口，该接口继承自 <font color="#eb8a43">Iterator<Integer></font> 接口。迭代器用于遍历数据结构，通常包含用于检测最后一个元素、获取当前元素以及移至下一个元素的方法。</li>
+<li>一个主要方法，该方法实例化一个 <font color="#eb8a43">DataStructure</font> 对象（ds），然后调用 <font color="#eb8a43">printEven()</font> 方法来打印数组 <font color="#eb8a43">arrayOfInts</font> 中具有偶数索引值的元素。</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DataStructure</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">// Create an array</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token constant">SIZE</span> <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arrayOfInts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token constant">SIZE</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">DataStructure</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Fill the array with ascending integer values</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token constant">SIZE</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            arrayOfInts<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// Print out values of even indices of the array</span>
+        <span class="token class-name">DataStructureIterator</span> iterator <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">EvenIterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">interface</span> <span class="token class-name">DataStructureIterator</span> <span class="token keyword">extends</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">EvenIterator</span> <span class="token keyword">implements</span> <span class="token class-name">DataStructureIterator</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token comment">// Start stepping through the array from the beginning</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> nextIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// Check if the current element is the last in the array</span>
+            <span class="token keyword">return</span> <span class="token punctuation">(</span>nextIndex <span class="token operator">&lt;=</span> <span class="token constant">SIZE</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token class-name">Integer</span> <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// Record a value of an even index of the array</span>
+            <span class="token class-name">Integer</span> retValue <span class="token operator">=</span> arrayOfInts<span class="token punctuation">[</span>nextIndex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+            <span class="token comment">// Get the next even element</span>
+            nextIndex <span class="token operator">+=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> retValue<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token comment">// Fill the array with integer values and print out only values of even indices</span>
+        <span class="token class-name">DataStructure</span> ds <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DataStructure</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ds<span class="token punctuation">.</span><span class="token function">printEven</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">0</span> <span class="token number">2</span> <span class="token number">4</span> <span class="token number">6</span> <span class="token number">8</span> <span class="token number">10</span> <span class="token number">12</span> <span class="token number">14</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>请注意，<font color="#eb8a43">EvenIterator</font> 类直接引用了 <font color="#eb8a43">DataStructure</font> 对象的 <font color="#eb8a43">arrayOfInts</font> 实例变量。<br>你可以使用内部类来实现辅助类，例如本示例中所示的类。要处理用户界面事件，你必须掌握内部类的使用方法，因为事件处理机制大量依赖于它们。</p>
+<h3 id="局部和匿名类"><a href="#局部和匿名类" class="headerlink" title="局部和匿名类"></a>局部和匿名类</h3><p>还有两种额外的内部类类型。你可以在方法体内声明内部类，这类类称为局部类。你也可以在方法体内声明不命名类名的内部类，这类类称为匿名类。</p>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>对于内部类，你可以使用与外部类其他成员相同的修饰符。例如，你可以使用访问限定符 <font color="#eb8a43">private、public</font> 和 <font color="#eb8a43">protected</font> 来限制对内部类的访问，就像你使用它们来限制对其他类成员的访问一样。</p>
+<h2 id="Local-Classes-局部类"><a href="#Local-Classes-局部类" class="headerlink" title="Local Classes(局部类)"></a>Local Classes(局部类)</h2><p>局部类是在代码块中定义的类，代码块是指由大括号括起的零个或多个语句组成的集合。通常在方法主体中会定义局部类。</p>
+<p>本节涵盖以下主题：</p>
+<ul>
+<li>局部类的定义</li>
+<li>访问外围类的成员</li>
+<li>局部类的屏蔽</li>
+<li>局部类与内部类的相似之处</li>
+</ul>
+<h3 id="声明一个局部类"><a href="#声明一个局部类" class="headerlink" title="声明一个局部类"></a>声明一个局部类</h3><p>您可以在任何代码块内定义局部类（更多信息请参阅表达式、语句和代码块）。例如，您可以在方法主体、for循环或if子句中定义局部类。<br>以下示例 <font color="#eb8a43">LocalClassExample</font> 用于验证两个电话号码。它在 <font color="#eb8a43">validatePhoneNumber()</font> 方法中定义了本地类 <font color="#eb8a43">PhoneNumber</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LocalClassDemo</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">static</span> <span class="token class-name">String</span> regularExpression <span class="token operator">=</span> <span class="token string">"[^0-9]"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">validatePhoneNumber</span><span class="token punctuation">(</span><span class="token class-name">String</span> phoneNumber1<span class="token punctuation">,</span> <span class="token class-name">String</span> phoneNumber2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">final</span> <span class="token keyword">int</span> numberLength <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">class</span> <span class="token class-name">PhoneNumber</span> <span class="token punctuation">&#123;</span>
+
+            <span class="token class-name">String</span> formattedPhoneNumber <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+            <span class="token class-name">PhoneNumber</span><span class="token punctuation">(</span><span class="token class-name">String</span> phoneNumber<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token comment">// numberLength = 7;</span>
+                <span class="token class-name">String</span> currentNumber <span class="token operator">=</span> phoneNumber<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span>
+                        regularExpression<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>currentNumber<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> numberLength<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    formattedPhoneNumber <span class="token operator">=</span> currentNumber<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+                    formattedPhoneNumber <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> formattedPhoneNumber<span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">PhoneNumber</span> myNumber1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PhoneNumber</span><span class="token punctuation">(</span>phoneNumber1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">PhoneNumber</span> myNumber2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PhoneNumber</span><span class="token punctuation">(</span>phoneNumber2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>myNumber1<span class="token punctuation">.</span><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"First number is invalid"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"First number is "</span> <span class="token operator">+</span> myNumber1<span class="token punctuation">.</span><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>myNumber2<span class="token punctuation">.</span><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Second number is invalid"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Second number is "</span> <span class="token operator">+</span> myNumber2<span class="token punctuation">.</span><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">validatePhoneNumber</span><span class="token punctuation">(</span><span class="token string">"123-456-7890"</span><span class="token punctuation">,</span> <span class="token string">"456-7890"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>该示例通过以下步骤验证电话号码：首先移除电话号码中除0至9数字外的所有字符，随后检查电话号码是否恰好包含十位数字（北美电话号码的长度）。该示例输出如下内容：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">First number is <span class="token number">1234567890</span>
+Second number is invalid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="访问外围类的成员"><a href="#访问外围类的成员" class="headerlink" title="访问外围类的成员"></a>访问外围类的成员</h3><p>局部类可以访问其外围类的成员。在上例中，<font color="#eb8a43">PhoneNumber()</font> 构造函数访问了成员 <font color="#eb8a43">LocalClassExample.regularExpression</font> 。<br>此外，局部类可以访问局部变量。但局部类仅能访问声明为 <font color="#eb8a43">final</font> 的局部变量。当局部类访问其外围代码块的局部变量或参数时，会捕获该变量或参数。例如，<font color="#eb8a43">PhoneNumber()</font> 构造函数能访问局部变量 <font color="#eb8a43">numberLength</font>，因为该变量声明为 <font color="#eb8a43">final</font>； <font color="#eb8a43">numberLength</font> 即为被捕获的变量。</p>
+<p>然而，从 Java SE 8 开始，局部类可以访问其外围代码块中具有 <font color="#eb8a43">final</font> 或实质上 <font color="#eb8a43">final</font> 属性的局部变量和参数。初始化后值永不改变的变量或参数即具有实质上 final 的属性。例如，假设变量 <font color="#eb8a43">numberLength</font> 未声明为 <font color="#eb8a43">final</font>，若在 <font color="#eb8a43">PhoneNumber()</font> 构造函数中添加高亮显示的赋值语句，将有效电话号码的长度改为 7 位：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">PhoneNumber</span><span class="token punctuation">(</span><span class="token class-name">String</span> phoneNumber<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    numberLength <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> currentNumber <span class="token operator">=</span> phoneNumber<span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span>
+        regularExpression<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>currentNumber<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> numberLength<span class="token punctuation">)</span>
+        formattedPhoneNumber <span class="token operator">=</span> currentNumber<span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        formattedPhoneNumber <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由于这个赋值语句，变量 <font color="#eb8a43">numberLength</font> 实际上不再是 <font color="#eb8a43">final</font> 类型。因此，当内部类 <font color="#eb8a43">PhoneNumber</font> 尝试访问 <font color="#eb8a43">numberLength</font> 变量时，Java 编译器会生成类似于“从内部类引用的局部变量必须是 final 或实际上是 final”的错误信息：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span>currentNumber<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> numberLength<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>从 Java SE 8 开始，若在方法中声明局部类，该局部类即可访问方法的参数。例如，您可以在 <font color="#eb8a43">PhoneNumber</font> 局部类中定义以下方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printOriginalNumbers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Original numbers are "</span> <span class="token operator">+</span> phoneNumber1 <span class="token operator">+</span>
+        <span class="token string">" and "</span> <span class="token operator">+</span> phoneNumber2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法 <font color="#eb8a43">printOriginalNumbers()</font> 访问了方法 <font color="#eb8a43">validatePhoneNumber()</font> 的参数 <font color="#eb8a43">phoneNumber1</font> 和 <font color="#eb8a43">phoneNumber2</font>。</p>
+<p>局部类中声明的类型（如变量）会遮蔽外部作用域中同名的声明。更多信息请参阅遮蔽机制。</p>
+<h3 id="局部类与内部类的相似之处"><a href="#局部类与内部类的相似之处" class="headerlink" title="局部类与内部类的相似之处"></a>局部类与内部类的相似之处</h3><p>局部类与内部类类似，因为它们无法定义或声明任何静态成员。在静态方法中定义的局部类（例如在 <font color="#eb8a43">validatePhoneNumber()</font> 静态方法中定义的 PhoneNumber 类）只能引用其外围类的静态成员。例如，若未将成员变量 <font color="#eb8a43">regularExpression</font> 声明为静态，Java 编译器将报错，提示类似于“非静态变量 <font color="#eb8a43">regularExpression</font> 无法从静态上下文中引用”。<br>局部类是非静态的，因为它们能够访问包含它们的代码块的实例成员。因此，它们不能包含大多数类型的静态声明。<br>你不能在代码块内部声明接口；接口本质上是静态的。例如，以下代码片段无法编译，因为接口 HelloThere 被定义在方法 greetInEnglish() 的主体内部：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetInEnglish</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">interface</span> <span class="token class-name">HelloThere</span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">class</span> <span class="token class-name">EnglishHelloThere</span> <span class="token keyword">implements</span> <span class="token class-name">HelloThere</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Hello "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token class-name">HelloThere</span> myGreeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnglishHelloThere</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    myGreeting<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在局部类中不能声明静态初始化器或成员接口。以下代码片段无法编译，因为方法 <font color="#eb8a43">EnglishGoodbye.sayGoodbye()</font> 被声明为静态。当编译器遇到该方法定义时，会生成类似于”修饰符 <font color="#eb8a43">static</font> 仅允许用于常量变量声明”的错误：</p>
+<p>本地类可以包含静态成员，前提是这些成员必须是常量变量。（常量变量是指声明为 <font color="#eb8a43">final</font> 并使用编译时常量表达式初始化的基本类型或 <font color="#eb8a43">String</font> 类型的变量。编译时常量表达式通常是字符串或可在编译时求值的算术表达式。更多信息请参阅《理解类成员》。）以下代码片段能够编译，因为静态成员 <font color="#eb8a43">EnglishGoodbye.farewell</font> 是常量变量：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sayGoodbyeInEnglish</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">class</span> <span class="token class-name">EnglishGoodbye</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">String</span> farewell <span class="token operator">=</span> <span class="token string">"Bye bye"</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sayGoodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>farewell<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token class-name">EnglishGoodbye</span> myEnglishGoodbye <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnglishGoodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    myEnglishGoodbye<span class="token punctuation">.</span><span class="token function">sayGoodbye</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em><strong>局部类的使用频率远低于静态内部类和匿名内部类。</strong></em></p>
+<h2 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h2><p>匿名类能让你的代码更简洁。它们允许你在声明类的同时直接实例化该类。它们类似于局部类，但没有名称。当你需要仅使用局部类一次时，可以采用这种方式。</p>
+<h3 id="声明匿名类"><a href="#声明匿名类" class="headerlink" title="声明匿名类"></a>声明匿名类</h3><p>局部类是类声明，而匿名类则是表达式，这意味着你需要在另一个表达式中定义该类。以下示例 <font color="#eb8a43">HelloWorldAnonymousClasses</font> 在局部变量 <font color="#eb8a43">frenchGreeting</font> 和 <font color="#eb8a43">spanishGreeting</font> 的初始化语句中使用了匿名类，但变量 <font color="#eb8a43">englishGreeting</font> 的初始化则使用了局部类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorldAnonymousClasses</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">interface</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token class-name">String</span> someone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+        <span class="token keyword">class</span> <span class="token class-name">EnglishGreeting</span> <span class="token keyword">implements</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">&#123;</span>
+
+            <span class="token class-name">String</span> name <span class="token operator">=</span> <span class="token string">"world"</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token class-name">String</span> someone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                name <span class="token operator">=</span> someone<span class="token punctuation">;</span>
+                <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Hello "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">HelloWorld</span> englishGreeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnglishGreeting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">HelloWorld</span> frenchGreeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">String</span> name <span class="token operator">=</span> <span class="token string">"tout le monde"</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token string">"tout le monde"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token class-name">String</span> someone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                name <span class="token operator">=</span> someone<span class="token punctuation">;</span>
+                <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Salut "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+        <span class="token class-name">HelloWorld</span> spanishGreeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">String</span> name <span class="token operator">=</span> <span class="token string">"mundo"</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token string">"mundo"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token class-name">String</span> someone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                name <span class="token operator">=</span> someone<span class="token punctuation">;</span>
+                <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Hola "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+        englishGreeting<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        frenchGreeting<span class="token punctuation">.</span><span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token string">"Fred"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        spanishGreeting<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">HelloWorldAnonymousClasses</span> myApp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorldAnonymousClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        myApp<span class="token punctuation">.</span><span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如前所述，匿名类是一种表达式。匿名类表达式的语法类似于构造函数的调用，区别在于其中包含一段代码块定义的类。<br>考虑 <font color="#eb8a43">frenchGreeting</font> 对象的实例化过程：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">HelloWorld</span> frenchGreeting <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HelloWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">String</span> name <span class="token operator">=</span> <span class="token string">"tout le monde"</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token string">"tout le monde"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">greetSomeone</span><span class="token punctuation">(</span><span class="token class-name">String</span> someone<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        name <span class="token operator">=</span> someone<span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Salut "</span> <span class="token operator">+</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>匿名类表达式由以下部分组成：</p>
+<ul>
+<li><font color="#eb8a43">new</font> 操作符</li>
+<li>要实现的接口名称或要扩展的类名称。在此示例中，匿名类实现了接口 <font color="#eb8a43">HelloWorld</font> 。</li>
+<li>括号中包含构造函数的参数，就像普通的类实例创建表达式一样。注意：当你实现接口时，没有构造函数，因此使用一对空括号，如本例所示。</li>
+<li>主体，即类声明主体。更具体地说，在主体中允许方法声明，但不允许语句。</li>
+<li>由于匿名类定义是一个表达式，它必须作为语句的一部分存在。在此示例中，匿名类表达式是实例化 <font color="#eb8a43">frenchGreeting</font> 对象的语句组成部分。（这解释了为何闭合大括号后需要分号。）</li>
+</ul>
+<h3 id="访问外围作用域的局部变量，以及声明和访问匿名类的成员"><a href="#访问外围作用域的局部变量，以及声明和访问匿名类的成员" class="headerlink" title="访问外围作用域的局部变量，以及声明和访问匿名类的成员"></a>访问外围作用域的局部变量，以及声明和访问匿名类的成员</h3><p>与局部类类似，匿名类可以捕获变量；它们对包含作用域的局部变量具有相同的访问权限：</p>
+<ul>
+<li>匿名类可以访问其外围类的成员。</li>
+<li>匿名类无法访问其外围作用域中未声明为final或实质上为final的局部变量。</li>
+<li>与嵌套类类似，在匿名类中声明的类型（如变量）会遮蔽外部作用域中所有同名声明。更多信息请参阅遮蔽机制。</li>
+</ul>
+<p>匿名类在其成员方面也与局部类具有相同的限制：</p>
+<ul>
+<li>在匿名类中不能声明静态初始化器或成员接口。</li>
+<li>匿名类可以包含静态成员，前提是这些成员必须是常量变量。</li>
+</ul>
+<p>请注意，您可以在匿名类中声明以下内容：</p>
+<ul>
+<li>字段</li>
+<li>额外方法（即使它们未实现任何超类的成员方法）</li>
+<li>实例初始化器</li>
+<li>局部类</li>
+</ul>
+<p>然而，你无法在匿名类中声明构造函数。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/nested-classes/" title="嵌套类">http://billtsui.cn/technology/java/nested-classes/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/technology/java/more-on-classes/" rel="prev" title="更多关于类的内容">
+                  <i class="fa fa-angle-left"></i> 更多关于类的内容
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/technology/java/enums/" rel="next" title="枚举类型">
+                  枚举类型 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
