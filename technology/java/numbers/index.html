@@ -20,16 +20,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="本节首先讨论 java.lang 包中的 Number 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。 本节还介绍了 PrintStream 和 DecimalFormat 类，它们提供了用于写入格式化数值输出的方法。">
+    <meta name="description" content="数值本节首先讨论 java.lang 包中的 Number 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。 本节还介绍了 PrintStream 和 DecimalFormat 类，它们提供了用于写入格式化数值输出的方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数字">
+<meta property="og:title" content="数值">
 <meta property="og:url" content="http://billtsui.cn/technology/java/numbers/index.html">
 <meta property="og:site_name" content="Real 焜">
-<meta property="og:description" content="本节首先讨论 java.lang 包中的 Number 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。 本节还介绍了 PrintStream 和 DecimalFormat 类，它们提供了用于写入格式化数值输出的方法。">
+<meta property="og:description" content="数值本节首先讨论 java.lang 包中的 Number 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。 本节还介绍了 PrintStream 和 DecimalFormat 类，它们提供了用于写入格式化数值输出的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://dev.java/assets/images/numbers-strings/01_numbers.png">
 <meta property="article:published_time" content="2025-11-24T05:24:38.000Z">
-<meta property="article:modified_time" content="2025-11-24T12:10:11.964Z">
+<meta property="article:modified_time" content="2025-11-26T07:03:36.916Z">
 <meta property="article:author" content="Bill Tsui">
 <meta property="article:tag" content="Java Programming Language">
 <meta name="twitter:card" content="summary">
@@ -39,10 +39,10 @@
 <link rel="canonical" href="http://billtsui.cn/technology/java/numbers/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/numbers/","path":"/technology/java/numbers/","title":"数字"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/numbers/","path":"/technology/java/numbers/","title":"数值"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>数字 | Real 焜</title>
+<title>数值 | Real 焜</title>
   
 
 
@@ -162,7 +162,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -175,6 +175,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%95%B0%E5%80%BC%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">格式化数值打印输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Printf-%E5%92%8C-Format-%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">Printf 和 Format 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">2.2.</span> <span class="nav-text">一个例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DecimalFormat-%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">DecimalFormat 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E8%B6%8A%E5%9F%BA%E7%A1%80%E7%AE%97%E6%9C%AF"><span class="nav-number">4.</span> <span class="nav-text">超越基础算术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">常量与基本方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="nav-number">4.2.</span> <span class="nav-text">计算绝对值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5%E4%B8%80%E4%B8%AA%E5%80%BC"><span class="nav-number">4.3.</span> <span class="nav-text">四舍五入一个值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E6%95%B0%E4%B8%8E%E5%AF%B9%E6%95%B0%E6%96%B9%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">指数与对数方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">随机数</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -255,12 +256,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="数字 | Real 焜">
+      <meta itemprop="name" content="数值 | Real 焜">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          数字
+          数值
         </h1>
 
         <div class="post-meta-container">
@@ -270,9 +271,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-11-24 13:24:38 / 修改时间：20:10:11" itemprop="dateCreated datePublished" datetime="2025-11-24T13:24:38+08:00">2025-11-24</time>
+      <time title="创建时间：2025-11-24 13:24:38" itemprop="dateCreated datePublished" datetime="2025-11-24T13:24:38+08:00">2025-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-26 15:03:36" itemprop="dateModified" datetime="2025-11-26T15:03:36+08:00">2025-11-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -295,14 +302,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>610</span>
+      <span>3.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>13 分钟</span>
     </span>
 </div>
 
@@ -312,7 +319,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>本节首先讨论 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/package-summary.html">java.lang</a> 包中的 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Number.html">Number</a> 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="数值"><a href="#数值" class="headerlink" title="数值"></a>数值</h2><p>本节首先讨论 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/package-summary.html">java.lang</a> 包中的 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Number.html">Number</a> 类及其子类，并说明在哪些情况下应使用这些类的实例化而非基本数值类型。</p>
 <p>本节还介绍了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/PrintStream.html">PrintStream</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/text/DecimalFormat.html">DecimalFormat</a> 类，它们提供了用于写入格式化数值输出的方法。</p>
 <span id="more"></span>
 <p>最后，我们讨论了<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/package-summary.html">java.lang</a> 包中的 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html">Math</a> 类。该类包含数学函数，用于补充语言内置的运算符功能。此类提供了三角函数、指数函数等相关方法。</p>
@@ -351,6 +358,296 @@
 <li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Short.html#compareTo(java.lang.Short)">int compareTo(Short anotherShort)</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html#equals(java.lang.Object)">boolean equals(Object obj)</a></li>
 </ul>
+<p><font color="#eb8a43">equals(Object obj)</font> 方法用于判断该数字对象是否与参数相等。若参数不为空且与该对象类型相同、数值相等，则该方法返回 <font color="#eb8a43">true</font>。对于 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Double.html">Double</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Float.html">Float</a> 对象，Java API 文档中还规定了额外要求。</p>
+<p>每个 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Number.html">Number</a> 类都包含其他方法，这些方法可用于将数字转换为字符串或从字符串转换为数字，以及在不同数制之间进行转换。下表列出了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html">Integer</a> 类中的这些方法。其他 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Number.html">Number</a> 子类的方法与此类似：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">static Integer decode(String s)</td>
+<td align="center">将字符串解码为整数。可接受十进制、八进制或十六进制数字的字符串表示形式作为输入。</td>
+</tr>
+<tr>
+<td align="center">static int parseInt(String s)</td>
+<td align="center">返回一个整数（仅限十进制）。</td>
+</tr>
+<tr>
+<td align="center">static int parseInt(String s, int radix)</td>
+<td align="center">根据输入的十进制、二进制、八进制或十六进制（基数分别为10、2、8或16）数字的字符串表示形式，返回一个整数。</td>
+</tr>
+<tr>
+<td align="center">String toString()</td>
+<td align="center">返回一个字符串对象，表示此整数的值。</td>
+</tr>
+<tr>
+<td align="center">static String toString(int i)</td>
+<td align="center">返回一个字符串对象，表示指定的整数。</td>
+</tr>
+<tr>
+<td align="center">static Integer valueOf(int i)</td>
+<td align="center">返回一个整数对象，该对象持有指定基本数据类型的值。</td>
+</tr>
+<tr>
+<td align="center">static Integer valueOf(String s)</td>
+<td align="center">返回一个整数对象，该对象持有指定字符串表示形式的值。</td>
+</tr>
+<tr>
+<td align="center">static Integer valueOf(String s, int radix)</td>
+<td align="center">返回一个Integer对象，该对象包含指定字符串表示形式的整数值，该值使用基数参数进行解析。例如，若s &#x3D; “333”且基数 &#x3D; 8，则该方法返回八进制数333对应的十进制整数值。</td>
+</tr>
+</tbody></table>
+<h2 id="格式化数值打印输出"><a href="#格式化数值打印输出" class="headerlink" title="格式化数值打印输出"></a>格式化数值打印输出</h2><p>先前您已看到使用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/PrintStream.html#print(int)">print</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/PrintStream.html#println(int)">println</a>方法将字符串输出到标准输出 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/System.html#out">System.out</a> 的用法（这篇文章是2021年写的，当时还没有<code>IO.println()</code>方法，所以这里还是<code>System.out</code>方法）。由于所有数字均可转换为字符串，您可利用这些方法输出任意混合的字符串与数字。然而Java编程语言还提供了其他方法，当输出包含数字时，这些方法能让您对打印结果实现更精细的控制。</p>
+<h3 id="Printf-和-Format-方法"><a href="#Printf-和-Format-方法" class="headerlink" title="Printf 和 Format 方法"></a>Printf 和 Format 方法</h3><p>java.io 包包含一个 PrintStream 类，该类提供了两个格式化方法，可用于替代 print 和 println。这两个方法 format 和 printf 功能等效。你一直使用的 System.out 恰好是一个 PrintStream 对象，因此可以在 System.out 上调用 PrintStream 的方法。这样，在代码中任何原本使用 print 或 println 的位置，你都可以改用 format 或 printf。例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这两个 java.io.PrintStream 方法的语法相同：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">PrintStream</span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token class-name">String</span> format<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中 format 是指定格式化样式的字符串，args 是采用该格式化样式打印的变量列表。一个简单的示例如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"The value of "</span> <span class="token operator">+</span> <span class="token string">"the float variable is "</span> <span class="token operator">+</span>
+     <span class="token string">"%f, while the value of the "</span> <span class="token operator">+</span> <span class="token string">"integer variable is %d, "</span> <span class="token operator">+</span>
+     <span class="token string">"and the string is %s"</span><span class="token punctuation">,</span> floatVar<span class="token punctuation">,</span> intVar<span class="token punctuation">,</span> stringVar<span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>第一个参数 format 是一个格式字符串，用于指定如何格式化第二个参数 args 中的对象。该格式字符串包含纯文本以及格式指定符——这些特殊字符用于格式化 Object… args 的参数。（Object… args 的表示法称为 varargs，表示参数数量可能变化。）<br>格式指定符以百分号(%)开头，以转换符结尾。转换符是一个字符，用于指示待格式化的参数类型。在百分号(%)与转换符之间，可选地包含标志符和指定符。转换符、标志符和指定符种类繁多，其详细说明详见<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Formatter.html">java.util.Formatter</a>类文档。</p>
+<p>示例如下:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">461012</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"The value of i is: %d%n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">%d</font> 指定该单一变量为十进制整数。<font color="#eb8a43">%n</font> 是平台无关的换行符。输出结果为：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">The</span> value of i is<span class="token operator">:</span> <span class="token number">461012</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>printf 和 format 方法具有重载特性。每种方法都包含以下语法的版本：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">PrintStream</span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token class-name">Locale</span> l<span class="token punctuation">,</span> <span class="token class-name">String</span> format<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> args<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>要按法语系统打印数字（该系统使用逗号代替英语浮点数表示法中的小数点），例如，可使用：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token class-name">Locale</span><span class="token punctuation">.</span><span class="token constant">FRANCE</span><span class="token punctuation">,</span>
+    <span class="token string">"The value of the float "</span> <span class="token operator">+</span> <span class="token string">"variable is %f, while the "</span> <span class="token operator">+</span>
+    <span class="token string">"value of the integer variable "</span> <span class="token operator">+</span> <span class="token string">"is %d, and the string is %s%n"</span><span class="token punctuation">,</span> 
+    floatVar<span class="token punctuation">,</span> intVar<span class="token punctuation">,</span> stringVar<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>下表列出了在随后的示例程序 <font color="#eb8a43">TestFormat.java</font> 中使用的部分转换器和标志。</p>
+<table>
+<thead>
+<tr>
+<th align="center">转换器</th>
+<th align="center">标志位</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">d</td>
+<td align="center"></td>
+<td align="center">十进制整数</td>
+</tr>
+<tr>
+<td align="center">f</td>
+<td align="center"></td>
+<td align="center">浮点数</td>
+</tr>
+<tr>
+<td align="center">n</td>
+<td align="center"></td>
+<td align="center">适用于运行应用程序的平台的新行字符。应始终使用 %n，而非 \n。</td>
+</tr>
+<tr>
+<td align="center">tB</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——特定区域的月份全称。</td>
+</tr>
+<tr>
+<td align="center">td,te</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——月内日期采用两位数表示。<br>td格式会根据需要添加前导零，te格式则不添加。</td>
+</tr>
+<tr>
+<td align="center">ty,tY</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——ty &#x3D; 2位年份，tY &#x3D; 4位年份。</td>
+</tr>
+<tr>
+<td align="center">tl</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——12小时制中的小时。</td>
+</tr>
+<tr>
+<td align="center">tM</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——分钟采用两位数表示，必要时补零。</td>
+</tr>
+<tr>
+<td align="center">tp</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——区域设置特定的上午&#x2F;下午（小写）。</td>
+</tr>
+<tr>
+<td align="center">tm</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——月份采用两位数表示，必要时补零。</td>
+</tr>
+<tr>
+<td align="center">tD</td>
+<td align="center"></td>
+<td align="center">日期与时间转换——等同于 %tm&#x2F;%td&#x2F;%ty 格式。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">08</td>
+<td align="center">宽度为八个字符，必要时补零。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">+</td>
+<td align="center">包含符号，无论是正号还是负号。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">,</td>
+<td align="center">包含特定区域设置的分组字符。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center">左对齐。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">.3</td>
+<td align="center">小数点后保留3位。</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">10.3</td>
+<td align="center">宽度为10个字符，小数点后保留3位。</td>
+</tr>
+</tbody></table>
+<p>以下程序展示了使用format函数可实现的部分格式化效果。运行程序后自行查看输出结果：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestFormat</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> n <span class="token operator">=</span> <span class="token number">461012</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%d%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%08d%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%+8d%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%-8d%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%,8d%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%+,8d%n%n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">double</span> pi <span class="token operator">=</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token constant">PI</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%f%n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%.3f%n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%10.3f%n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%-10.3f%n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token class-name">Locale</span><span class="token punctuation">.</span><span class="token constant">FRANCE</span><span class="token punctuation">,</span><span class="token string">"%-10.4f%n%n"</span><span class="token punctuation">,</span> pi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">Calendar</span> c <span class="token operator">=</span> <span class="token class-name">Calendar</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%tB %te, %tY%n"</span><span class="token punctuation">,</span> c<span class="token punctuation">,</span> c<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%tl:%tM %tp%n"</span><span class="token punctuation">,</span> c<span class="token punctuation">,</span>  c<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"%tD%n"</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>注：本节讨论仅涉及格式化和<code>printf</code>方法的基础知识。更多细节可参阅本教程中”基本输入输出”部分的”格式化”页面。使用<code>String.format()</code>创建字符串的内容详见字符串章节。</p>
+</blockquote>
+<h2 id="DecimalFormat-类"><a href="#DecimalFormat-类" class="headerlink" title="DecimalFormat 类"></a>DecimalFormat 类</h2><p>您可以使用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/text/DecimalFormat.html">java.text.DecimalFormat</a> 类来控制数字显示方式，包括控制前导零和尾随零的显示、添加前缀和后缀、设置千位分隔符以及小数点分隔符。<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/text/DecimalFormat.html">DecimalFormat</a> 在数字格式化方面提供了极大的灵活性，但可能会增加代码的复杂性。<br>下面的示例通过向 DecimalFormat 构造函数传递模式字符串来创建一个 DecimalFormat 对象 <font color="#eb8a43">myFormatter</font>。随后由 <font color="#eb8a43">myFormatter</font> 调用格式化方法（该方法由 DecimalFormat 继承自 NumberFormat），该方法接受一个 double 值作为参数，并返回格式化后的数字字符串。</p>
+<p>以下是一个演示DecimalFormat用法示例程序：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DecimalFormatDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">customFormat</span><span class="token punctuation">(</span><span class="token string">"###,###.###"</span><span class="token punctuation">,</span> <span class="token number">123456.789</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">customFormat</span><span class="token punctuation">(</span><span class="token string">"###.##"</span><span class="token punctuation">,</span> <span class="token number">123456.789</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">customFormat</span><span class="token punctuation">(</span><span class="token string">"$###,###.###"</span><span class="token punctuation">,</span> <span class="token number">123456.789</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">customFormat</span><span class="token punctuation">(</span><span class="token string">"000000.000"</span><span class="token punctuation">,</span> <span class="token number">123.78</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">customFormat</span><span class="token punctuation">(</span><span class="token class-name">String</span> pattern<span class="token punctuation">,</span> <span class="token keyword">double</span> value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">DecimalFormat</span> myFormatter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DecimalFormat</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> output <span class="token operator">=</span> myFormatter<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>value <span class="token operator">+</span> <span class="token string">"    "</span> <span class="token operator">+</span> pattern <span class="token operator">+</span> <span class="token string">"    "</span> <span class="token operator">+</span> output<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果为：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token number">123456.789</span>    <span class="token comment">###,###.###    123,456.789</span>
+<span class="token number">123456.789</span>    <span class="token comment">###.##    123456.79</span>
+<span class="token number">123456.789</span>    <span class="token variable">$#</span><span class="token comment">##,###.###    $123,456.789</span>
+<span class="token number">123.78</span>    000000.000    000123.780<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h2 id="超越基础算术"><a href="#超越基础算术" class="headerlink" title="超越基础算术"></a>超越基础算术</h2><p>Java编程语言通过其算术运算符支持基本算术运算：<font color="#eb8a43">+、-、*、&#x2F;</font> 和 <font color="#eb8a43">%</font>。位于 java.lang 包中的 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html">Math</a> 类提供了用于执行更高级数学计算的方法和常量。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html">Math</a> 类中的方法均为静态方法，因此可直接从类中调用，如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">cos</span><span class="token punctuation">(</span>angle<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>注意：使用静态导入语言特性后，无需在每个数学函数前添加 Math 前缀：<font color="#eb8a43">import static java.lang.Math.*</font>; 这使您能够通过简单名称调用 Math 类的方法。例如：<font color="#eb8a43">cos(angle);</font></p>
+</blockquote>
+<h3 id="常量与基本方法"><a href="#常量与基本方法" class="headerlink" title="常量与基本方法"></a>常量与基本方法</h3><p>Math 类定义了两个常量：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#E">Math.E</a>：自然对数的底数，约为 2.718。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#PI">Math.PI</a>: 圆周率</li>
+</ul>
+<p>数学类还包含40多个静态方法。下表列出了若干基本方法。</p>
+<h3 id="计算绝对值"><a href="#计算绝对值" class="headerlink" title="计算绝对值"></a>计算绝对值</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#abs(float)">double abs(double d)</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#abs(float)">float abs(float f)</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#abs(int)">int abs(int i)</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#abs(long)">long abs(long l)</a></li>
+</ul>
+<h3 id="四舍五入一个值"><a href="#四舍五入一个值" class="headerlink" title="四舍五入一个值"></a>四舍五入一个值</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#ceil(double)">double ceil(double d)</a>：返回大于或等于参数的最小整数。以 <font color="#eb8a43">double</font> 类型返回。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#floor(double)">double floor(double d)</a>：返回小于或等于参数的最大整数。返回值为双精度浮点数。以 <font color="#eb8a43">double</font> 类型返回。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#rint(double)">double rint(double d)</a>：返回与参数数值最接近的整数。以 <font color="#eb8a43">double</font> 类型返回。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#round(double)">long round(double d)</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#round(float)">int round(float f)</a>： 返回最接近参数的 <font color="#eb8a43">long</font> 或 <font color="#eb8a43">int</font> 类型值（具体取决于方法的返回类型）。</li>
+</ul>
+<p>后续还列举了很多方法，这里不再展开，可以参考API文档。</p>
+<p>以下程序 <font color="#eb8a43">BasicMathDemo</font> 演示了如何使用其中一些方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BasicMathDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">double</span> a <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">191.635</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> b <span class="token operator">=</span> <span class="token number">43.74</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> c <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">,</span> d <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The absolute value of %.3f is %.3f%n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The ceiling of %.2f is %.0f%n"</span><span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The floor of %.2f is %.0f%n"</span><span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The rint of %.2f is %.0f%n"</span><span class="token punctuation">,</span> b<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">rint</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The max of %d and %d is %d%n"</span><span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The min of %d and %d is %d%n"</span><span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>c<span class="token punctuation">,</span> d<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>程序输出如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The absolute value of <span class="token parameter variable">-191.635</span> is <span class="token number">191.635</span>
+The ceiling of <span class="token number">43.74</span> is <span class="token number">44</span>
+The floor of <span class="token number">43.74</span> is <span class="token number">43</span>
+The rint of <span class="token number">43.74</span> is <span class="token number">44</span>
+The max of <span class="token number">16</span> and <span class="token number">45</span> is <span class="token number">45</span>
+The min of <span class="token number">16</span> and <span class="token number">45</span> is <span class="token number">16</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="指数与对数方法"><a href="#指数与对数方法" class="headerlink" title="指数与对数方法"></a>指数与对数方法</h3><p>下表列出了 Math 类的指数和对数方法。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#exp(double)">double exp(double d)</a>：返回自然对数的底数 e 的幂次，该幂次为参数的值。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#log(double)">double log(double d)</a>：<br>返回参数的自然对数。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#pow(double,double)">double pow(double base, double exponent)</a>：返回以第一个参数为指数，第二个参数为幂次的值。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#sqrt(double)">double sqrt(double d)</a>：返回参数的平方根。</li>
+</ul>
+<p>以下程序 <font color="#eb8a43">ExponentialDemo</font> 将显示自然对数底e的值，然后对随机选取的数值依次调用上表中列出的各项方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ExponentialDemo</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">double</span> x <span class="token operator">=</span> <span class="token number">11.635</span><span class="token punctuation">;</span>
+        <span class="token keyword">double</span> y <span class="token operator">=</span> <span class="token number">2.76</span><span class="token punctuation">;</span>
+        
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The value of e is %.4f%n"</span><span class="token punctuation">,</span> <span class="token class-name">Math<span class="token punctuation">.</span>E</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"exp(%.3f) is %.3f%n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">exp</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"log(%.3f) is %.3f%n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pow(%.3f, %.3f) is %.3f%n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">pow</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sqrt(%.3f) is %.3f%n"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> <span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">The value of e is <span class="token number">2.7183</span>
+exp<span class="token punctuation">(</span><span class="token number">11.635</span><span class="token punctuation">)</span> is <span class="token number">112983.831</span>
+log<span class="token punctuation">(</span><span class="token number">11.635</span><span class="token punctuation">)</span> is <span class="token number">2.454</span>
+pow<span class="token punctuation">(</span><span class="token number">11.635</span>, <span class="token number">2.760</span><span class="token punctuation">)</span> is <span class="token number">874.008</span>
+sqrt<span class="token punctuation">(</span><span class="token number">11.635</span><span class="token punctuation">)</span> is <span class="token number">3.411</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><em><strong>后面还有三角函数的例子，这里就不再继续展开了。</strong></em></p>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#random()">random()</a> 方法返回一个在 0.0 到 1.0 之间伪随机选取的数值。该范围包含 0.0 但不包含 1.0，即满足：<font color="#eb8a43">0.0 &lt;&#x3D; Math.random() &lt; 1.0</font>。若需获取不同范围的数值，可对随机方法返回值进行算术运算。例如要生成 0 到 9 之间的整数，可编写如下代码：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span> number <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>通过将数值乘以10，可能取值的范围变为 <font color="#eb8a43">0.0 ≤ number &lt; 10.0</font>。</p>
+<p>当需要生成单个随机数时，使用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html#random()">Math.random</a> 效果良好。若需生成随机数序列，应创建 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Random.html">java.util.Random</a> 的实例，并调用该对象的方法来生成数值。</p>
 
     </div>
 
@@ -368,7 +665,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://billtsui.cn/technology/java/numbers/" title="数字">http://billtsui.cn/technology/java/numbers/</a>
+      <a href="http://billtsui.cn/technology/java/numbers/" title="数值">http://billtsui.cn/technology/java/numbers/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
