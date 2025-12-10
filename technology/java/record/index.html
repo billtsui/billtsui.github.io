@@ -28,7 +28,7 @@
 <meta property="og:description" content="Java语言提供了多种创建不可变类的方法。最直接的方式可能是创建一个包含final字段和构造函数的final类，用于初始化这些字段。以下是一个此类类的示例。 public class Point &#123;     private final int x;     private final int y;      public Point(int x, int y) &#123;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-11-24T04:55:28.000Z">
-<meta property="article:modified_time" content="2025-11-24T12:10:11.965Z">
+<meta property="article:modified_time" content="2025-12-10T07:10:03.008Z">
 <meta property="article:author" content="Bill Tsui">
 <meta property="article:tag" content="Java Programming Language">
 <meta name="twitter:card" content="summary">
@@ -173,7 +173,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Record%E6%9D%A5%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.</span> <span class="nav-text">使用Record来建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BC%E5%94%A4Record%E6%9D%A5%E8%A7%A3%E6%95%91"><span class="nav-number">1.</span> <span class="nav-text">呼唤Record来解救</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Record%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">Record类型的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8ERecord%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">声明Record的组成部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E5%90%91Record%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">4.</span> <span class="nav-text">无法向Record添加的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%9E%84%E5%BB%BARecord"><span class="nav-number">5.</span> <span class="nav-text">使用规范构造函数构建Record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B4%A7%E5%87%91%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">使用紧凑构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">使用规范构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%BB%BB%E6%84%8F%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">定义任意构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%B8%80%E4%B8%AARecord%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">9.</span> <span class="nav-text">获取一个Record的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96Record"><span class="nav-number">10.</span> <span class="nav-text">序列化Record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%9E%E9%99%85%E7%94%A8%E4%BE%8B%E4%B8%AD%E4%BD%BF%E7%94%A8Record"><span class="nav-number">11.</span> <span class="nav-text">在实际用例中使用Record</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -269,9 +269,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-11-24 12:55:28 / 修改时间：20:10:11" itemprop="dateCreated datePublished" datetime="2025-11-24T12:55:28+08:00">2025-11-24</time>
+      <time title="创建时间：2025-11-24 12:55:28" itemprop="dateCreated datePublished" datetime="2025-11-24T12:55:28+08:00">2025-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-12-10 15:10:03" itemprop="dateModified" datetime="2025-12-10T15:10:03+08:00">2025-12-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,14 +300,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>678</span>
+      <span>3.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -326,7 +332,7 @@
 <p>若需将该类的实例从一个应用程序传递至另一个应用程序（无论是通过网络传输还是文件系统传输），您也可考虑使该类具备序列化能力。若选择此方案，您可能需要添加关于该类实例序列化方式的相关信息。JDK提供了多种控制序列化的方法。</p>
 <p>最终，你的 <font color="#eb8a43">Point</font> 类可能长达上百行，其中大部分是IDE生成的代码，仅仅是为了建模一个需要写入文件的两个整数的不可变聚合。</p>
 <p>为改变这种状况，JDK引入了<code>Record</code>类型。<code>Record</code>类型只需一行代码就能实现这一切。你只需声明记录的状态，其余部分由编译器自动生成。</p>
-<h2 id="使用Record来建模"><a href="#使用Record来建模" class="headerlink" title="使用Record来建模"></a>使用Record来建模</h2><p>Record的存在正是为了帮助你简化这段代码。从Java SE 14开始，你可以编写以下代码：</p>
+<h2 id="呼唤Record来解救"><a href="#呼唤Record来解救" class="headerlink" title="呼唤Record来解救"></a>呼唤Record来解救</h2><p>Record的存在正是为了帮助你简化这段代码。从Java SE 14开始，你可以编写以下代码：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这行代码为您创建了以下元素。</p>
 <ol>
@@ -336,7 +342,149 @@
 <li>它可以实现 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html">Serializable</a> 接口，从而能够通过网络或文件系统将Point实例发送至其他应用程序。记录的序列化和反序列化过程遵循特定规则，这些规则将在本教程末尾进行说明。</li>
 </ol>
 <p>Record 使创建不可变数据集合变得更加简单，无需任何IDE的辅助。它降低了出现错误的风险，因为每次修改记录的组件时，编译器都会自动为您更新 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)">equals()</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html#hashCode()">hashCode()</a> 方法。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
+<h2 id="Record类型的类"><a href="#Record类型的类" class="headerlink" title="Record类型的类"></a>Record类型的类</h2><p>记录是用 <font color="#eb8a43">record</font> 关键字而不是 <font color="#eb8a43">“class</font> 关键字声明的类。让我们声明以下记录。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当你创建记录时，编译器为你生成的类是final的。<br>该类继承自 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html">java.lang.Record</a> 类。因此您的记录类不能继承任何其他类。<br>一个记录可以实现任意数量的接口。</p>
+<h2 id="声明Record的组成部分"><a href="#声明Record的组成部分" class="headerlink" title="声明Record的组成部分"></a>声明Record的组成部分</h2><p>紧接Record name之后的代码块为 <font color="#eb8a43">(int x, int y)</font>。该代码块声明了名为 <font color="#eb8a43">Point</font> 的Record的组成部分。对于记录的每个组成部分，编译器都会创建一个与该组成部分同名的私有 final 字段。记录中可以声明任意数量的组成部分。<br>在此示例中，编译器创建了两个私有最终字段，类型为 <font color="#eb8a43">int：x </font>和 <font color="#eb8a43">y</font>，分别对应您声明的两个组件。<br>除了这些字段外，编译器还会为每个组件生成一个访问器。该访问器是一个方法，其名称与组件相同，并返回其值。对于此<font color="#eb8a43">Point</font>记录，生成的两个方法如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">x</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">y</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果此实现适用于您的应用程序，则无需添加任何内容。不过，您可以定义自己的访问器方法。当需要返回某个字段的防御性副本时，这可能很有用。<br>编译器为您生成的最后几个元素是对Object类中toString()、equals()和hashCode()方法的重写。如有需要，您可以自行定义这些方法的重写版本。</p>
+<h2 id="无法向Record添加的内容"><a href="#无法向Record添加的内容" class="headerlink" title="无法向Record添加的内容"></a>无法向Record添加的内容</h2><p>有三件事你无法添加到记录中：</p>
+<ol>
+<li>在记录中不能声明任何实例字段。不能添加任何不对应于组件的实例字段。</li>
+<li>您无法定义任何字段初始化器。</li>
+<li>您无法添加任何实例初始化器。</li>
+</ol>
+<p>您可以使用初始化器和静态初始化器创建静态字段。</p>
+<h2 id="使用规范构造函数构建Record"><a href="#使用规范构造函数构建Record" class="headerlink" title="使用规范构造函数构建Record"></a>使用规范构造函数构建Record</h2><p>编译器还会为你创建一个构造函数，称为<em>canonical constructor</em>。该构造函数将记录的各个组件作为参数，并将它们的值复制到Record类的字段中。<br>在某些情况下，您需要覆盖此默认行为。让我们来探讨两个用例：</p>
+<ol>
+<li>您需要验证Record的状态</li>
+<li>你需要对可变组件创建一个防御性副本。</li>
+</ol>
+<h2 id="使用紧凑构造函数"><a href="#使用紧凑构造函数" class="headerlink" title="使用紧凑构造函数"></a>使用紧凑构造函数</h2><p>您可以使用两种不同的语法来重新定义记录的规范构造函数。您可以使用紧凑构造函数或规范构造函数本身。<br>假设你有以下记录。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">Range</span><span class="token punctuation">(</span><span class="token keyword">int</span> start<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>对于名为Range的记录，人们会期待<font color="#eb8a43">end</font>比<font color="#eb8a43">start</font>大。你可以在记录中编写紧凑构造函数来添加验证规则。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">Range</span><span class="token punctuation">(</span><span class="token keyword">int</span> start<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token class-name">Range</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">&lt;</span> start<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"End cannot be lesser than start"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>紧凑的规范构造函数无需声明其参数块。<br>请注意，若选择此语法，您无法直接赋值记录字段（例如使用 <font color="#eb8a43">this.start &#x3D; start</font>），因为编译器生成的代码会自动完成此操作。但您可以为参数赋予新值，这将产生相同效果——编译器生成的代码会将这些新值赋予字段。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">Range</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// set negtive start and end to 0</span>
+    <span class="token comment">// by reassigning the compact constructor's</span>
+    <span class="token comment">// implicit parameters</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="使用规范构造函数"><a href="#使用规范构造函数" class="headerlink" title="使用规范构造函数"></a>使用规范构造函数</h2><p>若您更倾向于使用非紧凑形式（例如因不愿重新赋值参数），可自行定义规范构造函数，如下例所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">Range</span><span class="token punctuation">(</span><span class="token keyword">int</span> start<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Range</span><span class="token punctuation">(</span><span class="token keyword">int</span> start<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">&lt;=</span> start<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"End cannot be lesser than start"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>start <span class="token operator">=</span> start<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">></span> <span class="token number">100</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>end <span class="token operator">=</span> end<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这种情况下，你编写的构造函数需要为记录的字段赋值。<br>如果记录的组件不可变，您应考虑在规范构造函数和访问器中为其创建防御性副本。</p>
+<h2 id="定义任意构造函数"><a href="#定义任意构造函数" class="headerlink" title="定义任意构造函数"></a>定义任意构造函数</h2><p>您也可以为记录添加任何构造函数，只要该构造函数调用记录的规范构造函数即可。其语法与使用另一个构造函数调用构造函数的经典语法相同。与任何类一样，<font color="#eb8a43">this()</font> 的调用必须是构造函数中的第一条语句。</p>
+<p>让我们审视以下 <font color="#eb8a43">State</font> record。它由三个组成部分定义：</p>
+<ol>
+<li>国家的名称</li>
+<li>该国的首都名称</li>
+<li>一个城市名称的列表，可能为空<br>我们需要存储城市列表的防御性副本，以确保该列表不会被本记录外部修改。这可以通过重新定义规范构造函数来实现，采用紧凑形式将参数重新赋值给防御性副本。<br>在您的应用程序中，提供一个不接收任何城市参数的构造函数会很有用。这可以是另一个构造函数，仅接收州名和首府城市名。该第二个构造函数必须调用标准构造函数。<br>那么，与其传递一个城市列表，不如将城市作为可变参数传递。为此，可以创建第三个构造函数，该构造函数必须调用标准构造函数并传入正确的列表。</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">List</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">State</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">String</span> capitalCity<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> cities<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">State</span>   <span class="token punctuation">&#123;</span>
+        cities <span class="token operator">=</span> <span class="token class-name">List</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>cities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">State</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">String</span> capitalCity<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> capitalCity<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">State</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">String</span> capitalCity<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> cities<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> capitalCity<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>cities<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意，<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#copyOf(java.util.Collection)">List.copyOf()</a> 方法不接受 null 值。</p>
+<h2 id="获取一个Record的状态"><a href="#获取一个Record的状态" class="headerlink" title="获取一个Record的状态"></a>获取一个Record的状态</h2><p>您无需为记录添加任何访问器，因为编译器会为您完成这项工作。每个记录组件都对应一个访问器方法，该方法的名称即为该组件的名称。<br>本教程第一部分中的<font color="#eb8a43">Point</font>记录包含两个访问器方法：<font color="#eb8a43">x()</font>和<font color="#eb8a43">y()</font>，它们分别返回对应分量的值。</p>
+<p>不过，某些情况下你需要定义自己的访问器。例如，假设上一节中的<font color="#eb8a43">State</font>记录在构造时未创建<font color="#eb8a43">cities list</font>的不可修改的防御性副本——那么它应在访问器中执行此操作，以确保调用者无法修改其内部状态。你可以在State记录中添加以下代码来返回该防御性副本：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">cities</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">List</span><span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>cities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="序列化Record"><a href="#序列化Record" class="headerlink" title="序列化Record"></a>序列化Record</h2><p>如果记录类实现了Serializable接口，则可以进行序列化和反序列化。但存在一些限制。</p>
+<ol>
+<li>对于记录而言，没有任何可替代默认序列化过程的系统可用。创建 writeObject() 和 readObject() 方法无效，实现 Externalizable 接口同样无效。</li>
+<li>记录可作为代理对象用于序列化其他对象。readResolve()方法可返回记录对象。在记录中添加writeReplace()方法同样可行。</li>
+<li>反序列化记录时始终调用规范构造函数。因此，你在该构造函数中添加的所有验证规则都将在反序列化记录时强制执行。</li>
+</ol>
+<p>这使得Record成为在应用程序中创建数据传输对象的绝佳选择。</p>
+<h2 id="在实际用例中使用Record"><a href="#在实际用例中使用Record" class="headerlink" title="在实际用例中使用Record"></a>在实际用例中使用Record</h2><p>Record是一个多功能的概念，可在多种情境中使用。<br>第一种是将数据承载在应用程序的对象模型中。你可以将记录用于其设计初衷：作为不可变的数据载体。<br>由于可以声明局部记录，您也可以利用它们来提高代码的可读性。<br>让我们考虑以下用例。你有两个实体被建模为记录：<font color="#eb8a43">City</font> 和 <font color="#eb8a43">State</font>。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">City</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">,</span> <span class="token class-name">State</span> state<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">record</span> <span class="token class-name">State</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>假设你有一份城市列表，需要计算拥有最多城市的州。你可以使用流式处理API，首先构建各州城市数量的直方图。该直方图通过Map对象进行建模。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">City</span><span class="token punctuation">></span></span> cities <span class="token operator">=</span> <span class="token class-name">List</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">State</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> numberOfCitiesPerState <span class="token operator">=</span>
+    cities<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">groupingBy</span><span class="token punctuation">(</span>
+                   <span class="token class-name">City</span><span class="token operator">::</span><span class="token function">state</span><span class="token punctuation">,</span> <span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">counting</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>获取此直方图的最大值的通用代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">State</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> stateWithTheMostCities <span class="token operator">=</span>
+    numberOfCitiesPerState<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                          <span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token punctuation">.</span><span class="token function">comparingByValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                          <span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这段代码属于技术层面的实现，不承载任何业务含义；因为它使用Map.Entry实例来建模直方图的每个元素。</p>
+<p>使用local record可显著改善此情况。以下代码创建了一个新的记录类，该类聚合了某个州及其所辖城市数量的信息。其构造函数接受Map.Entry实例作为参数，用于将键值对流映射为记录流。</p>
+<p>由于需要按城市数量比较这些聚合数据，可以添加工厂方法来提供此比较器。代码如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">record</span> <span class="token class-name">NumberOfCitiesPerState</span><span class="token punctuation">(</span><span class="token class-name">State</span> state<span class="token punctuation">,</span> <span class="token keyword">long</span> numberOfCities<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">NumberOfCitiesPerState</span><span class="token punctuation">(</span><span class="token class-name">Map<span class="token punctuation">.</span>Entry</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">State</span><span class="token punctuation">,</span> <span class="token class-name">Long</span><span class="token punctuation">></span></span> entry<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">NumberOfCitiesPerState</span><span class="token punctuation">></span></span> <span class="token function">comparingByNumberOfCities</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token class-name">Comparator</span><span class="token punctuation">.</span><span class="token function">comparing</span><span class="token punctuation">(</span><span class="token class-name">NumberOfCitiesPerState</span><span class="token operator">::</span><span class="token function">numberOfCities</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token class-name">NumberOfCitiesPerState</span> stateWithTheMostCities <span class="token operator">=</span>
+    numberOfCitiesPerState<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                          <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token class-name">NumberOfCitiesPerState</span><span class="token operator">::</span><span class="token keyword">new</span><span class="token punctuation">)</span>
+                          <span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token class-name">NumberOfCitiesPerState</span><span class="token punctuation">.</span><span class="token function">comparingByNumberOfCities</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                          <span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>您的代码现已实现有意义的最大值提取。代码更具可读性，更易于理解且不易出错，从长远来看也更便于维护。</p>
+
     </div>
 
     
