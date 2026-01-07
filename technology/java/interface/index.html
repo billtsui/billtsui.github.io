@@ -20,27 +20,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="字符大多数情况下，若使用单字符值，则采用 char 类型。例如： char ch &#x3D; &#39;a&#39;; &#x2F;&#x2F; Unicode for uppercase Greek omega character char uniChar &#x3D; &#39;\u03A9&#39;; &#x2F;&#x2F; an array of chars char[] charAarray &#x3D; &#123;&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;&#125;; 然而">
+    <meta name="description" content="Java中的接口在软件工程中，存在许多场景需要不同团队的程序员达成一份明确软件交互方式的”契约”。每个团队都应能在完全不知晓其他团队代码实现细节的情况下编写自己的代码。通常而言，Interface 正是这样的契约。 例如，设想一个未来社会：计算机控制的无人驾驶汽车在城市街道上载客行驶，无需人类操作员。汽车制造商编写软件（当然是用Java语言）来操控车辆——停车、启动、加速、左转等等。另一类工业群体">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符">
-<meta property="og:url" content="http://billtsui.cn/technology/java/characters/index.html">
+<meta property="og:title" content="接口">
+<meta property="og:url" content="http://billtsui.cn/technology/java/interface/index.html">
 <meta property="og:site_name" content="Real 焜">
-<meta property="og:description" content="字符大多数情况下，若使用单字符值，则采用 char 类型。例如： char ch &#x3D; &#39;a&#39;; &#x2F;&#x2F; Unicode for uppercase Greek omega character char uniChar &#x3D; &#39;\u03A9&#39;; &#x2F;&#x2F; an array of chars char[] charAarray &#x3D; &#123;&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;&#125;; 然而">
+<meta property="og:description" content="Java中的接口在软件工程中，存在许多场景需要不同团队的程序员达成一份明确软件交互方式的”契约”。每个团队都应能在完全不知晓其他团队代码实现细节的情况下编写自己的代码。通常而言，Interface 正是这样的契约。 例如，设想一个未来社会：计算机控制的无人驾驶汽车在城市街道上载客行驶，无需人类操作员。汽车制造商编写软件（当然是用Java语言）来操控车辆——停车、启动、加速、左转等等。另一类工业群体">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-11-27T01:48:41.000Z">
-<meta property="article:modified_time" content="2025-12-24T08:29:20.803Z">
+<meta property="article:published_time" content="2026-01-07T14:13:03.000Z">
+<meta property="article:modified_time" content="2026-01-07T14:53:22.679Z">
 <meta property="article:author" content="Bill Tsui">
 <meta property="article:tag" content="Java Programming Language">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://billtsui.cn/technology/java/characters/">
+<link rel="canonical" href="http://billtsui.cn/technology/java/interface/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/characters/","path":"/technology/java/characters/","title":"字符"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/interface/","path":"/technology/java/interface/","title":"接口"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>字符 | Real 焜</title>
+<title>接口 | Real 焜</title>
   
 
 
@@ -173,7 +173,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%92%8C%E7%A0%81%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">字符和码点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">转义序列</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">Java中的接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%BD%9C%E4%B8%BAAPI"><span class="nav-number">2.</span> <span class="nav-text">接口作为API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">定义一个接口</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -241,7 +241,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/characters/">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/interface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -254,12 +254,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="字符 | Real 焜">
+      <meta itemprop="name" content="接口 | Real 焜">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          字符
+          接口
         </h1>
 
         <div class="post-meta-container">
@@ -269,15 +269,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2025-11-27 09:48:41" itemprop="dateCreated datePublished" datetime="2025-11-27T09:48:41+08:00">2025-11-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-12-24 16:29:20" itemprop="dateModified" datetime="2025-12-24T16:29:20+08:00">2025-12-24</time>
+      <time title="创建时间：2026-01-07 22:13:03 / 修改时间：22:53:22" itemprop="dateCreated datePublished" datetime="2026-01-07T22:13:03+08:00">2026-01-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -300,14 +294,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>994</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -317,81 +311,76 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h2><p>大多数情况下，若使用单字符值，则采用 <font color="#eb8a43">char</font> 类型。例如：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">char</span> ch <span class="token operator">=</span> <span class="token char">'a'</span><span class="token punctuation">;</span>
-<span class="token comment">// Unicode for uppercase Greek omega character</span>
-<span class="token keyword">char</span> uniChar <span class="token operator">=</span> <span class="token char">'\u03A9'</span><span class="token punctuation">;</span>
-<span class="token comment">// an array of chars</span>
-<span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charAarray <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token char">'a'</span><span class="token punctuation">,</span> <span class="token char">'b'</span><span class="token punctuation">,</span> <span class="token char">'c'</span><span class="token punctuation">,</span> <span class="token char">'d'</span><span class="token punctuation">,</span> <span class="token char">'e'</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>然而，有时你需要将字符作为对象使用——例如作为方法参数时，该参数要求传入对象。Java编程语言为此提供了一个包装类，它将字符”包装”成<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a>对象。<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a>类型的对象包含一个字段，其类型为字符。该<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a>类还提供了一系列有用的类方法（即静态方法）来操作字符。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="Java中的接口"><a href="#Java中的接口" class="headerlink" title="Java中的接口"></a>Java中的接口</h1><p>在软件工程中，存在许多场景需要不同团队的程序员达成一份明确软件交互方式的”契约”。每个团队都应能在完全不知晓其他团队代码实现细节的情况下编写自己的代码。通常而言，<em><strong>Interface</strong></em> 正是这样的契约。</p>
+<p>例如，设想一个未来社会：计算机控制的无人驾驶汽车在城市街道上载客行驶，无需人类操作员。汽车制造商编写软件（当然是用Java语言）来操控车辆——停车、启动、加速、左转等等。另一类工业群体——电子导航仪器制造商——则生产计算机系统，这些系统接收全球定位系统（GPS）的位置数据以及无线传输的交通状况信息，并利用这些信息来驾驶汽车。</p>
 <span id="more"></span>
 
-<p>你可以使用字符构造函数创建一个字符对象：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Character</span> ch <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Character</span><span class="token punctuation">(</span><span class="token char">'a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>在某些情况下，Java编译器也会为你创建Character对象。例如，当你将原始char类型传递给期望接收对象的方法时，编译器会自动将char转换为Character。此功能称为<em><strong>autoboxing</strong></em>——若转换方向相反，则称为<em><strong>unboxing</strong></em>。有关自动装箱和拆箱的更多信息，请参阅”自动装箱与拆箱”章节。</p>
-<blockquote>
-<p>注意：Character类是不可变的，因此一旦创建，Character对象就无法被修改。<br>下表列出了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a> 类中一些最实用的方法，但并非详尽无遗。如需查看该类所有方法的完整列表（超过50个），请参阅 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a> API 规范。</p>
-</blockquote>
+<p>汽车制造商必须发布行业标准接口，详细说明可调用哪些方法来控制车辆行驶（任何制造商生产的任何车型）。导航设备制造商可据此编写软件，通过调用接口中定义的方法来控制车辆。双方无需了解对方软件的具体实现方式。事实上，各制造商均将其软件视为高度专有技术，保留随时修改的权利——只要持续遵循已发布的接口规范即可。</p>
+<p>在Java编程语言中，接口是一种类似于类的引用类型，仅能包含常量、方法签名、默认方法、静态方法（私有或公有，非受保护）、实例非抽象方法（私有，非公有，非受保护）以及嵌套类型。方法体仅存在于默认方法、私有方法和静态方法中。接口不可实例化——它们只能由类实现或被其他接口扩展。扩展机制将在本节后续部分讨论。</p>
+<p>定义一个接口类似于创建一个类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">OperateCar</span> <span class="token punctuation">&#123;</span>
+
+   <span class="token comment">// constant declarations, if any</span>
+
+   <span class="token comment">// method signatures</span>
+   
+   <span class="token comment">// An enum with values RIGHT, LEFT</span>
+   <span class="token keyword">int</span> <span class="token function">turn</span><span class="token punctuation">(</span><span class="token class-name">Direction</span> direction<span class="token punctuation">,</span>
+            <span class="token keyword">double</span> radius<span class="token punctuation">,</span>
+            <span class="token keyword">double</span> startSpeed<span class="token punctuation">,</span>
+            <span class="token keyword">double</span> endSpeed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">changeLanes</span><span class="token punctuation">(</span><span class="token class-name">Direction</span> direction<span class="token punctuation">,</span>
+                   <span class="token keyword">double</span> startSpeed<span class="token punctuation">,</span>
+                   <span class="token keyword">double</span> endSpeed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">signalTurn</span><span class="token punctuation">(</span><span class="token class-name">Direction</span> direction<span class="token punctuation">,</span>
+                  <span class="token keyword">boolean</span> signalOn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">getRadarFront</span><span class="token punctuation">(</span><span class="token keyword">double</span> distanceToCar<span class="token punctuation">,</span>
+                     <span class="token keyword">double</span> speedOfCar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">getRadarRear</span><span class="token punctuation">(</span><span class="token keyword">double</span> distanceToCar<span class="token punctuation">,</span>
+                    <span class="token keyword">double</span> speedOfCar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+   <span class="token comment">// more method signatures</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意，方法签名不包含大括号，且以分号结束。<br>要使用接口，你需要编写一个实现该接口的类。当可实例化的类实现接口时，它会为接口中声明的每个方法提供方法体。例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OperateBMW760i</span> <span class="token keyword">implements</span> <span class="token class-name">OperateCar</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">// the OperateCar method signatures, with implementation --</span>
+    <span class="token comment">// for example:</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">signalTurn</span><span class="token punctuation">(</span><span class="token class-name">Direction</span> direction<span class="token punctuation">,</span> <span class="token keyword">boolean</span> signalOn<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token comment">// code to turn BMW's LEFT turn indicator lights on</span>
+       <span class="token comment">// code to turn BMW's LEFT turn indicator lights off</span>
+       <span class="token comment">// code to turn BMW's RIGHT turn indicator lights on</span>
+       <span class="token comment">// code to turn BMW's RIGHT turn indicator lights off</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token comment">// other members, as needed -- for example, helper classes not </span>
+    <span class="token comment">// visible to clients of the interface</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上述自动驾驶汽车的例子中，汽车制造商将负责实现该接口。雪佛兰的实现方案与丰田的自然会存在显著差异，但两家制造商都将遵循相同的接口规范。作为接口客户端的导航设备制造商，将构建利用车辆GPS定位数据、数字街道地图及交通数据来操控汽车的系统。在此过程中，导航系统将调用接口方法：转向、变道、刹车、加速等操作。</p>
+<h1 id="接口作为API"><a href="#接口作为API" class="headerlink" title="接口作为API"></a>接口作为API</h1><p>自动驾驶汽车的例子展示了接口作为行业 <em>Application Programming Interface</em>（API）的使用方式。API在商业软件产品中也很常见。通常，一家公司出售包含复杂方法的软件包，而另一家公司希望将其应用于自身的软件产品。例如，某软件包包含数字图像处理方法，被出售给开发终端用户图形程序的公司：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#isLetter(char)">boolean isLetter(char ch)</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#isDigit(char)">boolean isDigit(char ch)</a>：分别判断指定的字符值是否为字母或数字。</li>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#isWhitespace(char)">boolean isWhitespace(char ch)</a>： 判断指定的字符值是否为空白字符。</li>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#isUpperCase(char)">boolean isUpperCase(char ch)</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#isLowerCase(char)">boolean isLowerCase(char ch)</a>：分别判断指定字符值是大写还是小写。</li>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#toUpperCase(char)">char toUpperCase(char ch)</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#toLowerCase(char)">char toLowerCase(char ch)</a>： 返回指定字符值的大写或小写形式。</li>
-<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html#toString(char)">toString(char ch)</a>：返回一个String对象，表示指定的字符值——即一个单字符字符串。</li>
+<li>图像处理公司编写类来实现接口，并将该接口公开给客户使用。</li>
+<li>随后，图形公司调用图像处理方法，使用接口中定义的签名和返回类型。<br>尽管图像处理公司的API向客户公开，但其API的具体实现方式却被严密保密——实际上，只要它继续实现客户所依赖的原始接口，便可在日后修改具体实现方式。接口作为多功能引用类型，既能定义默认方法，又可在不破坏实现类的前提下为特定类型扩展功能。此外，有时可将通用代码抽离至私有方法中，从而减少默认方法的代码冗余。欲深入了解接口内部的方法定义机制，请查阅本系列后续教程。</li>
 </ul>
-<h2 id="字符和码点"><a href="#字符和码点" class="headerlink" title="字符和码点"></a>字符和码点</h2><p>Java平台自JDK 1.0.2起便支持Unicode标准。Java SE 15支持Unicode 13.0。char数据类型和Character类基于原始Unicode规范，该规范将字符定义为固定宽度的16位实体。此后Unicode标准已修订，允许存在需要超过16位表示的字符。合法码点的范围现为U+0000至U+10FFFF，称为Unicode标量值。</p>
-<p>字符值采用16位编码，因此可表示 <font color="#eb8a43">0x0000</font> 至 <font color="#eb8a43">0xFFFF</font> 之间的数值。这组字符有时被称为 <em>Basic Multilingual Plane</em>（BMP）。代码点大于 <font color="#eb8a43">0xFFFF</font>（记为U+FFFF）的字符称为 <em>supplementary characters</em>。</p>
-<p>因此，一个char值代表 <em>Basic Multilingual Plane</em>（BMP）中的码点。一个int值则代表所有Unicode码点，包括补充码点。除非另有说明，否则对补充字符和代理字符值的行为如下：</p>
-<ul>
-<li>仅接受 <font color="#eb8a43">char</font> 值的方法无法支持补充字符。它们将来自代理范围的char值视为未定义字符。</li>
-<li>接受 <font color="#eb8a43">int</font> 值的方法支持所有Unicode字符，包括补充字符。</li>
-</ul>
-<p>有关更多信息，请参阅 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Character.html">Character</a> 类的文档。</p>
-<h2 id="转义序列"><a href="#转义序列" class="headerlink" title="转义序列"></a>转义序列</h2><p>以反斜杠 <font color="#eb8a43">\</font> 开头的字符是转义序列，对编译器具有特殊含义。下表列出了 Java 转义序列：</p>
-<table>
-<thead>
-<tr>
-<th align="center">转义序列</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">\t</td>
-<td align="center">在此处插入一个制表符(tab)。</td>
-</tr>
-<tr>
-<td align="center">\b</td>
-<td align="center">在此处文本中插入一个退格符(backspace)。</td>
-</tr>
-<tr>
-<td align="center">\n</td>
-<td align="center">在此处文本中插入换行符(line feed)。</td>
-</tr>
-<tr>
-<td align="center">\r</td>
-<td align="center">在此处文本中插入回车符(carriage return)。</td>
-</tr>
-<tr>
-<td align="center">\f</td>
-<td align="center">在此处文本中插入换页符(form feed)。</td>
-</tr>
-<tr>
-<td align="center">\&#39;</td>
-<td align="center">在此处插入单引号字符(&#39;)。</td>
-</tr>
-<tr>
-<td align="center">\&quot;</td>
-<td align="center">在此处插入双引号字符(&quot;)。</td>
-</tr>
-<tr>
-<td align="center">\\\</td>
-<td align="center">在此处插入反斜杠字符(\)。</td>
-</tr>
-</tbody></table>
-<p>当打印语句中遇到转义序列时，编译器会进行相应处理。例如，若要在引号内嵌套引号，必须在内部引号处使用转义序列”,。要打印句子</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">She</span> said <span class="token string">"Hello!"</span> <span class="token keyword">to</span> <span class="token namespace">me<span class="token punctuation">.</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>必须使用如下代码：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"She said \"Hello!\" to me."</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h1 id="定义一个接口"><a href="#定义一个接口" class="headerlink" title="定义一个接口"></a>定义一个接口</h1><p>接口声明由修饰符、<font color="#eb8a43">interface</font>关键字、接口名称、用逗号分隔的父接口列表（如有）以及接口主体组成。例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">GroupedInterface</span> <span class="token keyword">extends</span> <span class="token class-name">Interface1</span><span class="token punctuation">,</span> <span class="token class-name">Interface2</span><span class="token punctuation">,</span> <span class="token class-name">Interface3</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token comment">// constant declarations</span>
+    
+    <span class="token comment">// base of natural logarithms</span>
+    <span class="token keyword">double</span> <span class="token class-name">E</span> <span class="token operator">=</span> <span class="token number">2.718282</span><span class="token punctuation">;</span>
+ 
+    <span class="token comment">// method signatures</span>
+    <span class="token keyword">void</span> doSomething <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">double</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">doSomethingElse</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">public</font> 访问修饰符表示该接口可被任何包中的任何类使用。若未声明接口为public，则该接口仅对与接口定义在同一包中的类可见。</p>
+<p>接口可以继承其他接口，就像类可以继承或扩展另一个类一样。然而，类只能继承一个其他类，而接口可以继承任意数量的接口。接口声明包含一个用逗号分隔的列表，列出其继承的所有接口。</p>
+<p>接口主体可以包含抽象方法、默认方法和静态方法。</p>
+<p>接口中的抽象方法后跟分号，但不跟大括号（抽象方法不包含实现）。</p>
+<p>默认方法使用 <font color="#eb8a43">default</font> 修饰符定义，静态方法使用 <font color="#eb8a43">static</font> 关键字定义。接口中的所有抽象方法、默认方法和静态方法默认均为 <font color="#eb8a43">public</font> ，因此可以省略 <font color="#eb8a43">public</font> 修饰符。</p>
+<p>此外，接口中可以包含常量声明。接口中定义的所有常量值默认具有 <font color="#eb8a43">public</font> 、<font color="#eb8a43">static</font> 和 <font color="#eb8a43">final</font> 修饰符。同样，这些修饰符可以省略。</p>
+
     </div>
 
     
@@ -408,7 +397,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://billtsui.cn/technology/java/characters/" title="字符">http://billtsui.cn/technology/java/characters/</a>
+      <a href="http://billtsui.cn/technology/java/interface/" title="接口">http://billtsui.cn/technology/java/interface/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -436,14 +425,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/technology/java/numbers/" rel="prev" title="数值">
-                  <i class="fa fa-angle-left"></i> 数值
+                <a href="/technology/java/abstract-methods-and-classes/" rel="prev" title="抽象方法和类">
+                  <i class="fa fa-angle-left"></i> 抽象方法和类
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/technology/java/strings/" rel="next" title="字符串">
-                  字符串 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
