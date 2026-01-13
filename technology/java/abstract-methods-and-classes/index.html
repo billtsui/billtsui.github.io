@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="抽象方法和类抽象类是一种声明为抽象的类——它可能包含抽象方法，也可能不包含。抽象类不能被实例化，但可以被继承。抽象方法是指声明时未提供实现（不带大括号且后跟分号）的方法，例如： abstract void moveTo(double deltaX, double deltaY);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抽象方法和类">
+<meta property="og:url" content="http://billtsui.cn/technology/java/abstract-methods-and-classes/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="抽象方法和类抽象类是一种声明为抽象的类——它可能包含抽象方法，也可能不包含。抽象类不能被实例化，但可以被继承。抽象方法是指声明时未提供实现（不带大括号且后跟分号）的方法，例如： abstract void moveTo(double deltaX, double deltaY);">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-07T02:01:28.000Z">
+<meta property="article:modified_time" content="2026-01-12T03:25:25.181Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/abstract-methods-and-classes/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/abstract-methods-and-classes/","path":"/technology/java/abstract-methods-and-classes/","title":"抽象方法和类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>抽象方法和类 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E5%92%8C%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">抽象方法和类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95%E4%B8%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">抽象方法与接口的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">一个抽象类的例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%93%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E6%97%B6"><span class="nav-number">4.</span> <span class="nav-text">当抽象类实现接口时</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E6%88%90%E5%91%98"><span class="nav-number">5.</span> <span class="nav-text">类成员</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/abstract-methods-and-classes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="抽象方法和类 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          抽象方法和类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-01-07 10:01:28" itemprop="dateCreated datePublished" datetime="2026-01-07T10:01:28+08:00">2026-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-12 11:25:25" itemprop="dateModified" datetime="2026-01-12T11:25:25+08:00">2026-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="抽象方法和类"><a href="#抽象方法和类" class="headerlink" title="抽象方法和类"></a>抽象方法和类</h1><p>抽象类是一种声明为抽象的类——它可能包含抽象方法，也可能不包含。抽象类不能被实例化，但可以被继承。<br>抽象方法是指声明时未提供实现（不带大括号且后跟分号）的方法，例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">moveTo</span><span class="token punctuation">(</span><span class="token keyword">double</span> deltaX<span class="token punctuation">,</span> <span class="token keyword">double</span> deltaY<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<span id="more"></span>
+
+<p>如果类包含抽象方法，则该类本身必须声明为抽象类，例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">GraphicObject</span> <span class="token punctuation">&#123;</span>
+   <span class="token comment">// declare fields</span>
+   <span class="token comment">// declare nonabstract methods</span>
+   <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当抽象类被派生时，子类通常会为父类中的所有抽象方法提供实现。然而，如果子类未提供实现，则该子类也必须声明为抽象类。</p>
+<blockquote>
+<p>注意：接口（参见“接口”章节）中未声明为默认或静态的方法默认即为抽象方法，因此接口方法无需显式使用抽象修饰符（虽然可以使用，但并非必要）。</p>
+</blockquote>
+<h1 id="抽象方法与接口的对比"><a href="#抽象方法与接口的对比" class="headerlink" title="抽象方法与接口的对比"></a>抽象方法与接口的对比</h1><p>抽象类与接口相似。它们无法被实例化，且可能包含声明时带或不带实现的方法混合体。但抽象类允许声明非静态非最终的字段，并定义 <font color="#eb8a43">public</font>、<font color="#eb8a43">protected</font> 及 <font color="#eb8a43">private</font> 具体方法。而接口中所有字段均自动成为 <font color="#eb8a43">public</font>、<font color="#eb8a43">static</font> 和 <font color="#eb8a43">final</font>，所有声明或定义的方法（包括默认方法）均为 <font color="#eb8a43">public</font> 。此外，无论是否为抽象类，类最多只能继承一个父类；而接口则可实现任意数量。</p>
+<p>你应该使用抽象类还是接口？</p>
+<ul>
+<li>如果以下任何情况适用于您的场景，请考虑使用抽象类：<ul>
+<li>你希望在几个密切相关的类之间共享代码。</li>
+<li>你期望继承自抽象类的子类具有许多共同的方法或字段，或者需要使用除 <font color="#eb8a43">public</font> 之外的访问修饰符（如 <font color="#eb8a43">protected</font> 和 <font color="#eb8a43">private</font> ）。</li>
+<li>你需要声明 <font color="#eb8a43">non-static</font> 或 <font color="#eb8a43">non-final</font> 字段。这使你能够定义方法，这些方法能够访问并修改其所属对象的状态。</li>
+</ul>
+</li>
+<li>如果以下任何情况适用于您的场景，请考虑使用接口：<ul>
+<li>你期望无关联的类会实现你的接口。例如，Comparable 和 Cloneable 接口就被许多无关联的类所实现。</li>
+<li>你希望指定特定数据类型的行为，但并不关心由谁来实现该行为。</li>
+<li>你想要利用类型的多重继承特性。</li>
+</ul>
+</li>
+</ul>
+<p>JDK中抽象类的示例是<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html">AbstractMap</a>，它属于集合框架的一部分。其子类（包括<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html">HashMap</a>、<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/TreeMap.html">TreeMap</a>和<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html">ConcurrentHashMap</a>）共享<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html">AbstractMap</a>定义的许多方法（包括<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html#get(java.lang.Object)">get()</a>、<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html#put(K,V)">put()</a>、<a href="isEmpty()">isEmpty()</a>、<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html#containsKey(java.lang.Object)">containsKey()</a>和<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/AbstractMap.html#containsValue(java.lang.Object)">containsValue()</a>）。</p>
+<p>JDK 中实现多个接口的类示例是 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html">HashMap</a>，它实现了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html">Serializable</a>、<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Cloneable.html">Cloneable</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html">Map&lt;K, V&gt;</a> 接口。通过阅读这些接口列表，可以推断出HashMap的实例（无论由哪个开发者或公司实现该类）都具备可克隆性、可序列化（即能转换为字节流，详见”可序列化对象”章节）以及映射功能。此外，<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html">Map&lt;K, V&gt;</a>接口已通过<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html#merge(K,V,java.util.function.BiFunction)">merge()</a>和<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html#forEach(java.util.function.BiConsumer)">forEach()</a>等众多默认方法得到增强，这些方法在早期实现该接口的类中无需额外定义。</p>
+<p>请注意，许多软件库同时使用抽象类和接口；HashMap 类实现了多个接口，同时也继承了抽象类 AbstractMap。</p>
+<h1 id="一个抽象类的例子"><a href="#一个抽象类的例子" class="headerlink" title="一个抽象类的例子"></a>一个抽象类的例子</h1><p>在面向对象的绘图应用程序中，您可以绘制圆形、矩形、直线、贝塞尔曲线以及许多其他图形对象。这些对象都具有某些共有的状态（例如：位置、方向、线条颜色、填充颜色）和行为（例如：移动到、旋转、调整大小、绘制）。其中部分状态与行为适用于所有图形对象（例如：位置、填充颜色、moveTo），而另一些则需要不同实现（例如：resize或draw）。</p>
+<p>所有图形对象都必须能够绘制自身或调整自身大小，它们只是实现方式不同。这种情况正是抽象超类的理想应用场景。你可以利用它们的共同特性，声明所有图形对象都继承自同一个抽象父对象，例如图形对象（<font color="#eb8a43">GraphicObject</font>）。</p>
+<p>首先，声明一个抽象类 <font color="#eb8a43">GraphicObject</font>，用于提供所有子类完全共享的成员变量和方法，例如当前位置和 <font color="#eb8a43">moveTo()</font> 方法。<font color="#eb8a43">GraphicObject</font> 还声明了抽象方法，如 <font color="#eb8a43">draw()</font> 或 <font color="#eb8a43">resize()</font>，这些方法需要由所有子类实现，但必须以不同方式实现。<font color="#eb8a43">GraphicObject</font> 类可以如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">GraphicObject</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">void</span> <span class="token function">moveTo</span><span class="token punctuation">(</span><span class="token keyword">int</span> newX<span class="token punctuation">,</span> <span class="token keyword">int</span> newY<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><font color="#eb8a43">GraphicObject</font> 的每个非抽象子类（如 <font color="#eb8a43">Circle</font> 和 <font color="#eb8a43">Rectangle</font>）都必须为 <font color="#eb8a43">draw()</font> 和 <font color="#eb8a43">resize()</font> 方法提供实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Circle</span> <span class="token keyword">extends</span> <span class="token class-name">GraphicObject</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">void</span> <span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token keyword">extends</span> <span class="token class-name">GraphicObject</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">void</span> <span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="当抽象类实现接口时"><a href="#当抽象类实现接口时" class="headerlink" title="当抽象类实现接口时"></a>当抽象类实现接口时</h1><p>在接口章节中提到，实现接口的类必须实现该接口的所有方法。然而，只要声明该类为抽象类，就可以定义一个不实现接口所有方法的类。例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">X</span> <span class="token keyword">implements</span> <span class="token class-name">Y</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// implements all but one method of Y</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">XX</span> <span class="token keyword">extends</span> <span class="token class-name">X</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// implements the remaining method in Y</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在此情况下，类 <font color="#eb8a43">X</font> 必须是抽象类，因为它并未完整实现 <font color="#eb8a43">Y</font>，但类 <font color="#eb8a43">XX</font> 实际上确实实现了 <font color="#eb8a43">Y</font>。</p>
+<h1 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h1><p>抽象类可以包含静态字段和静态方法。你可以像使用其他类一样，通过类引用调用这些静态成员（例如：<font color="#eb8a43">AbstractClass.staticMethod()</font>）。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/abstract-methods-and-classes/" title="抽象方法和类">http://billtsui.cn/technology/java/abstract-methods-and-classes/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/life/why-do-you-always-want-to-go-traveling/" rel="prev" title="你为什么总想去旅行？">
+                  <i class="fa fa-angle-left"></i> 你为什么总想去旅行？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/technology/java/interface/" rel="next" title="接口">
+                  接口 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
