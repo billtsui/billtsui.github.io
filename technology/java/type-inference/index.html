@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="类型推断和泛型方法类型推断是Java编译器通过分析每个方法调用及其对应声明，来确定使该调用成立的类型实际参数的能力。推断算法会确定参数的类型，并在条件允许时确定结果被赋值或返回的类型。最后，推断算法会尝试找出能与所有参数兼容的最具体类型。为说明最后一点，在下例中，推断机制判定传递给 pick 方法的第二个实参属于 Serializable 类型： static &lt;T&gt; T pick(T a1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类型推断">
+<meta property="og:url" content="http://billtsui.cn/technology/java/type-inference/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="类型推断和泛型方法类型推断是Java编译器通过分析每个方法调用及其对应声明，来确定使该调用成立的类型实际参数的能力。推断算法会确定参数的类型，并在条件允许时确定结果被赋值或返回的类型。最后，推断算法会尝试找出能与所有参数兼容的最具体类型。为说明最后一点，在下例中，推断机制判定传递给 pick 方法的第二个实参属于 Serializable 类型： static &lt;T&gt; T pick(T a1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-22T00:40:20.000Z">
+<meta property="article:modified_time" content="2026-01-22T02:31:54.499Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/type-inference/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/type-inference/","path":"/technology/java/type-inference/","title":"类型推断"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>类型推断 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E5%92%8C%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">类型推断和泛型方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8C%96%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">类型推断和实例化泛型类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E4%B8%8E%E9%9D%9E%E6%B3%9B%E5%9E%8B%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%B3%9B%E5%9E%8B%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">泛型与非泛型类的类型推断与泛型构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">目标类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="nav-number">5.</span> <span class="nav-text">Lambda表达式中的目标类型推断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%96%B9%E6%B3%95%E5%AE%9E%E5%8F%82"><span class="nav-number">6.</span> <span class="nav-text">目标类型和方法实参</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/type-inference/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="类型推断 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          类型推断
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-22 08:40:20 / 修改时间：10:31:54" itemprop="dateCreated datePublished" datetime="2026-01-22T08:40:20+08:00">2026-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="类型推断和泛型方法"><a href="#类型推断和泛型方法" class="headerlink" title="类型推断和泛型方法"></a>类型推断和泛型方法</h1><p>类型推断是Java编译器通过分析每个方法调用及其对应声明，来确定使该调用成立的类型实际参数的能力。推断算法会确定参数的类型，并在条件允许时确定结果被赋值或返回的类型。最后，推断算法会尝试找出能与所有参数兼容的最具体类型。<br>为说明最后一点，在下例中，推断机制判定传递给 pick 方法的第二个实参属于 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/Serializable.html">Serializable</a> 类型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">T</span> <span class="token function">pick</span><span class="token punctuation">(</span><span class="token class-name">T</span> a1<span class="token punctuation">,</span> <span class="token class-name">T</span> a2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> a2<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token class-name">Serializable</span> s <span class="token operator">=</span> <span class="token function">pick</span><span class="token punctuation">(</span><span class="token string">"d"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span id="more"></span>
+<p>泛型方法向您介绍了类型推断，它使您能够像调用普通方法那样调用泛型方法，而无需在尖括号中指定类型。请看以下示例 <font color="#eb8a43">BoxDemo</font>，它需要 <font color="#eb8a43">Box</font> 类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BoxDemo</span> <span class="token punctuation">&#123;</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span></span> <span class="token keyword">void</span> <span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">U</span> u<span class="token punctuation">,</span> 
+      <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Box</span><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span><span class="token punctuation">></span></span> boxes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">Box</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span></span> box <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Box</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    box<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>u<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    boxes<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>box<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span></span> <span class="token keyword">void</span> <span class="token function">outputBoxes</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Box</span><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span><span class="token punctuation">></span></span> boxes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Box</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">U</span><span class="token punctuation">></span></span> box<span class="token operator">:</span> boxes<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token class-name">U</span> boxContents <span class="token operator">=</span> box<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Box #"</span> <span class="token operator">+</span> counter <span class="token operator">+</span> <span class="token string">" contains ["</span> <span class="token operator">+</span>
+             boxContents<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      counter<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Box</span><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span><span class="token punctuation">></span></span> listOfIntegerBoxes <span class="token operator">=</span>
+      <span class="token keyword">new</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span>ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span><span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span> listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token function">outputBoxes</span><span class="token punctuation">(</span>listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个例子的输出如下:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Box <span class="token comment">#0 contains [10]</span>
+Box <span class="token comment">#1 contains [20]</span>
+Box <span class="token comment">#2 contains [30]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>泛型方法 <font color="#eb8a43">addBox()</font> 定义了一个名为 U 的类型参数。通常，Java 编译器能够推断泛型方法调用中的类型参数。因此，在大多数情况下，您无需显式指定它们。例如，要调用泛型方法 <font color="#eb8a43">addBox()</font>，您可以通过类型见证显式指定类型参数，如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span><span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者，如果你省略类型见证，Java编译器会自动从方法的参数推断出类型参数是 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html">Integer</a> ：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">BoxDemo</span><span class="token punctuation">.</span><span class="token function">addBox</span><span class="token punctuation">(</span><span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span> listOfIntegerBoxes<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="类型推断和实例化泛型类"><a href="#类型推断和实例化泛型类" class="headerlink" title="类型推断和实例化泛型类"></a>类型推断和实例化泛型类</h1><p>只要编译器能从上下文中推断出类型参数，你就可以用空类型参数集（<font color="#eb8a43">&lt;&gt;</font>）替换调用泛型类构造函数所需的类型参数。这对尖括号在非正式场合被称为菱形符号。<br>例如，考虑以下变量声明：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> myMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>你可以用类型参数的空集（<font color="#eb8a43">&lt;&gt;</font>）替换构造函数的参数化类型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> myMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>请注意，要在泛型类实例化过程中利用类型推断，必须使用菱形符号。在下面的示例中，编译器会生成未检查转换警告，因为 <font color="#eb8a43">HashMap()</font> 构造函数引用的是 HashMap 原始类型，而非 <font color="#eb8a43">Map&lt;String, List<String>&gt;</font> 类型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span><span class="token punctuation">></span></span> myMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// unchecked conversion warning</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="泛型与非泛型类的类型推断与泛型构造函数"><a href="#泛型与非泛型类的类型推断与泛型构造函数" class="headerlink" title="泛型与非泛型类的类型推断与泛型构造函数"></a>泛型与非泛型类的类型推断与泛型构造函数</h1><p>请注意，构造函数既可以在泛型类中也可以在非泛型类中实现泛型（即声明自己的形式类型参数）。请看以下示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">MyClass</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">X</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">MyClass</span><span class="token punctuation">(</span><span class="token class-name">T</span> t<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请考虑以下 MyClass 类的实例化：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">new</span> <span class="token class-name">MyClass</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>该语句创建了一个参数化类型 <font color="#eb8a43">MyClass&lt;Integer&gt;</font> 的实例；语句明确指定了泛型类 <font color="#eb8a43">MyClass&lt;X&gt;</font> 的形式类型参数 X 的类型为 Integer。请注意，该泛型类的构造函数包含一个形式类型参数 T。编译器推断出该泛型类构造函数的形式类型参数 T 的类型为 String（因为该构造函数的实际参数是一个 String 对象）。</p>
+<p>在Java SE 7之前的版本中，编译器能够推断泛型构造函数的实际类型参数，这与泛型方法类似。然而，在Java SE 7及更高版本中，若使用菱形符号（<font color="#eb8a43">&lt;&gt;</font>），编译器能够推断被实例化的泛型类的实际类型参数。请看以下示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">MyClass</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> myObject <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyClass</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在此示例中，编译器为泛型类 <font color="#eb8a43">MyClass&lt;X&gt;</font> 的形式类型参数 X 推断出类型 Integer。它为该泛型类的构造函数的形式类型参数 T 推断出类型 String。</p>
+<blockquote>
+<p><em>注意：需要特别指出的是，类型推断算法仅使用调用参数、目标类型以及可能的明显预期返回类型来推断类型。该推断算法不会使用程序后续部分的结果。</em></p>
+</blockquote>
+<h1 id="目标类型"><a href="#目标类型" class="headerlink" title="目标类型"></a>目标类型</h1><p>Java编译器利用目标类型推断泛型方法调用的类型参数。表达式在Java编译器中的目标类型取决于其出现的位置，即编译器所期望的数据类型。以方法Collections.emptyList()为例，其声明如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">static</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>考虑如下声明语句：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> listOne <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>该语句期望接收 <font color="#eb8a43">List&lt;String&gt;</font> 类型的实例，此数据类型即为目标类型。由于 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collections.html#emptyList()">emptyList()</a> 方法返回的值类型为 <font color="#eb8a43">List&lt;T&gt;</font>，编译器推断类型参数 T 必须是 String 值。此方法在 Java SE 7 和 8 中均有效。或者，您也可以使用类型见证并按以下方式指定 T 的值：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> listOne <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然而在此情境下，这并非必要。但在其他情境中，它却是必要的。请考虑以下方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">processStringList</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> stringList<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// process stringList</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>假设你想用一个空列表调用 <font color="#eb8a43">processStringList()</font> 方法。在Java SE 7中，以下语句无法编译：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">processStringList</span><span class="token punctuation">(</span><span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Java SE 7 编译器会生成类似以下的错误信息：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">List<span class="token operator">&lt;</span>Object<span class="token operator">></span> cannot be converted to List<span class="token operator">&lt;</span>String<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>编译器要求类型参数 T 具有具体值，因此默认采用 Object 类型。由此，调用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collections.html#emptyList()">Collections.emptyList()</a> 返回的 <font color="#eb8a43">List&lt;Object&gt;</font> 类型与方法 <font color="#eb8a43">processStringList()</font> 不兼容。因此在 Java SE 7 中，必须按以下方式显式指定类型参数的值：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">processStringList</span><span class="token punctuation">(</span><span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在 Java SE 8 中，这种做法已不再必要。目标类型的概念已扩展至包含方法参数，例如 <font color="#eb8a43">processStringList()</font> 方法的参数。在此情况下，<font color="#eb8a43">processStringList()</font> 需要 <font color="#eb8a43">List&lt;String&gt;</font> 类型的参数。方法 <font color="#eb8a43">Collections.emptyList()</font> 返回 <font color="#eb8a43">List&lt;T&gt;</font> 类型的值，因此使用 <font color="#eb8a43">List&lt;String&gt;</font> 作为目标类型时，编译器会推断类型参数 T 的值为 String。因此在 Java SE 8 中，以下语句可编译通过：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">processStringList</span><span class="token punctuation">(</span><span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">emptyList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="Lambda表达式中的目标类型推断"><a href="#Lambda表达式中的目标类型推断" class="headerlink" title="Lambda表达式中的目标类型推断"></a>Lambda表达式中的目标类型推断</h1><p>假设你有以下方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">printPersons</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">></span></span> roster<span class="token punctuation">,</span> <span class="token class-name">CheckPerson</span> tester<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>和</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printPersonsWithPredicate</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">></span></span> roster<span class="token punctuation">,</span> <span class="token class-name">Predicate</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Person</span><span class="token punctuation">></span></span> tester<span class="token punctuation">)</span> <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后编写以下代码来调用这些方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">printPersons</span><span class="token punctuation">(</span>
+        people<span class="token punctuation">,</span> 
+        p <span class="token operator">-></span> p<span class="token punctuation">.</span><span class="token function">getGender</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">Person<span class="token punctuation">.</span>Sex</span><span class="token punctuation">.</span><span class="token constant">MALE</span>
+            <span class="token operator">&amp;&amp;</span> p<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">18</span>
+            <span class="token operator">&amp;&amp;</span> p<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>和</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token function">printPersonsWithPredicate</span><span class="token punctuation">(</span>
+        people<span class="token punctuation">,</span>
+        p <span class="token operator">-></span> p<span class="token punctuation">.</span><span class="token function">getGender</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token class-name">Person<span class="token punctuation">.</span>Sex</span><span class="token punctuation">.</span><span class="token constant">MALE</span>
+             <span class="token operator">&amp;&amp;</span> p<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">>=</span> <span class="token number">18</span>
+             <span class="token operator">&amp;&amp;</span> p<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这些情况下，如何确定lambda表达式的类型？</p>
+<p>当Java运行时调用 <font color="#eb8a43">printPersons()</font> 方法时，它期望的数据类型是CheckPerson，因此该lambda表达式属于此类型。然而，当Java运行时调用 <font color="#eb8a43">printPersonsWithPredicate()</font> 方法时，它期望的数据类型是<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/Predicate.html">Predicate<Person></a>，因此该lambda表达式属于此类型。这些方法所期望的数据类型称为目标类型。Java编译器通过求解lambda表达式所在上下文或情境的目标类型来确定其类型。由此可知，仅当Java编译器能确定目标类型时，才能在相应情境中使用lambda表达式：</p>
+<ul>
+<li>变量声明</li>
+<li>赋值语句</li>
+<li>返回语句</li>
+<li>Array初始化表达式</li>
+<li>方法或者构造函数中的实参</li>
+<li>Lambda表达式的主体</li>
+<li>条件表达式，三目运算符</li>
+<li>强制类型转换表达式</li>
+</ul>
+<h1 id="目标类型和方法实参"><a href="#目标类型和方法实参" class="headerlink" title="目标类型和方法实参"></a>目标类型和方法实参</h1><p>对于方法参数，Java编译器通过另外两个语言特性来确定目标类型：重载解析和类型参数推断。</p>
+<p>考虑以下两个功能接口（<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Runnable.html">java.lang.Runnable</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Callable.html">java.util.concurrent.Callable&lt;V&gt;</a>）：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Runnable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">V</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">V</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Runnable.html#run()">Runnable.run()</a> 方法不返回值，而 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Callable.html#call()">Callable<V>.call()</a> 方法会返回值。</p>
+<p>假设你已按以下方式重载了 invoke 方法（有关方法重载的更多信息，请参阅“<a href="https://billtsui.cn/technology/java/defining-methods/">方法的定义</a>”一节）：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Runnable</span> r<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    r<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token class-name">T</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Callable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> c<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> c<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在以下语句中将调用哪种方法？</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s <span class="token operator">=</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token string">"done"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>由于 <font color="#eb8a43">invoke(Callable&lt;T&gt;)</font> 方法会返回值，因此该方法会被调用；而 <font color="#eb8a43">invoke(Runnable)</font> 方法不会返回值。在此情况下，lambda 表达式 <font color="#eb8a43">() -&gt; “done”</font> 的类型为 <font color="#eb8a43">Callable&lt;T&gt;</font>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/type-inference/" title="类型推断">http://billtsui.cn/technology/java/type-inference/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/technology/java/generic/" rel="prev" title="泛型简介">
+                  <i class="fa fa-angle-left"></i> 泛型简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
