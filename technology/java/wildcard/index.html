@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="上界通配符您可以使用上界通配符来放宽对变量的限制。例如，假设你想编写一个同时适用于 List&lt;Integer&gt;、List&lt;Double&gt; 和 List&lt;Number&gt; 的方法；你可以通过使用上界通配符来实现。要声明一个上界通配符，请使用通配符字符（’?‘），后跟 extends 关键字，再后跟其上界。请注意，在此上下文中，extends 以一般意义使用，既表示“">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通配符">
+<meta property="og:url" content="http://billtsui.cn/technology/java/wildcard/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="上界通配符您可以使用上界通配符来放宽对变量的限制。例如，假设你想编写一个同时适用于 List&lt;Integer&gt;、List&lt;Double&gt; 和 List&lt;Number&gt; 的方法；你可以通过使用上界通配符来实现。要声明一个上界通配符，请使用通配符字符（’?‘），后跟 extends 关键字，再后跟其上界。请注意，在此上下文中，extends 以一般意义使用，既表示“">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dev.java/assets/images/generics/04_super-types.png">
+<meta property="og:image" content="https://dev.java/assets/images/generics/05_lists-declarations.png">
+<meta property="og:image" content="https://dev.java/assets/images/generics/06_Numbers-extends.png">
+<meta property="og:image" content="https://dev.java/assets/images/generics/07_Integer-super.png">
+<meta property="article:published_time" content="2026-01-23T00:31:38.000Z">
+<meta property="article:modified_time" content="2026-01-23T02:50:13.012Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dev.java/assets/images/generics/04_super-types.png">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/wildcard/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/wildcard/","path":"/technology/java/wildcard/","title":"通配符"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>通配符 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">上界通配符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">无界通配符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">下界通配符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E4%B8%8E%E5%AD%90%E7%B1%BB%E5%9E%8B%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">通配符与子类型化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E6%8D%95%E8%8E%B7%E4%B8%8E%E8%BE%85%E5%8A%A9%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">通配符捕获与辅助方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="nav-number">6.</span> <span class="nav-text">通配符使用指南</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/wildcard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="通配符 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          通配符
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-23 08:31:38 / 修改时间：10:50:13" itemprop="dateCreated datePublished" datetime="2026-01-23T08:31:38+08:00">2026-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="上界通配符"><a href="#上界通配符" class="headerlink" title="上界通配符"></a>上界通配符</h1><p>您可以使用上界通配符来放宽对变量的限制。例如，假设你想编写一个同时适用于 <font color="#eb8a43">List&lt;Integer&gt;</font>、<font color="#eb8a43">List&lt;Double&gt;</font> 和 <font color="#eb8a43">List&lt;Number&gt;</font> 的方法；你可以通过使用上界通配符来实现。<br>要声明一个上界通配符，请使用通配符字符（’<font color="#eb8a43">?</font>‘），后跟 <font color="#eb8a43">extends</font> 关键字，再后跟其上界。请注意，在此上下文中，<font color="#eb8a43">extends</font> 以一般意义使用，既表示“<font color="#eb8a43">extends</font>”（如类），也表示“<font color="#eb8a43">implements</font>”（如接口）。</p>
+<span id="more"></span>
+<p>要编写处理<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Number.html">Number</a>及其子类型（如Integer、Double和Float）列表的方法，应指定<font color="#eb8a43">List&lt;? extends Number&gt;</font>。<font color="#eb8a43">List&lt;Number&gt;</font>比<font color="#eb8a43">List&lt;? extends Number&gt;</font>更具限制性，因为前者仅匹配Number类型的列表，而后者则匹配Number类型及其所有子类的列表。</p>
+<p>考虑下面这个process method的例子:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">process</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Foo</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上界通配符<font color="#eb8a43">&lt;? extends Foo&gt;</font>（其中 <font color="#eb8a43">Foo</font> 为任意类型）匹配 <font color="#eb8a43">Foo</font> 及其所有子类型。<font color="#eb8a43">process</font> 方法可将列表元素视为类型 <font color="#eb8a43">Foo</font> ：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">process</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Foo</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Foo</span> elem <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// ...</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在 <font color="#eb8a43">foreach</font> 子句中，变量 <font color="#eb8a43">elem</font> 遍历列表中的每个元素。现在，<font color="#eb8a43">Foo</font> 类中定义的任何方法都可用于 <font color="#eb8a43">elem</font> 。</p>
+<p><font color="#eb8a43">sumOfList()</font> 方法返回列表中数字的总和：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">double</span> <span class="token function">sumOfList</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Number</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">double</span> s <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Number</span> n <span class="token operator">:</span> list<span class="token punctuation">)</span>
+        s <span class="token operator">+=</span> n<span class="token punctuation">.</span><span class="token function">doubleValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下代码使用一个整数对象列表，输出 <font color="#eb8a43">sum &#x3D; 6.0</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> li <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"sum = "</span> <span class="token operator">+</span> <span class="token function">sumOfList</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>一个双精度值列表可以使用相同的 <font color="#eb8a43">sumOfList()</font> 方法。以下代码将输出 <font color="#eb8a43">sum &#x3D; 7.0</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Double</span><span class="token punctuation">></span></span> ld <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token number">2.3</span><span class="token punctuation">,</span> <span class="token number">3.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"sum = "</span> <span class="token operator">+</span> <span class="token function">sumOfList</span><span class="token punctuation">(</span>ld<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h1 id="无界通配符"><a href="#无界通配符" class="headerlink" title="无界通配符"></a>无界通配符</h1><p>无界通配符类型使用通配符字符(<font color="#eb8a43">?</font>)指定，例如<font color="#eb8a43">List&lt;?&gt;</font>。这称为未知类型的列表。无界通配符在两种场景下是有效的解决方案：</p>
+<ul>
+<li>如果你正在编写一个方法，该方法可以利用Object类提供的功能来实现。</li>
+<li>当代码使用泛型类中不依赖类型参数的方法时。例如 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#size()">List.size()</a> 或 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#clear()">List.clear()</a>。事实上，<font color="#eb8a43">Class&lt;?&gt;</font> 被频繁使用正是因为 <font color="#eb8a43">Class&lt;T&gt;</font> 中的多数方法并不依赖 <font color="#eb8a43">T</font>。</li>
+</ul>
+<p>请考虑以下方法 <font color="#eb8a43">printList()</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">printList</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Object</span> elem <span class="token operator">:</span> list<span class="token punctuation">)</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>elem <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>printList() 方法的目标是打印任意类型的列表，但它未能实现这一目标——它仅能打印 Object 实例的列表；无法打印<font color="#eb8a43"> List&lt;Integer&gt;、List&lt;String&gt;、List&lt;Double&gt;</font> 等类型，因为它们并非 <font color="#eb8a43">List&lt;Object&gt;</font> 的子类型。要编写泛型 <font color="#eb8a43">printList()</font> 方法，请使用 <font color="#eb8a43">List&lt;?&gt;</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">printList</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Object</span> elem<span class="token operator">:</span> list<span class="token punctuation">)</span>
+        <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>elem <span class="token operator">+</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token constant">IO</span><span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由于对于任何具体类型 <font color="#eb8a43">A</font>，<font color="#eb8a43">List&lt;A&gt;</font> 都是 <font color="#eb8a43">List&lt;?&gt;</font> 的子类型，因此你可以使用 <font color="#eb8a43">printList()</font> 方法打印任意类型的列表：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> li <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span>  ls <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printList</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printList</span><span class="token punctuation">(</span>ls<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><em>注：本节示例中均使用了 <font color="#eb8a43">Arrays.asList()</font> 方法。该静态工厂方法将指定数组转换为固定大小的列表并返回。</em><br>需要特别注意的是，<font color="#eb8a43">List&lt;Object&gt;</font> 与 <font color="#eb8a43">List&lt;?&gt;</font> 并非等同。你可以向 <font color="#eb8a43">List&lt;Object&gt;</font> 中插入 Object 类型或其任何子类型对象，但只能向 <font color="#eb8a43">List&lt;?&gt;</font> 中插入 null 值。本节末尾的《通配符使用指南》段落提供了更多信息，说明如何根据具体情况判断是否需要使用通配符以及应选用何种通配符。</p>
+</blockquote>
+<h1 id="下界通配符"><a href="#下界通配符" class="headerlink" title="下界通配符"></a>下界通配符</h1><p>上界通配符小节说明，上界通配符将未知类型限制为特定类型或该类型的子类型，并使用extends关键字表示。类似地，下界通配符将未知类型限制为特定类型或该类型的超类型。<br>下界限定通配符通过通配符字符（’<font color="#eb8a43">?</font>‘）表示，后跟关键字 <font color="#eb8a43">super</font> ，再接其下界：<font color="#eb8a43">&lt;? super A&gt;</font>。</p>
+<blockquote>
+<p><em>注意：您可以为通配符指定上限，也可以指定下限，但不能同时指定两者。</em></p>
+</blockquote>
+<p>假设你想编写一个方法，将Integer对象放入列表中。为了最大化灵活性，你希望该方法能处理<font color="#eb8a43">List&lt;Integer&gt;、List&lt;Number&gt;和List&lt;Object&gt;</font>——任何能容纳Integer值的类型。</p>
+<p>要编写适用于整数列表及其超类（如Integer、Number和Object）的方法，应指定<font color="#eb8a43">List&lt;? super Integer&gt;</font>。相较于<font color="#eb8a43">List&lt;? super Integer&gt;</font>，<font color="#eb8a43">List&lt;Integer&gt;</font>的限制更严格，因为前者仅匹配整数类型的列表，而后者则匹配任何作为整数超类的列表类型。<br>以下代码将数字1到10添加到列表末尾：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">addNumbers</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> list<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本节末尾的《通配符使用指南》段落提供了关于何时使用上界通配符、何时使用下界通配符的指导原则。</p>
+<h1 id="通配符与子类型化"><a href="#通配符与子类型化" class="headerlink" title="通配符与子类型化"></a>通配符与子类型化</h1><p>如前文所述，泛型类或接口之间并非仅因其类型存在关联而相关。不过，你可以使用通配符在泛型类或接口之间建立关联关系。<br>给定以下两个常规（非泛型）类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span>
+<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span> <span class="token comment">/* ... */</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>编写以下代码是合理的：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">B</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">A</span> a <span class="token operator">=</span> b<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>此示例表明，普通类的继承遵循以下子类型规则：若类 B 扩展类 A，则类 B 是类 A 的子类型。该规则不适用于泛型类型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">B</span><span class="token punctuation">></span></span> lb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">A</span><span class="token punctuation">></span></span> la <span class="token operator">=</span> lb<span class="token punctuation">;</span>   <span class="token comment">// compile-time error</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>鉴于 Integer 是 Number 的子类型，<font color="#eb8a43">List&lt;Integer&gt;</font> 与 <font color="#eb8a43">List&lt;Number&gt;</font> 之间是什么关系？<br><img src="https://dev.java/assets/images/generics/04_super-types.png" alt="The common parent parameterized lists."><br>尽管Integer是Number的子类型，但<font color="#eb8a43">List&lt;Integer&gt;</font>并非<font color="#eb8a43">List&lt;Number&gt;</font>的子类型，事实上这两种类型并无关联。<font color="#eb8a43">List&lt;Number&gt;</font>与<font color="#eb8a43">List&lt;Integer&gt;</font>的共同父类是<font color="#eb8a43">List&lt;?&gt;</font>。</p>
+<p>为在这些类之间建立关联，使代码能够通过 <font color="#eb8a43">List&lt;Integer&gt;</font> 的元素访问 <font color="#eb8a43">Number</font> 的方法，请使用上界泛型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Integer</span><span class="token punctuation">></span></span> intList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// This is OK because List&lt;? extends Integer> is a subtype of List&lt;? extends Number></span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Number</span><span class="token punctuation">></span></span>  numList <span class="token operator">=</span> intList<span class="token punctuation">;</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>由于Integer是Number的子类型，而numList是Number对象的列表，因此intList（Integer对象的列表）与numList之间建立了关联。下图展示了使用上下界通配符声明的多个List类之间的关系。<br><img src="https://dev.java/assets/images/generics/05_lists-declarations.png" alt="A hierarchy of several generic List class declarations."></p>
+<p>遵循相同规则，<font color="#eb8a43">List&lt;? extends Number&gt;</font> 可由任何继承自 <font color="#eb8a43">Number</font> 的类型列表扩展，包括 <font color="#eb8a43">Number</font> 本身，如下图所示。<br><img src="https://dev.java/assets/images/generics/06_Numbers-extends.png" alt="A list of Number extends a list of ? extends Number."><br>同样的情况也适用于 <font color="#eb8a43">List&lt;? super Integer&gt;</font> 与 <font color="#eb8a43">List&lt;Integer&gt;</font> 之间的关系。<br><img src="https://dev.java/assets/images/generics/07_Integer-super.png" alt="A list of Integer extends a list of ? super Integer."><br>本节末尾的《通配符使用指南》段落提供了更多关于使用上下限通配符的后果的信息。</p>
+<h1 id="通配符捕获与辅助方法"><a href="#通配符捕获与辅助方法" class="headerlink" title="通配符捕获与辅助方法"></a>通配符捕获与辅助方法</h1><p>在某些情况下，编译器会推断通配符的类型。例如，列表可能定义为 <font color="#eb8a43">List&lt;?&gt;</font>，但在评估表达式时，编译器会根据代码推断出特定类型。这种情况称为通配符捕获。<br>通常情况下，您无需担心通配符捕获的问题，除非看到包含”捕获”字样的错误信息。<br>编译时，<font color="#eb8a43">WildcardError</font> 示例会引发捕获错误：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">List</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WildcardError</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        i<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在此示例中，编译器将输入参数 i 视为 Object 类型。当 <font color="#eb8a43">foo</font> 方法调用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#set(int,E)">List.set(int, E)</a> 时，编译器无法确认插入列表的对象类型，从而引发错误。此类错误通常表明编译器认为变量赋值类型不匹配。泛型机制正是为此目的引入Java语言——在编译时强制执行类型安全。</p>
+<p>当使用Oracle JDK 7的javac实现进行编译时，<font color="#eb8a43">WildcardError</font>示例会生成以下错误：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">WildcardError.java:6: error: method <span class="token builtin class-name">set</span> <span class="token keyword">in</span> interface List<span class="token operator">&lt;</span>E<span class="token operator">></span> cannot be applied to given types<span class="token punctuation">;</span>
+    i.set<span class="token punctuation">(</span><span class="token number">0</span>, i.get<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">))</span><span class="token punctuation">;</span>
+     ^
+  required: int,CAP<span class="token comment">#1</span>
+  found: int,Object
+  reason: actual argument Object cannot be converted to CAP<span class="token comment">#1 by method invocation conversion</span>
+  where E is a type-variable:
+    E extends Object declared <span class="token keyword">in</span> interface List
+  where CAP<span class="token comment">#1 is a fresh type-variable:</span>
+    CAP<span class="token comment">#1 extends Object from capture of ?</span>
+<span class="token number">1</span> error<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在此示例中，代码试图执行一项安全操作，那么如何绕过编译器报错？可通过编写捕获通配符的私有辅助方法来修复。具体而言，可创建名为 <font color="#eb8a43">fooHelper()</font> 的私有辅助方法来解决此问题，具体实现如 <font color="#eb8a43">WildcardFixed</font> 所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WildcardFixed</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">fooHelper</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+
+    <span class="token comment">// Helper method created so that the wildcard can be captured</span>
+    <span class="token comment">// through type inference.</span>
+    <span class="token keyword">private</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">void</span> <span class="token function">fooHelper</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> l<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        l<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>得益于辅助方法，编译器通过推断确定调用中的 T 是捕获变量 CAP#1。该示例现已成功编译。</p>
+<p>按惯例，辅助方法通常命名为 <font color="#eb8a43">originalMethodNameHelper()</font>。</p>
+<p>现在考虑一个更复杂的示例 <font color="#eb8a43">WildcardErrorBad</font>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token class-name">List</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WildcardErrorBad</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">void</span> <span class="token function">swapFirst</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Number</span><span class="token punctuation">></span></span> l1<span class="token punctuation">,</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Number</span><span class="token punctuation">></span></span> l2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token class-name">Number</span> temp <span class="token operator">=</span> l1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      l1<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l2<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// expected a CAP#1 extends Number,</span>
+                            <span class="token comment">// got a CAP#2 extends Number;</span>
+                            <span class="token comment">// same bound, but different types</span>
+      l2<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">// expected a CAP#1 extends Number,</span>
+                            <span class="token comment">// got a Number</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在此示例中，代码正在尝试执行不安全的操作。例如，请考虑以下对 swapFirst() 方法的调用：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">></span></span> li <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Double</span><span class="token punctuation">></span></span>  ld <span class="token operator">=</span> <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">10.10</span><span class="token punctuation">,</span> <span class="token number">20.20</span><span class="token punctuation">,</span> <span class="token number">30.30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">swapFirst</span><span class="token punctuation">(</span>li<span class="token punctuation">,</span> ld<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>虽然 <font color="#eb8a43">List&lt;Integer&gt;</font> 和 <font color="#eb8a43">List&lt;Double&gt;</font> 都满足 <font color="#eb8a43">List&lt;? extends Number&gt;</font> 的条件，但显然不正确的做法是从一个整型值列表中取出一项，并试图将其放入一个双精度型值列表中。</p>
+<p>使用Oracle的JDK javac编译器编译代码时，会产生以下错误：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">WildcardErrorBad.java:7: error: method <span class="token builtin class-name">set</span> <span class="token keyword">in</span> interface List<span class="token operator">&lt;</span>E<span class="token operator">></span> cannot be applied to given types<span class="token punctuation">;</span>
+      l1.set<span class="token punctuation">(</span><span class="token number">0</span>, l2.get<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">))</span><span class="token punctuation">;</span> // expected a CAP<span class="token comment">#1 extends Number,</span>
+        ^
+  required: int,CAP<span class="token comment">#1</span>
+  found: int,Number
+  reason: actual argument Number cannot be converted to CAP<span class="token comment">#1 by method invocation conversion</span>
+  where E is a type-variable:
+    E extends Object declared <span class="token keyword">in</span> interface List
+  where CAP<span class="token comment">#1 is a fresh type-variable:</span>
+    CAP<span class="token comment">#1 extends Number from capture of ? extends Number</span>
+WildcardErrorBad.java:10: error: method <span class="token builtin class-name">set</span> <span class="token keyword">in</span> interface List<span class="token operator">&lt;</span>E<span class="token operator">></span> cannot be applied to given types<span class="token punctuation">;</span>
+      l2.set<span class="token punctuation">(</span><span class="token number">0</span>, temp<span class="token punctuation">)</span><span class="token punctuation">;</span>      // expected a CAP<span class="token comment">#1 extends Number,</span>
+        ^
+  required: int,CAP<span class="token comment">#1</span>
+  found: int,Number
+  reason: actual argument Number cannot be converted to CAP<span class="token comment">#1 by method invocation conversion</span>
+  where E is a type-variable:
+    E extends Object declared <span class="token keyword">in</span> interface List
+  where CAP<span class="token comment">#1 is a fresh type-variable:</span>
+    CAP<span class="token comment">#1 extends Number from capture of ? extends Number</span>
+WildcardErrorBad.java:15: error: method <span class="token builtin class-name">set</span> <span class="token keyword">in</span> interface List<span class="token operator">&lt;</span>E<span class="token operator">></span> cannot be applied to given types<span class="token punctuation">;</span>
+        i.set<span class="token punctuation">(</span><span class="token number">0</span>, i.get<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">))</span><span class="token punctuation">;</span>
+         ^
+  required: int,CAP<span class="token comment">#1</span>
+  found: int,Object
+  reason: actual argument Object cannot be converted to CAP<span class="token comment">#1 by method invocation conversion</span>
+  where E is a type-variable:
+    E extends Object declared <span class="token keyword">in</span> interface List
+  where CAP<span class="token comment">#1 is a fresh type-variable:</span>
+    CAP<span class="token comment">#1 extends Object from capture of ?</span>
+<span class="token number">3</span> errors<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>没有辅助方法可以解决这个问题，因为代码本身存在根本性错误：从整型值列表中提取一项数据并试图将其放入双精度值列表的行为显然是错误的。</p>
+<h1 id="通配符使用指南"><a href="#通配符使用指南" class="headerlink" title="通配符使用指南"></a>通配符使用指南</h1><p>在学习泛型编程时，最令人困惑的方面之一就是如何判断何时使用上界通配符、何时使用下界通配符。本页面提供了一些在设计代码时应遵循的指导原则。<br>为便于讨论，可将变量视为提供两种功能之一：</p>
+<ul>
+<li>一个”输入”变量。输入变量向代码提供数据。想象一个带两个参数的复制方法：<font color="#eb8a43">copy(src, dest)</font>。<font color="#eb8a43">src</font>参数提供待复制的数据，因此它是”输入”参数。</li>
+<li>“输出”变量。输出变量用于存储供其他地方使用的数据。在复制示例 <font color="#eb8a43">copy(src, dest)</font> 中，<font color="#eb8a43">dest</font> 参数接收数据，因此它是”输出”参数。<br>当然，某些变量既用于”输入”也用于”输出”——这种情况在指南中也有说明。<br>在决定是否使用通配符以及选择何种通配符类型时，可遵循”输入”与”输出”原则。以下列表提供了具体指导方针：</li>
+<li>“输入” 变量通过使用 <font color="#eb8a43">extends</font> 关键字，采用上界限定的通配符进行定义。</li>
+<li>使用 <font color="#eb8a43">super</font> 关键字定义的 “输出” 变量采用下限限定的通配符。</li>
+<li>当可通过Object类中定义的方法访问”输入”变量时，请使用无界通配符。</li>
+<li>当代码需要同时将变量作为”输入”和”输出”变量访问时，请勿使用通配符。</li>
+</ul>
+<p>这些准则不适用于方法的返回类型。应避免使用通配符作为返回类型，因为这会迫使使用该代码的程序员处理通配符。<br>通过 <font color="#eb8a43">List&lt;? extends …&gt;</font> 定义的列表可非正式地视为只读，但这并非严格保证。假设你有以下两个类：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">NaturalNumber</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">NaturalNumber</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>i <span class="token operator">=</span> i<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">EvenNumber</span> <span class="token keyword">extends</span> <span class="token class-name">NaturalNumber</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">EvenNumber</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">super</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>考虑以下代码段：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">EvenNumber</span><span class="token punctuation">></span></span> le <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">NaturalNumber</span><span class="token punctuation">></span></span> ln <span class="token operator">=</span> le<span class="token punctuation">;</span>
+ln<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">NaturalNumber</span><span class="token punctuation">(</span><span class="token number">35</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// compile-time error</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>由于 <font color="#eb8a43">List&lt;EvenNumber&gt;</font> 是 <font color="#eb8a43">List&lt;? extends NaturalNumber&gt;</font> 的子类型，因此可以将 le 赋值给 ln。但无法使用 ln 将自然数添加到偶数列表中。对该列表可执行的操作包括：</p>
+<ul>
+<li>你可以添加 <font color="#eb8a43">null</font> 值。</li>
+<li>你可以调用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#clear()">clean()</a> 方法。</li>
+<li>你可以获取迭代器并且调用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html#remove(java.lang.Object)">remove()</a> 方法。</li>
+<li>你可以捕获通配符，并写入从列表中读取的元素。</li>
+</ul>
+<p>你可以看到，由 <font color="#eb8a43">List&lt;? extends NaturalNumber&gt;</font> 定义的列表并非严格意义上的只读列表，但你可能会这样认为，因为你无法在列表中存储新元素或修改现有元素。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/wildcard/" title="通配符">http://billtsui.cn/technology/java/wildcard/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/technology/java/type-inference/" rel="prev" title="类型推断">
+                  <i class="fa fa-angle-left"></i> 类型推断
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
