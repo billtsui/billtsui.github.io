@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"billtsui.cn","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":240,"width_dual_column":240,"display":"post","padding":18,"offset":12},"codeblock":{"theme":{"light":"base16/humanoid-dark","dark":"base16/humanoid-dark"},"prism":{"light":"prism-tomorrow","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":200},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"buttons","active":"changyan","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="注解注释有多种用途，其中包括：  编译器信息——注释可供编译器用于检测错误或抑制警告。 编译时和部署时处理——软件工具可处理注释信息以生成代码、XML文件等。 运行时处理——某些注解可在运行时进行检查。  本节说明注解的使用场景、应用方式、Java平台标准版（Java SE API）中可用的预定义注解类型，以及如何结合可插拔类型系统使用类型注解来编写具有更强类型检查能力的代码，并介绍了如何实现重复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注解">
+<meta property="og:url" content="http://billtsui.cn/technology/java/annotation/index.html">
+<meta property="og:site_name" content="Real 焜">
+<meta property="og:description" content="注解注释有多种用途，其中包括：  编译器信息——注释可供编译器用于检测错误或抑制警告。 编译时和部署时处理——软件工具可处理注释信息以生成代码、XML文件等。 运行时处理——某些注解可在运行时进行检查。  本节说明注解的使用场景、应用方式、Java平台标准版（Java SE API）中可用的预定义注解类型，以及如何结合可插拔类型系统使用类型注解来编写具有更强类型检查能力的代码，并介绍了如何实现重复">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-28T01:53:18.000Z">
+<meta property="article:modified_time" content="2026-01-28T03:05:04.128Z">
+<meta property="article:author" content="Bill Tsui">
+<meta property="article:tag" content="Java Programming Language">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://billtsui.cn/technology/java/annotation/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://billtsui.cn/technology/java/annotation/","path":"/technology/java/annotation/","title":"注解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>注解 | Real 焜</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.1/mermaid.min.js","integrity":"sha256-BmQmdWDS8X2OTbrwELWK366LV6escyWhHHe0XCTU/Hk="}}</script>
+  <script src="/js/third-party/tags/mermaid.js" defer></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js" defer></script>
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+  <script src="/js/third-party/addtoany.js" defer></script>
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":"all","tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Real 焜</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Stay Simple. Stay NexT.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">注解的格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">注释的使用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">声明一个注解类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">预定义注解类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.1.</span> <span class="nav-text">Java语言使用的注解类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deprecated"><span class="nav-number">5.1.1.</span> <span class="nav-text">@Deprecated</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Override"><span class="nav-number">5.1.2.</span> <span class="nav-text">@Override</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SuppressWarnings"><span class="nav-number">5.1.3.</span> <span class="nav-text">@SuppressWarnings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SafeVarargs"><span class="nav-number">5.1.4.</span> <span class="nav-text">@SafeVarargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FunctionalInterface"><span class="nav-number">5.1.5.</span> <span class="nav-text">@FunctionalInterface</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E4%BA%8E%E5%85%B6%E4%BB%96%E6%B3%A8%E8%A7%A3%E7%9A%84%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.2.</span> <span class="nav-text">适用于其他注解的注解类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Retention"><span class="nav-number">5.2.1.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documented"><span class="nav-number">5.2.2.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Target"><span class="nav-number">5.2.3.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inherited"><span class="nav-number">5.2.4.</span> <span class="nav-text">@Inherited</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable"><span class="nav-number">5.2.5.</span> <span class="nav-text">@Repeatable</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%AF%E6%8F%92%E6%8B%94%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="nav-number">6.</span> <span class="nav-text">类型注解与可插拔类型系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E6%B3%A8%E8%A7%A3"><span class="nav-number">7.</span> <span class="nav-text">重复注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E5%8F%AF%E9%87%8D%E5%A4%8D%E7%9A%84%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.1.</span> <span class="nav-text">第一步：声明一个可重复的注解类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%A3%B0%E6%98%8E%E5%AE%B9%E5%99%A8%E6%B3%A8%E8%A7%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.</span> <span class="nav-text">第二步：声明容器注解类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E6%B3%A8%E9%87%8A"><span class="nav-number">8.</span> <span class="nav-text">检索注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E8%80%83%E8%99%91%E5%9B%A0%E7%B4%A0"><span class="nav-number">9.</span> <span class="nav-text">设计考虑因素</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Bill Tsui"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Bill Tsui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:dhubilltsui@gmail.com" title="E-Mail → mailto:dhubilltsui@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/billtsui" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;billtsui" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://billtsui.cn/technology/java/annotation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Bill Tsui">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="注解 | Real 焜">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          注解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-01-28 09:53:18 / 修改时间：11:05:04" itemprop="dateCreated datePublished" datetime="2026-01-28T09:53:18+08:00">2026-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>注释有多种用途，其中包括：</p>
+<ul>
+<li>编译器信息——注释可供编译器用于检测错误或抑制警告。</li>
+<li>编译时和部署时处理——软件工具可处理注释信息以生成代码、XML文件等。</li>
+<li>运行时处理——某些注解可在运行时进行检查。</li>
+</ul>
+<p>本节说明注解的使用场景、应用方式、Java平台标准版（Java SE API）中可用的预定义注解类型，以及如何结合可插拔类型系统使用类型注解来编写具有更强类型检查能力的代码，并介绍了如何实现重复注解。</p>
+<span id="more"></span>
+
+
+<h1 id="注解的格式"><a href="#注解的格式" class="headerlink" title="注解的格式"></a>注解的格式</h1><p>在最简单的形式下，注释看起来如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Entity</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>at符号（@）向编译器表明后续内容为注释。在下例中，注释名称为<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Override.html">Override</a>：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">void</span> <span class="token function">mySuperMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>注释可以包含元素，这些元素可以命名或不命名，并且这些元素具有相应的值：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Author</span><span class="token punctuation">(</span>
+   name <span class="token operator">=</span> <span class="token string">"Benjamin Franklin"</span><span class="token punctuation">,</span>
+   date <span class="token operator">=</span> <span class="token string">"3/27/2003"</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>或者</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+<span class="token keyword">void</span> <span class="token function">myMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果只有一个名为 value 的元素，则可以省略名称，例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+<span class="token keyword">void</span> <span class="token function">myMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果注解没有元素，则可以省略括号，如前面的<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Override.html">@Override</a>示例所示。</p>
+<p>同样可以在同一个声明上使用多个注解：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Author</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"Jane Doe"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@EBook</span>
+<span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果注释具有相同类型，则称为重复注释：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Author</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"Jane Doe"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Author</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"John Smith"</span><span class="token punctuation">)</span>
+<span class="token keyword">class</span> <span class="token class-name">MyClass</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>从 Java SE 8 版本开始支持重复注解。有关详细信息，请参阅“重复注解”部分。<br>注解类型可以是Java SE API中java.lang或java.lang.annotations包中定义的类型之一。在前面的示例中，Override和SuppressWarnings是预定义的Java注解。也可以定义自己的注解类型。前例中的<font color="#eb8a43">Author</font>和<font color="#eb8a43">Ebook</font>注解就是自定义注解类型。</p>
+<h1 id="注释的使用场景"><a href="#注释的使用场景" class="headerlink" title="注释的使用场景"></a>注释的使用场景</h1><p>注解可应用于声明：类、字段、方法及其他程序元素的声明。当用于声明时，每个注解通常按惯例单独占据一行。<br>从 Java SE 8 版本开始，注解也可应用于类型使用场景。以下是一些示例：</p>
+<ul>
+<li>类实例创建表达式：</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">new</span> <span class="token annotation punctuation">@Interned</span> <span class="token class-name">MyObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>强制类型转换表达式：</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">(</span><span class="token annotation punctuation">@NonNull</span> <span class="token class-name">String</span><span class="token punctuation">)</span> obj<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>实现接口的声明：</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">UnmodifiableList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">></span></span> <span class="token keyword">implements</span>
+  <span class="token annotation punctuation">@Readonly</span> <span class="token class-name">List</span><span class="token operator">&lt;</span><span class="token annotation punctuation">@Readonly</span> <span class="token class-name">T</span><span class="token operator">></span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ul>
+<li>抛出异常声明：</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">monitorTemperature</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span>
+  <span class="token annotation punctuation">@Critical</span> <span class="token class-name">TemperatureException</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这种注释形式称为<em>类型注解</em>。</p>
+<h1 id="声明一个注解类型"><a href="#声明一个注解类型" class="headerlink" title="声明一个注解类型"></a>声明一个注解类型</h1><p>许多注解取代了代码中的注释。<br>假设某个软件团队在编写代码时，习惯于在每个类的本体部分开头添加注释，以提供重要信息：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Generation3List</span> <span class="token keyword">extends</span> <span class="token class-name">Generation2List</span> <span class="token punctuation">&#123;</span>
+
+   <span class="token comment">// Author: John Doe</span>
+   <span class="token comment">// Date: 3/17/2002</span>
+   <span class="token comment">// Current revision: 6</span>
+   <span class="token comment">// Last modified: 4/12/2004</span>
+   <span class="token comment">// By: Jane Doe</span>
+   <span class="token comment">// Reviewers: Alice, Bill, Cindy</span>
+
+   <span class="token comment">// class code goes here</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>要添加带有注释的相同元数据，必须先定义注释类型。其语法如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@interface</span> <span class="token class-name">ClassPreamble</span> <span class="token punctuation">&#123;</span>
+   <span class="token class-name">String</span> <span class="token function">author</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token class-name">String</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">int</span> <span class="token function">currentRevision</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">1</span><span class="token punctuation">;</span>
+   <span class="token class-name">String</span> <span class="token function">lastModified</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"N/A"</span><span class="token punctuation">;</span>
+   <span class="token class-name">String</span> <span class="token function">lastModifiedBy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"N/A"</span><span class="token punctuation">;</span>
+   <span class="token comment">// Note use of array</span>
+   <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">reviewers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注解类型定义与接口定义相似，其中关键字interface前缀为at符号(@)（@代表AT，即注解类型）。注解类型属于接口的一种形式，将在后续章节中详细说明。目前您无需理解接口的概念。</p>
+<p>先前注释定义的主体包含注释类型元素声明，其外观与方法非常相似。请注意，它们可以定义可选的默认值。</p>
+<p>定义注释类型后，即可使用该类型的注释，并填入相应值，如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@ClassPreamble</span> <span class="token punctuation">(</span>
+   author <span class="token operator">=</span> <span class="token string">"John Doe"</span><span class="token punctuation">,</span>
+   date <span class="token operator">=</span> <span class="token string">"3/17/2002"</span><span class="token punctuation">,</span>
+   currentRevision <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">,</span>
+   lastModified <span class="token operator">=</span> <span class="token string">"4/12/2004"</span><span class="token punctuation">,</span>
+   lastModifiedBy <span class="token operator">=</span> <span class="token string">"Jane Doe"</span><span class="token punctuation">,</span>
+   <span class="token comment">// Note array notation</span>
+   reviewers <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"Alice"</span><span class="token punctuation">,</span> <span class="token string">"Bob"</span><span class="token punctuation">,</span> <span class="token string">"Cindy"</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Generation3List</span> <span class="token keyword">extends</span> <span class="token class-name">Generation2List</span> <span class="token punctuation">&#123;</span>
+
+<span class="token comment">// class code goes here</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><em>注意：要使 <font color="#eb8a43">@ClassPreamble</font> 中的信息出现在Javadoc生成的文档中，必须使用 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Documented.html">@Documented</a> 注解标注 <font color="#eb8a43">@ClassPreamble</font> 的定义：</em></p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// import this to use @Documented</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Documented</span>
+<span class="token annotation punctuation">@interface</span> <span class="token class-name">ClassPreamble</span> <span class="token punctuation">&#123;</span>
+
+   <span class="token comment">// Annotation element definitions</span>
+   
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="预定义注解类型"><a href="#预定义注解类型" class="headerlink" title="预定义注解类型"></a>预定义注解类型</h1><p>Java SE API 中预定义了一组注解类型。其中部分注解类型由 Java 编译器使用，另一些则适用于其他注解。</p>
+<h2 id="Java语言使用的注解类型"><a href="#Java语言使用的注解类型" class="headerlink" title="Java语言使用的注解类型"></a>Java语言使用的注解类型</h2><p>在 java.lang 中定义的预定义注解类型包括 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html">@Deprecated</a>、<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Override.html">@Override</a> 和 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/SuppressWarnings.html">@SuppressWarnings</a>。</p>
+<h3 id="Deprecated"><a href="#Deprecated" class="headerlink" title="@Deprecated"></a>@Deprecated</h3><p>@Deprecated 注解表示标记的元素已弃用，不应再使用。当程序使用带有 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html">@Deprecated</a> 注解的方法、类或字段时，编译器会生成警告。元素被标记为弃用后，还应使用 Javadoc 的 <font color="#eb8a43">@deprecated</font> 标签进行文档说明，如下例所示。Javadoc 注释与注解中均使用 @ 符号并非偶然：二者在概念上存在关联。另请注意：Javadoc 标签以小写字母 <font color="#eb8a43">d</font> 开头，而注解以大写字母 <font color="#eb8a43">D</font> 开头。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// Javadoc comment follows</span>
+<span class="token comment">/**
+ * @deprecated
+ * explanation of why it was deprecated
+ */</span>
+<span class="token annotation punctuation">@Deprecated</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">deprecatedMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意，从 Java SE 9 开始，<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html">@Deprecated</a> 注解新增了 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Deprecated.html#forRemoval()">forRemoval</a> 属性。该属性用于标识被注解的元素是否会在未来版本中被移除，其默认值为 <font color="#eb8a43">false</font>。</p>
+<h3 id="Override"><a href="#Override" class="headerlink" title="@Override"></a>@Override</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Override.html">@Override</a> 注解告知编译器该元素旨在覆盖父类中声明的元素。关于方法覆盖的讨论将在“接口与继承”章节中展开。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// mark method as a superclass method</span>
+<span class="token comment">// that has been overridden</span>
+<span class="token annotation punctuation">@Override</span> 
+<span class="token keyword">int</span> <span class="token function">overriddenMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>虽然重写方法时并非必须使用此注解，但它有助于避免错误。若标记为<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Override.html">@Override</a>的方法未能正确重写其父类中的某个方法，编译器将生成错误。</p>
+<h3 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/SuppressWarnings.html">@SuppressWarnings</a> 注解指示编译器抑制其本应生成的特定警告。在下面的示例中，使用了一个已弃用的方法，编译器通常会生成警告。但在这种情况下，该注解会导致警告被抑制。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// use a deprecated method and tell </span>
+<span class="token comment">// compiler not to generate a warning</span>
+<span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"deprecation"</span><span class="token punctuation">)</span>
+<span class="token keyword">void</span> <span class="token function">useDeprecatedMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// deprecation warning</span>
+    <span class="token comment">// - suppressed</span>
+    objectOne<span class="token punctuation">.</span><span class="token function">deprecatedMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>每个编译器警告都属于某个类别。Java语言规范列出了两类警告：弃用警告和未检查警告。在与泛型出现之前编写的旧代码进行交互时，可能会出现未检查警告。要抑制多类警告，请使用以下语法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"deprecation"</span><span class="token punctuation">,</span> <span class="token string">"unchecked"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="SafeVarargs"><a href="#SafeVarargs" class="headerlink" title="@SafeVarargs"></a>@SafeVarargs</h3><p>当<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/SafeVarargs.html">@SafeVarargs</a>注解应用于方法或构造函数时，它会断言代码不会对其可变参数参数执行潜在不安全的操作。使用此注解类型时，与可变参数使用相关的未检查警告将被抑制。</p>
+<h3 id="FunctionalInterface"><a href="#FunctionalInterface" class="headerlink" title="@FunctionalInterface"></a>@FunctionalInterface</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/FunctionalInterface.html">@FunctionalInterface</a> 注解在 Java SE 8 中引入，用于标识类型声明旨在作为函数式接口，其定义遵循 Java 语言规范。</p>
+<h2 id="适用于其他注解的注解类型"><a href="#适用于其他注解的注解类型" class="headerlink" title="适用于其他注解的注解类型"></a>适用于其他注解的注解类型</h2><p>适用于其他注解的注解称为元注解。在 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/package-summary.html">java.lang.annotation</a> 中定义了多种元注解类型。</p>
+<h3 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Retention.html">@Retention</a> 注解指定标记注解的存储方式：</p>
+<ul>
+<li>RetentionPolicy.SOURCE - 标记注释仅保留在源代码层级，编译器会忽略它。</li>
+<li>RetentionPolicy.CLASS - 标记注释在编译时会被编译器保留，但在Java虚拟机（JVM）中会被忽略。</li>
+<li>RetentionPolicy.RUNTIME - 标记注释由JVM保留，以便运行时环境能够使用它。</li>
+</ul>
+<h3 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Documented.html">@Documented</a> 注解表示，每当使用指定注解时，应使用 Javadoc 工具对这些元素进行文档化。（默认情况下，注解不会包含在 Javadoc 中。）有关更多信息，请参阅 Javadoc 工具页面。</p>
+<h3 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Target.html">@Target</a> 注解用于标记另一个注解，以限制该注解可应用于何种类型的Java元素。目标注解将其值限定为以下元素类型之一：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#ANNOTATION_TYPE">ElementType.ANNOTATION_TYPE</a> 可应用于注解类型。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#CONSTRUCTOR">ElementType.CONSTRUCTOR</a> 可应用于构造函数。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#FIELD">ElementType.FIELD</a> 可应用于字段或属性。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#LOCAL_VARIABLE">ElementType.LOCAL_VARIABLE</a> 可应用于局部变量。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#METHOD">ElementType.METHOD</a> 可应用于方法级注解。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#PACKAGE">ElementType.PACKAGE</a> 可应用于包声明。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#PARAMETER">ElementType.PARAMETER</a> 可应用于方法的参数。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#RECORD_COMPONENT">ElementType.RECORD_COMPONENT</a> 可应用于记录的组件。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#TYPE">ElementType.TYPE</a> 可应用于类、抽象类、接口、注解接口、枚举或记录的声明。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#TYPE_PARAMETER">ElementType.TYPE_PARAMETER</a> 可应用于类型的参数。</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/ElementType.html#TYPE_USE">ElementType.TYPE_USE</a> 可应用于类型被使用的位置，例如在字段声明处。</li>
+</ul>
+<h3 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Inherited.html">@Inherited</a> 注解表示该注解类型可从父类继承（默认情况下并非如此）。当用户查询注解类型时，若该类未声明此类型注解，则会查询该类的父类以获取注解类型。此注解仅适用于类声明。</p>
+<h3 id="Repeatable"><a href="#Repeatable" class="headerlink" title="@Repeatable"></a>@Repeatable</h3><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Repeatable.html">@Repeatable</a> 注解（在 Java SE 8 中引入）表示标记的注解可多次应用于同一声明或类型使用。更多信息请参阅“重复注解”章节。</p>
+<h1 id="类型注解与可插拔类型系统"><a href="#类型注解与可插拔类型系统" class="headerlink" title="类型注解与可插拔类型系统"></a>类型注解与可插拔类型系统</h1><p>在 Java SE 8 发布之前，注解只能应用于声明。自 Java SE 8 发布以来，注解也可应用于任何类型的使用场景。这意味着注解可在使用类型的任何位置使用。类型使用的场景包括：类实例创建表达式（new）、强制类型转换、implements子句和throws子句等。此类注解称为类型注解，其具体示例详见”注解基础”章节。</p>
+<p>类型注解的创建旨在支持对Java程序进行更深入的分析，从而实现更严格的类型检查。Java SE 8版本虽未提供内置的类型检查框架，但允许开发者编写（或下载）类型检查框架——该框架以一个或多个可插拔模块的形式实现，可与Java编译器协同工作。</p>
+<p>例如，你希望确保程序中的某个特定变量永远不会被赋值为空，从而避免触发空指针异常。你可以编写自定义插件来检查此情况。随后，你需要修改代码，为该特定变量添加注解，表明它永远不会被赋值为空。变量声明可能如下所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@NonNull</span> <span class="token class-name">String</span> str<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当您在命令行中包含 <font color="#eb8a43">NonNull</font> 模块编译代码时，若编译器检测到潜在问题，会输出警告提示，以便您修改代码避免错误。在修正代码消除所有警告后，程序运行时就不会出现此特定错误。</p>
+<p>您可以使用多个类型检查模块，每个模块负责检查不同类型的错误。通过这种方式，您可以在Java类型系统的基础上进行扩展，在需要时添加特定的检查。</p>
+<p>通过合理使用类型注解和可插拔类型检查器的支持，您可以编写更强大且不易出错的代码。</p>
+<p>在许多情况下，您无需自行编写类型检查模块。已有第三方为您完成了这项工作。例如，您可以利用华盛顿大学创建的 Checker Framework 。该框架包含<font color="#eb8a43">NonNull</font>模块、正则表达式模块以及互斥锁模块。更多信息请参阅 <a target="_blank" rel="noopener" href="http://types.cs.washington.edu/checker-framework/">Checker Framework</a> 文档。</p>
+<h1 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h1><p>在某些情况下，您可能希望将相同的注解应用于声明或类型使用。从 Java SE 8 版本开始，重复注解功能使您能够实现这一目标。<br>例如，你正在编写代码来使用定时器服务，该服务允许你在指定时间或按特定计划运行方法，类似于UNIX的cron服务。现在你需要设置定时器，在每月最后一天及每周五晚上11点运行 <font color="#eb8a43">doPeriodicCleanup()</font> 方法。为此需创建 <font color="#eb8a43">@Schedule</font> 注解并将其应用于该方法两次： 首次使用指定每月最后一天，第二次指定周五晚上11点，如下代码示例所示：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Schedule</span><span class="token punctuation">(</span>dayOfMonth<span class="token operator">=</span><span class="token string">"last"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Schedule</span><span class="token punctuation">(</span>dayOfWeek<span class="token operator">=</span><span class="token string">"Fri"</span><span class="token punctuation">,</span> hour<span class="token operator">=</span><span class="token string">"23"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doPeriodicCleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>前面的示例将注解应用于方法。您可以在任何需要使用标准注解的位置重复使用注解。例如，您有一个用于处理未授权访问异常的类。您可以为该类添加两个注解：一个<font color="#eb8a43">@Alert</font>注解用于管理员，另一个用于系统管理员：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Alert</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"Manager"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Alert</span><span class="token punctuation">(</span>role<span class="token operator">=</span><span class="token string">"Administrator"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnauthorizedAccessException</span> <span class="token keyword">extends</span> <span class="token class-name">SecurityException</span> <span class="token punctuation">&#123;</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>出于兼容性考虑，重复注解会被存储在Java编译器自动生成的容器注解中。为使编译器完成此操作，您的代码中需要包含两处声明。</p>
+<h2 id="第一步：声明一个可重复的注解类型"><a href="#第一步：声明一个可重复的注解类型" class="headerlink" title="第一步：声明一个可重复的注解类型"></a>第一步：声明一个可重复的注解类型</h2><p>注解类型必须标记为 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Repeatable.html">@Repeatable</a> 元注解。以下示例定义了一个自定义的 <font color="#eb8a43">@Schedule</font> 可重复注解类型：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Repeatable</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Repeatable</span><span class="token punctuation">(</span><span class="token class-name">Schedules</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Schedule</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">String</span> <span class="token function">dayOfMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"first"</span><span class="token punctuation">;</span>
+  <span class="token class-name">String</span> <span class="token function">dayOfWeek</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">"Mon"</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> <span class="token function">hour</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">12</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>括号中的<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Repeatable.html">@Repeatable</a>元注解的值，即为Java编译器生成的用于存储重复注解的容器注解类型。在此示例中，包含注解的类型为<font color="#eb8a43">@Schedules</font>，因此重复的<font color="#eb8a43">@Schedule</font>注解将存储于<font color="#eb8a43">@Schedules</font>注解中。</p>
+<p>若未事先声明声明为可重复，而直接为其添加相同注解，将导致编译时错误。</p>
+<h2 id="第二步：声明容器注解类型"><a href="#第二步：声明容器注解类型" class="headerlink" title="第二步：声明容器注解类型"></a>第二步：声明容器注解类型</h2><p>包含注解类型必须具有数组类型的值元素。该数组类型的组成部分类型必须是可重复注解类型。@Schedules包含注解类型的声明如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Schedules</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">Schedule</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="检索注释"><a href="#检索注释" class="headerlink" title="检索注释"></a>检索注释</h1><p>反射API中提供了多种用于检索注解的方法。返回单个注解的方法（如<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/reflect/AnnotatedElement.html#getAnnotation(java.lang.Class)">AnnotatedElement.getAnnotation(Class)</a>）的行为保持不变：当请求类型仅存在一个注解时，它们仍仅返回该注解。若存在多个请求类型的注解，可先获取其容器注解来获取所有注解。通过这种方式，旧代码仍可正常运行。Java SE 8中引入了其他方法，可遍历容器注解一次性返回多个注解，例如<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/reflect/AnnotatedElement.html#getAnnotationsByType(java.lang.Class)">AnnotatedElement.getAnnotationsByType(Class)</a>。有关所有可用方法的详细信息，请参阅<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/reflect/AnnotatedElement.html">AnnotatedElement</a>类的规范说明。</p>
+<h1 id="设计考虑因素"><a href="#设计考虑因素" class="headerlink" title="设计考虑因素"></a>设计考虑因素</h1><p>设计注解类型时，必须考虑该类型注解的基数性。现在注解可以零次使用、使用一次，或者（如果注解类型标记为<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Repeatable.html">@Repeatable</a>）使用多次。还可通过<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/annotation/Target.html">@Target</a>元注解限制注解类型的使用范围。例如，可创建仅限于方法和字段使用的可重复注解类型。精心设计注解类型至关重要，这能确保使用该注解的程序员获得最大程度的灵活性与功能性。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Bill Tsui
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://billtsui.cn/technology/java/annotation/" title="注解">http://billtsui.cn/technology/java/annotation/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-Programming-Language/" rel="tag"># Java Programming Language</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_telegram"></a>
+      <a class="a2a_button_reddit"></a>
+      <a class="a2a_button_pinterest"></a>
+      <a class="a2a_button_whatsapp"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_douban"></a>
+      <a class="a2a_button_copy_link"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/technology/java/restrictions-on-generics/" rel="prev" title="对泛型的限制">
+                  <i class="fa fa-angle-left"></i> 对泛型的限制
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2017 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Bill Tsui</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+
+  <a href="https://github.com/billtsui" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
