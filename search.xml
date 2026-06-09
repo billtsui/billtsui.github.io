@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>网易云音乐ncm文件加密格式解析</title>
+    <url>//technology/csharp/neteasecloudmusic/</url>
+    <content><![CDATA[本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。
+NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。
+
+ 开局一张图，剩下全靠编(码) —— NCM文件结构组成
+按照文件结构，采用 Chain of Responsibility 模式构建解析过程。其中最核心的几个技术点：
+
+RC4算法
+Meta信息解析
+Meta后缀是flac但实际格式有可能是mp3
+
+RC4、AES算法内容可以参考这本书 应用密码学：协议、算法与C源程序（原书第2版） 。
+/* * RC4算法 */public class RC4&#123;    private readonly byte[] _box = new byte[256];    public void KSA(byte[] key)    &#123;        var len = key.Length;        for (var i = 0; i &lt; 256; i++) _box[i] = (byte)i;        for (int i = 0, j = 0; i &lt; 256; i++)        &#123;            j = (j + _box[i] + key[i % len]) &amp; 0xff;            (_box[i], _box[j]) = (_box[j], _box[i]);        &#125;    &#125;    public void PRGA(byte[] data, int length)    &#123;        for (var k = 0; k &lt; length; k++)        &#123;            var i = (k + 1) &amp; 0xff;            var j = (_box[i] + i) &amp; 0xff;            data[k] ^= _box[(_box[i] + _box[j]) &amp; 0xff];        &#125;    &#125;&#125;
+
+
+格式不匹配问题，是在用TagLib写入Meta数据的时候抛异常发现的。需要读取 File Signatures 来判断。
+//兼容file signatures是mp3但后缀是flac的歌曲if (BitConverter.ToString(ncmObject.MusicDataArray.Slice(0, 3).ToArray()).Equals(&quot;49-44-33&quot;))    ncmObject.NeteaseCopyrightData.Format = &quot;mp3&quot;;
+
+
+其他地方没什么难度。话说回来，.Net跨平台任重道远。Mac上面跑只需要500MB+，Windows上面能用掉3G内存。
+完整的代码在 这里 ，支持 Windows &amp; MacOS。
+编译成功后使用 -p,–path 参数传入目录即可。
+
+
+使用 Sony NW-ZX300A 实测可以正常显示专辑封面，HiRes标志也正常显示，我又可以做回 Walkman 了
+
+]]></content>
+      <categories>
+        <category>技术</category>
+        <category>.Net</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>单人自驾1.3万公里后，我明白了什么</title>
     <url>//life/selfdriving/</url>
     <content><![CDATA[ 没有什么能够阻挡，你对自由的向往。许巍 —《蓝莲花》
@@ -151,43 +188,6 @@ U型路段
         <tag>旅行</tag>
         <tag>自驾</tag>
         <tag>思考</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>网易云音乐ncm文件加密格式解析</title>
-    <url>//technology/csharp/neteasecloudmusic/</url>
-    <content><![CDATA[本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。
-NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。
-
- 开局一张图，剩下全靠编(码) —— NCM文件结构组成
-按照文件结构，采用 Chain of Responsibility 模式构建解析过程。其中最核心的几个技术点：
-
-RC4算法
-Meta信息解析
-Meta后缀是flac但实际格式有可能是mp3
-
-RC4、AES算法内容可以参考这本书 应用密码学：协议、算法与C源程序（原书第2版） 。
-/* * RC4算法 */public class RC4&#123;    private readonly byte[] _box = new byte[256];    public void KSA(byte[] key)    &#123;        var len = key.Length;        for (var i = 0; i &lt; 256; i++) _box[i] = (byte)i;        for (int i = 0, j = 0; i &lt; 256; i++)        &#123;            j = (j + _box[i] + key[i % len]) &amp; 0xff;            (_box[i], _box[j]) = (_box[j], _box[i]);        &#125;    &#125;    public void PRGA(byte[] data, int length)    &#123;        for (var k = 0; k &lt; length; k++)        &#123;            var i = (k + 1) &amp; 0xff;            var j = (_box[i] + i) &amp; 0xff;            data[k] ^= _box[(_box[i] + _box[j]) &amp; 0xff];        &#125;    &#125;&#125;
-
-
-格式不匹配问题，是在用TagLib写入Meta数据的时候抛异常发现的。需要读取 File Signatures 来判断。
-//兼容file signatures是mp3但后缀是flac的歌曲if (BitConverter.ToString(ncmObject.MusicDataArray.Slice(0, 3).ToArray()).Equals(&quot;49-44-33&quot;))    ncmObject.NeteaseCopyrightData.Format = &quot;mp3&quot;;
-
-
-其他地方没什么难度。话说回来，.Net跨平台任重道远。Mac上面跑只需要500MB+，Windows上面能用掉3G内存。
-完整的代码在 这里 ，支持 Windows &amp; MacOS。
-编译成功后使用 -p,–path 参数传入目录即可。
-
-
-使用 Sony NW-ZX300A 实测可以正常显示专辑封面，HiRes标志也正常显示，我又可以做回 Walkman 了
-
-]]></content>
-      <categories>
-        <category>技术</category>
-        <category>.Net</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
       </tags>
   </entry>
 </search>
