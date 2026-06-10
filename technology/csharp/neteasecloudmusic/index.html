@@ -10,14 +10,14 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="网易云音乐ncm文件加密格式解析">
 <meta property="og:url" content="http://billtsui.cn/technology/csharp/neteasecloudmusic/index.html">
-<meta property="og:site_name" content="Real 焜">
+<meta property="og:site_name" content="Real焜">
 <meta property="og:description" content="本文章内容不得用于商业用途，仅做学习交流。如作他用所承受的法律责任一概与作者无关。 NCM格式是网易云音乐独有的文件格式，且无法脱离网易云音乐程序播放。所以解码的逻辑一定就在网易云音乐的程序里面。可以从各个平台的客户端入手，寻找一下解密的痕迹。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://billtsui.cn/technology/csharp/neteasecloudmusic/ncmformat.png">
 <meta property="og:image" content="http://billtsui.cn/technology/csharp/neteasecloudmusic/shell.png">
 <meta property="og:image" content="http://billtsui.cn/technology/csharp/neteasecloudmusic/mp3.jpg">
 <meta property="article:published_time" content="2024-09-15T04:51:57.000Z">
-<meta property="article:modified_time" content="2026-06-09T13:59:23.709Z">
+<meta property="article:modified_time" content="2026-06-10T01:23:26.777Z">
 <meta property="article:author" content="Bill.K.Tsui">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -86,11 +86,9 @@
      --><!--
        --><li><a href="/category/">分类</a></li><!--
      --><!--
-       --><li><a href="/tag/">标签</a></li><!--
-     --><!--
        --><li><a href="/archives/">归档</a></li><!--
      --><!--
-       --><li><a href="/about/">关于</a></li><!--
+       --><li><a href="/tag">标签</a></li><!--
      --><!--
        --><li><a href="/404/">公益页面</a></li><!--
      --><!--
@@ -157,8 +155,6 @@
       
         <time datetime="2024-09-15T04:51:57.000Z" class="dt-published" itemprop="datePublished">2024-09-15</time>
         
-        (Updated: <time datetime="2026-06-09T13:59:23.709Z" class="dt-updated" itemprop="dateModified">2026-06-09</time>)
-        
       
     </div>
 
@@ -193,20 +189,20 @@
 <li>Meta后缀是flac但实际格式有可能是mp3</li>
 </ol>
 <p>RC4、AES算法内容可以参考这本书 <strong><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25772389/">应用密码学：协议、算法与C源程序（原书第2版）</a></strong> 。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * RC4算法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RC4</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="built_in">byte</span>[] _box = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">256</span>];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">KSA</span>(<span class="params"><span class="built_in">byte</span>[] key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> len = key.Length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) _box[i] = (<span class="built_in">byte</span>)i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            j = (j + _box[i] + key[i % len]) &amp; <span class="number">0xff</span>;</span><br><span class="line">            (_box[i], _box[j]) = (_box[j], _box[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PRGA</span>(<span class="params"><span class="built_in">byte</span>[] data, <span class="built_in">int</span> length</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> k = <span class="number">0</span>; k &lt; length; k++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> i = (k + <span class="number">1</span>) &amp; <span class="number">0xff</span>;</span><br><span class="line">            <span class="keyword">var</span> j = (_box[i] + i) &amp; <span class="number">0xff</span>;</span><br><span class="line">            data[k] ^= _box[(_box[i] + _box[j]) &amp; <span class="number">0xff</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * RC4算法</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">RC4</span><br>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">byte</span>[] _box = <span class="hljs-keyword">new</span> <span class="hljs-built_in">byte</span>[<span class="hljs-number">256</span>];<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">KSA</span>(<span class="hljs-params"><span class="hljs-built_in">byte</span>[] key</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">var</span> len = key.Length;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">256</span>; i++) _box[i] = (<span class="hljs-built_in">byte</span>)i;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">256</span>; i++)<br>        &#123;<br>            j = (j + _box[i] + key[i % len]) &amp; <span class="hljs-number">0xff</span>;<br>            (_box[i], _box[j]) = (_box[j], _box[i]);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PRGA</span>(<span class="hljs-params"><span class="hljs-built_in">byte</span>[] data, <span class="hljs-built_in">int</span> length</span>)</span><br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> k = <span class="hljs-number">0</span>; k &lt; length; k++)<br>        &#123;<br>            <span class="hljs-keyword">var</span> i = (k + <span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xff</span>;<br>            <span class="hljs-keyword">var</span> j = (_box[i] + i) &amp; <span class="hljs-number">0xff</span>;<br>            data[k] ^= _box[(_box[i] + _box[j]) &amp; <span class="hljs-number">0xff</span>];<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <p>格式不匹配问题，是在用TagLib写入Meta数据的时候抛异常发现的。需要读取 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_file_signatures">File Signatures</a> 来判断。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//兼容file signatures是mp3但后缀是flac的歌曲</span></span><br><span class="line"><span class="keyword">if</span> (BitConverter.ToString(ncmObject.MusicDataArray.Slice(<span class="number">0</span>, <span class="number">3</span>).ToArray()).Equals(<span class="string">&quot;49-44-33&quot;</span>))</span><br><span class="line">    ncmObject.NeteaseCopyrightData.Format = <span class="string">&quot;mp3&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">//兼容file signatures是mp3但后缀是flac的歌曲</span><br><span class="hljs-keyword">if</span> (BitConverter.ToString(ncmObject.MusicDataArray.Slice(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>).ToArray()).Equals(<span class="hljs-string">&quot;49-44-33&quot;</span>))<br>    ncmObject.NeteaseCopyrightData.Format = <span class="hljs-string">&quot;mp3&quot;</span>;<br></code></pre></td></tr></table></figure>
 
 
 <p>其他地方没什么难度。话说回来，.Net跨平台任重道远。Mac上面跑只需要500MB+，Windows上面能用掉3G内存。</p>
 <p>完整的代码在 <a target="_blank" rel="noopener" href="https://github.com/billtsui/Wukong">这里</a> ，支持 Windows &amp; MacOS。</p>
 <p>编译成功后使用 <strong>-p,–path</strong> 参数传入目录即可。</p>
-<img src="shell.png" width="60%" heigh="60%"/>
+<img src="shell.png" width="70%" heigh="70%"/>
 
 <p>使用 Sony NW-ZX300A 实测可以正常显示专辑封面，HiRes标志也正常显示，我又可以做回 <strong>Walkman</strong> 了</p>
-<img src="mp3.jpg" width="60%" heigh="60%"/>
+<img src="mp3.jpg" width="70%" heigh="70%"/>
 
   </div>
 </article>
@@ -224,11 +220,9 @@
         
           <li><a href="/category/">分类</a></li>
         
-          <li><a href="/tag/">标签</a></li>
-        
           <li><a href="/archives/">归档</a></li>
         
-          <li><a href="/about/">关于</a></li>
+          <li><a href="/tag">标签</a></li>
         
           <li><a href="/404/">公益页面</a></li>
         
@@ -285,11 +279,9 @@
      --><!--
        --><li><a href="/category/">分类</a></li><!--
      --><!--
-       --><li><a href="/tag/">标签</a></li><!--
-     --><!--
        --><li><a href="/archives/">归档</a></li><!--
      --><!--
-       --><li><a href="/about/">关于</a></li><!--
+       --><li><a href="/tag">标签</a></li><!--
      --><!--
        --><li><a href="/404/">公益页面</a></li><!--
      --><!--
